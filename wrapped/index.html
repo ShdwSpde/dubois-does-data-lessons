@@ -1,0 +1,3557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paris Exposition 1900: WRAPPED</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Oswald:wght@400;600;700&family=Bebas+Neue&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS CUSTOM PROPERTIES - BRAND KIT
+   ============================================ */
+:root {
+  --gold: #C9A227;
+  --burgundy: #8B2635;
+  --teal: #2D6B6B;
+  --cream: #F5F0E1;
+  --midnight: #1A1F3C;
+  --terracotta: #C4704A;
+  --sage: #6B8E5E;
+  --dusty-rose: #C4A4A4;
+  --dubois-red: #B85450;
+  --dubois-gold: #D4AF37;
+  --dubois-black: #1A1A1A;
+  --dubois-green: #4A7C59;
+  --cream-dark: #E8E3D4;
+  --gold-80: rgba(201,162,39,0.8);
+  --midnight-80: rgba(26,31,60,0.8);
+  --midnight-50: rgba(26,31,60,0.5);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--midnight);
+}
+body {
+  font-family: 'Source Serif 4', 'Georgia', serif;
+  background: var(--midnight);
+  color: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--midnight); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.font-display { font-family: 'Playfair Display', serif; }
+.font-decorative { font-family: 'Cinzel Decorative', serif; }
+.font-stat { font-family: 'Bebas Neue', sans-serif; }
+.font-number { font-family: 'Oswald', sans-serif; }
+.font-body { font-family: 'Source Serif 4', serif; }
+.font-elegant { font-family: 'Cormorant Garamond', serif; }
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--burgundy), var(--gold));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px var(--gold-80);
+}
+
+/* ============================================
+   NAVIGATION DOTS
+   ============================================ */
+.nav-dots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nav-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--midnight-50);
+  border: 1px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.nav-dot.active {
+  background: var(--gold);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px var(--gold-80);
+}
+.nav-dot:hover {
+  background: var(--gold-80);
+  transform: scale(1.3);
+}
+
+/* ============================================
+   SECTION BASE STYLES
+   ============================================ */
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.section-inner {
+  max-width: 1100px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   BACKGROUND PATTERNS
+   ============================================ */
+.bg-cream { background: var(--cream); color: var(--midnight); }
+.bg-midnight { background: var(--midnight); color: var(--cream); }
+.bg-burgundy { background: var(--burgundy); color: var(--cream); }
+.bg-teal { background: var(--teal); color: var(--cream); }
+.bg-gradient-1 {
+  background: linear-gradient(135deg, var(--midnight) 0%, #2a1f3c 50%, var(--burgundy) 100%);
+}
+.bg-gradient-2 {
+  background: linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+  color: var(--midnight);
+}
+.bg-gradient-3 {
+  background: linear-gradient(135deg, var(--midnight) 0%, var(--teal) 100%);
+}
+
+/* Paper texture overlay */
+.paper-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   ART NOUVEAU BORDERS & DECORATIONS
+   ============================================ */
+.art-nouveau-border {
+  border: 3px solid var(--gold);
+  outline: 1px solid var(--midnight);
+  outline-offset: 4px;
+  border-radius: 12px;
+  position: relative;
+}
+.art-nouveau-border::before,
+.art-nouveau-border::after {
+  content: '\2740';
+  position: absolute;
+  font-size: 24px;
+  color: var(--gold);
+  line-height: 1;
+}
+.art-nouveau-border::before { top: -14px; left: 20px; }
+.art-nouveau-border::after { bottom: -14px; right: 20px; }
+
+.flourish {
+  text-align: center;
+  color: var(--gold);
+  font-size: 28px;
+  letter-spacing: 12px;
+  margin: 20px 0;
+  opacity: 0.7;
+}
+.flourish::before { content: '\2767\2766\2767'; }
+
+.divider {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 30px auto;
+}
+
+/* Corner ornaments */
+.corner-ornament {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  opacity: 0.5;
+}
+.corner-ornament svg { width: 100%; height: 100%; }
+.corner-tl { top: 15px; left: 15px; }
+.corner-tr { top: 15px; right: 15px; transform: scaleX(-1); }
+.corner-bl { bottom: 15px; left: 15px; transform: scaleY(-1); }
+.corner-br { bottom: 15px; right: 15px; transform: scale(-1); }
+
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal-scale.active {
+  opacity: 1;
+  transform: scale(1);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+.reveal-delay-5 { transition-delay: 0.75s; }
+
+/* Parallax */
+.parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* ============================================
+   IMAGE CARDS
+   ============================================ */
+.graphic-card {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(201,162,39,0.15);
+  border: 2px solid var(--gold);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.graphic-card:hover {
+  transform: translateY(-4px) scale(1.005);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 40px rgba(201,162,39,0.25);
+}
+.graphic-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Context photos */
+.context-photo {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.context-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: sepia(30%);
+  transition: filter 0.4s ease;
+}
+.context-photo:hover img {
+  filter: sepia(0%);
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-number {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: block;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.section-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--dusty-rose);
+}
+.section-subtitle-dark {
+  color: var(--burgundy);
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #2a2040 0%, var(--midnight) 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.hero-stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-stars span {
+  position: absolute;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: twinkle 3s infinite alternate;
+}
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.3); }
+}
+.hero-date {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.hero-main-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 10px;
+  text-shadow: 0 0 40px rgba(201,162,39,0.3);
+}
+.hero-main-title .gold { color: var(--gold); }
+.hero-wrapped {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 15vw, 12rem);
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  line-height: 0.9;
+  text-shadow: 0 4px 20px rgba(201,162,39,0.4);
+  margin-bottom: 20px;
+}
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  color: var(--dusty-rose);
+  margin-bottom: 40px;
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: bobble 2s infinite;
+  cursor: pointer;
+}
+.scroll-indicator span {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: rotate(45deg);
+}
+@keyframes bobble {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(12px); }
+}
+
+/* ============================================
+   STAT COUNTER
+   ============================================ */
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 7rem);
+  color: var(--gold);
+  line-height: 1;
+  text-shadow: 0 2px 15px rgba(201,162,39,0.3);
+}
+.stat-label {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+}
+.stat-sublabel {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--dusty-rose);
+  font-style: italic;
+}
+
+/* ============================================
+   BADGE COMPONENT
+   ============================================ */
+.badge {
+  display: inline-block;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 24px;
+  border-radius: 30px;
+  border: 2px solid;
+  animation: badge-pulse 3s infinite;
+}
+.badge-gold {
+  background: var(--gold);
+  color: var(--midnight);
+  border-color: var(--cream);
+}
+.badge-burgundy {
+  background: var(--burgundy);
+  color: var(--cream);
+  border-color: var(--gold);
+}
+.badge-teal {
+  background: var(--teal);
+  color: var(--cream);
+  border-color: var(--gold);
+}
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(201,162,39,0.2); }
+}
+
+/* ============================================
+   DID-YOU-KNOW POPUP
+   ============================================ */
+.dyk-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(201,162,39,0.15);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px;
+  color: inherit;
+  margin: 8px 0;
+}
+.dyk-trigger:hover {
+  background: rgba(201,162,39,0.3);
+  transform: translateY(-2px);
+}
+.dyk-trigger .icon {
+  font-size: 20px;
+}
+.dyk-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(26,31,60,0.92);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.dyk-popup.open { display: flex; }
+.dyk-card {
+  background: var(--cream);
+  color: var(--midnight);
+  max-width: 560px;
+  width: 100%;
+  border-radius: 20px;
+  padding: 40px;
+  border: 3px solid var(--gold);
+  position: relative;
+  animation: popup-enter 0.4s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+@keyframes popup-enter {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.dyk-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--burgundy);
+  margin-bottom: 16px;
+}
+.dyk-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.dyk-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--burgundy);
+  background: transparent;
+  color: var(--burgundy);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.dyk-close:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+}
+
+/* ============================================
+   QUIZ COMPONENTS
+   ============================================ */
+.quiz-container {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+.quiz-question {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 30px;
+  line-height: 1.3;
+}
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.quiz-option {
+  padding: 20px;
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Source Serif 4', serif;
+  font-size: 1rem;
+  background: rgba(201,162,39,0.08);
+  text-align: center;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+}
+.quiz-option:hover {
+  background: rgba(201,162,39,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(201,162,39,0.2);
+}
+.quiz-option.selected {
+  background: var(--gold);
+  color: var(--midnight);
+  border-color: var(--cream);
+  transform: scale(1.03);
+}
+.quiz-option .option-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 8px;
+}
+.quiz-result {
+  display: none;
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(201,162,39,0.15);
+  border: 2px solid var(--gold);
+  margin-top: 20px;
+  animation: popup-enter 0.5s ease;
+}
+.quiz-result.show { display: block; }
+.quiz-result h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+/* ============================================
+   COMPARISON CALLOUT
+   ============================================ */
+.comparison-callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: rgba(201,162,39,0.12);
+  border: 1px solid var(--gold);
+  border-radius: 40px;
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), var(--burgundy), var(--gold));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 20px;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -30px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 10px var(--gold-80);
+}
+
+/* ============================================
+   SHARE CARD
+   ============================================ */
+.share-card {
+  background: var(--cream);
+  color: var(--midnight);
+  border-radius: 24px;
+  padding: 40px;
+  border: 4px solid var(--gold);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: var(--burgundy);
+  color: var(--cream);
+  border: 2px solid var(--gold);
+  border-radius: 40px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.share-btn:hover {
+  background: var(--gold);
+  color: var(--midnight);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   ERA MATCH RESULT
+   ============================================ */
+.era-result {
+  text-align: center;
+  padding: 40px;
+  border: 3px solid var(--gold);
+  border-radius: 24px;
+  background: radial-gradient(ellipse at center, rgba(201,162,39,0.1) 0%, transparent 70%);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.era-result .era-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--gold);
+  margin: 16px 0;
+}
+.era-result .era-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--dusty-rose);
+}
+.era-result .era-badge {
+  margin-top: 20px;
+}
+
+/* ============================================
+   GRID LAYOUTS
+   ============================================ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+.stat-box {
+  padding: 24px 16px;
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  background: rgba(201,162,39,0.06);
+}
+
+/* ============================================
+   VIDEO EMBED
+   ============================================ */
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.video-container iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: block;
+  border: none;
+}
+
+/* ============================================
+   CONTEXT PHOTO GRID
+   ============================================ */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.photo-grid .tall { grid-row: span 2; }
+.photo-grid .wide { grid-column: span 2; }
+.photo-caption {
+  font-family: 'Source Serif 4', serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--dusty-rose);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* ============================================
+   SCORE TRACKER
+   ============================================ */
+.score-display {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: var(--midnight-80);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  display: none;
+  transition: all 0.3s ease;
+}
+.score-display.visible { display: flex; align-items: center; gap: 8px; }
+
+/* ============================================
+   WOW FACTOR ENHANCEMENTS
+   ============================================ */
+
+/* 1. Hero Slot Machine Reveal */
+.hero-wrapped { position: relative; overflow: hidden; }
+.slot-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(120%) rotateX(-80deg);
+  filter: blur(6px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.slot-letter.revealed {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+  filter: blur(0);
+}
+.hero-shimmer {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,162,39,0.5), rgba(255,255,255,0.15), transparent);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+.hero-shimmer.sweep {
+  opacity: 1;
+  animation: shimmerSweep 1.2s ease forwards;
+}
+@keyframes shimmerSweep {
+  from { left: -60%; }
+  to { left: 160%; opacity: 0; }
+}
+
+/* 3. Graphic Card Clip-Path Reveal */
+.graphic-card.reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: opacity 0.8s ease, transform 0.8s ease, clip-path 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.graphic-card.reveal.active {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 4. Particle Canvas */
+#particleCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 10003;
+  pointer-events: none;
+}
+
+/* Odometer Counter */
+.odometer { display: inline-flex; line-height: 1; }
+.odo-col { display: inline-block; height: 1em; overflow: hidden; }
+.odo-drum {
+  display: flex;
+  flex-direction: column;
+  transition: transform 2s cubic-bezier(0.15, 0.85, 0.3, 1.05);
+}
+.odo-drum span { display: block; height: 1em; text-align: center; }
+.odo-sep { display: inline-block; height: 1em; line-height: 1; }
+
+/* Then vs Now Compare Slider */
+.compare-wrap { margin: 24px 0; }
+.compare-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 2px solid var(--gold);
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+.compare-after img { width: 100%; display: block; }
+.compare-before {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+  width: 50%;
+}
+.compare-before img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;
+  height: 100%;
+  object-fit: cover;
+}
+.compare-slider-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px rgba(201,162,39,0.6);
+}
+.compare-handle {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 3px solid var(--cream);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: var(--midnight);
+  z-index: 4;
+}
+.compare-label {
+  position: absolute; bottom: 12px;
+  padding: 5px 14px;
+  background: var(--midnight-80);
+  backdrop-filter: blur(6px);
+  color: var(--gold);
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px; letter-spacing: 2px;
+  border-radius: 12px; z-index: 5;
+}
+.compare-label-before { left: 12px; }
+.compare-label-after { right: 12px; }
+.compare-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
+  text-align: center; margin-bottom: 10px;
+}
+
+/* Ticker Tape */
+.ticker-tape {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%; height: 34px;
+  background: linear-gradient(90deg, var(--midnight), rgba(26,31,60,0.97), var(--midnight));
+  border-top: 1px solid rgba(201,162,39,0.3);
+  overflow: hidden; z-index: 999;
+  opacity: 0; transform: translateY(100%);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.ticker-tape.visible { opacity: 1; transform: translateY(0); }
+body.projection-mode .ticker-tape { display: none !important; }
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tickerScroll 90s linear infinite;
+  height: 100%; align-items: center;
+}
+.ticker-item {
+  padding: 0 24px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px; letter-spacing: 1.5px;
+  color: var(--gold); text-transform: uppercase;
+}
+.ticker-dot { color: var(--burgundy); padding: 0 4px; font-size: 6px; }
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Progressive Expo Map */
+.expo-map-container {
+  width: 100%; max-width: 700px;
+  margin: 30px auto 0;
+  border: 1px solid rgba(201,162,39,0.2);
+  border-radius: 16px; padding: 16px;
+  background: rgba(201,162,39,0.03);
+}
+.expo-map-container svg { width: 100%; height: auto; }
+.map-zone {
+  fill: rgba(201,162,39,0.04);
+  stroke: rgba(201,162,39,0.12);
+  stroke-width: 1;
+  transition: fill 1.2s ease, stroke 1s ease, filter 1s ease;
+  cursor: default;
+}
+.map-zone.lit {
+  fill: rgba(201,162,39,0.22);
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 6px rgba(201,162,39,0.3));
+}
+.zone-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 7px; letter-spacing: 0.5px;
+  text-transform: uppercase;
+  fill: rgba(201,162,39,0.2);
+  transition: fill 1s ease;
+  pointer-events: none;
+}
+.zone-label.lit { fill: var(--gold); }
+.zone-icon {
+  font-size: 12px;
+  opacity: 0; transition: opacity 0.8s ease;
+}
+.zone-icon.lit { opacity: 1; }
+
+
+/* 7. Du Bois Flip Cards */
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front {
+  position: relative;
+  backface-visibility: hidden;
+}
+.flip-card-front img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  text-align: center;
+}
+.flip-card-back h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--burgundy);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+.flip-card-back p {
+  font-family: 'Source Serif 4', serif;
+  color: var(--midnight);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.flip-hint {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(26,31,60,0.8);
+  color: var(--gold);
+  font-family: 'Oswald', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+/* 8. Travel Map */
+.travel-map-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto 0;
+  border: 1px solid rgba(201,162,39,0.3);
+  border-radius: 16px;
+  padding: 20px;
+  background: rgba(201,162,39,0.04);
+}
+.travel-route {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.travel-route.animate {
+  stroke-dashoffset: 0;
+}
+.travel-dot {
+  opacity: 0;
+  transition: opacity 0.6s ease 2s;
+}
+.travel-dot.visible { opacity: 1; }
+.map-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.8s ease 1.5s;
+}
+.map-label.visible { opacity: 1; }
+.map-sublabel {
+  font-family: 'Source Serif 4', serif;
+  font-size: 8px;
+  fill: #C4A4A4;
+  font-style: italic;
+  opacity: 0;
+  transition: opacity 0.8s ease 2s;
+}
+.map-sublabel.visible { opacity: 1; }
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+.paris-dot { animation: pulseDot 3s ease infinite; transform-origin: center; }
+
+/* 9. Scroll Stats */
+.scroll-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.scroll-stat-box {
+  text-align: center;
+  padding: 14px 8px;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  background: rgba(201,162,39,0.06);
+}
+.scroll-stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+}
+.scroll-stat-label {
+  font-size: 0.7rem;
+  color: var(--dusty-rose);
+  font-style: italic;
+}
+
+/* 10. Ken Burns on Context Photos */
+.context-photo:nth-child(4n+1) img { animation: kenBurns1 25s ease infinite alternate; }
+.context-photo:nth-child(4n+2) img { animation: kenBurns2 30s ease infinite alternate; }
+.context-photo:nth-child(4n+3) img { animation: kenBurns3 28s ease infinite alternate; }
+.context-photo:nth-child(4n) img { animation: kenBurns4 22s ease infinite alternate; }
+@keyframes kenBurns1 {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-2%, -1%); }
+}
+@keyframes kenBurns2 {
+  0% { transform: scale(1.05) translate(1%, 0); }
+  100% { transform: scale(1) translate(-1%, 1%); }
+}
+@keyframes kenBurns3 {
+  0% { transform: scale(1) translate(0, 1%); }
+  100% { transform: scale(1.1) translate(1.5%, -1.5%); }
+}
+@keyframes kenBurns4 {
+  0% { transform: scale(1.08) translate(-1%, 0.5%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+/* 2. Parallax Filigree */
+.parallax-filigree {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.filigree-el {
+  position: absolute;
+  color: var(--gold);
+  opacity: 0.06;
+  will-change: transform;
+  font-size: 60px;
+  line-height: 1;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr; }
+  .photo-grid { grid-template-columns: 1fr 1fr; }
+  .photo-grid .tall { grid-row: auto; }
+  .photo-grid .wide { grid-column: auto; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .nav-dots { right: 8px; }
+  .nav-dot { width: 7px; height: 7px; }
+  .section { padding: 40px 16px; }
+}
+@media (max-width: 480px) {
+  .photo-grid { grid-template-columns: 1fr; }
+  .hero-wrapped { font-size: 4rem; }
+}
+
+/* ============================================
+   PREFERS REDUCED MOTION
+   ============================================ */
+/* ============================================
+   PROJECTION / AUTOPLAY MODE
+   ============================================ */
+.projection-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--midnight-80);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: all 0.3s ease;
+}
+.projection-toggle:hover {
+  background: var(--gold);
+  color: var(--midnight);
+}
+.projection-toggle.active {
+  background: var(--gold);
+  color: var(--midnight);
+  box-shadow: 0 0 20px rgba(201,162,39,0.4);
+}
+.projection-toggle .toggle-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Projection mode active: hide interactive elements, enlarge */
+body.projection-mode .score-display,
+body.projection-mode .nav-dots,
+body.projection-mode .projection-toggle,
+body.projection-mode .dyk-trigger,
+body.projection-mode .quiz-options,
+body.projection-mode .quiz-result,
+body.projection-mode .share-btn,
+body.projection-mode .scroll-indicator {
+  display: none !important;
+}
+body.projection-mode {
+  cursor: none;
+}
+body.projection-mode .section {
+  padding: 80px 60px;
+}
+body.projection-mode .graphic-card {
+  border-width: 3px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 50px rgba(201,162,39,0.2);
+}
+body.projection-mode .section-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+body.projection-mode .stat-number {
+  font-size: clamp(4rem, 12vw, 9rem);
+}
+body.projection-mode .badge {
+  font-size: 18px;
+  padding: 12px 32px;
+}
+body.projection-mode .progress-bar {
+  height: 6px;
+}
+
+/* Projection mode pause indicator */
+.projection-pause-indicator {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--midnight-80);
+  backdrop-filter: blur(12px);
+  padding: 20px 40px;
+  border-radius: 16px;
+  border: 2px solid var(--gold);
+  z-index: 10002;
+  pointer-events: none;
+  animation: fade-out 2s forwards;
+}
+@keyframes fade-out {
+  0%, 60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Projection speed controls */
+.projection-controls {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  z-index: 10001;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+.projection-controls.visible { display: flex; }
+.projection-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+.projection-controls.visible:not(.hidden) {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.speed-btn, .fullscreen-btn {
+  padding: 6px 16px;
+  background: var(--midnight-80);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--gold);
+  transition: all 0.2s;
+}
+.speed-btn:hover, .speed-btn.active,
+.fullscreen-btn:hover, .fullscreen-btn.active {
+  background: var(--gold);
+  color: var(--midnight);
+}
+.fullscreen-btn {
+  letter-spacing: 2px;
+  padding: 8px 18px;
+  font-size: 13px;
+}
+
+/* Smooth continuous scroll in projection mode */
+body.projection-mode {
+  scroll-behavior: auto !important;
+}
+html.projection-scrolling {
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .scroll-indicator { animation: none; }
+  .hero-stars span { animation: none; opacity: 0.5; }
+  @keyframes badge-pulse { 0%, 100% { box-shadow: none; } }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+<canvas id="particleCanvas"></canvas>
+
+<!-- Ticker Tape -->
+<div class="ticker-tape" id="tickerTape">
+  <div class="ticker-track">
+    <span class="ticker-item">600,000 bottles of champagne consumed</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">3.5 km of moving sidewalk</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">22,000 bottles of wine at one dinner</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">1.2 million visitors in a single day</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">9,000 tonnes of steel in the Grand Palais</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">997 Olympic athletes &bull; 22 women</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">6 million rode the moving sidewalk</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">The Metro opened July 19, 1900</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">100-meter Ferris wheel &bull; 1,600 passengers</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">Du Bois hand-drew 60+ data visualizations</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">500,000 attended opening day</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">Electric cars outsold gasoline cars in 1900</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">2+ million souvenir postcards sold</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">25 million meals served</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">600,000 bottles of champagne consumed</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">3.5 km of moving sidewalk</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">22,000 bottles of wine at one dinner</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">1.2 million visitors in a single day</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">9,000 tonnes of steel in the Grand Palais</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">997 Olympic athletes &bull; 22 women</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">6 million rode the moving sidewalk</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">The Metro opened July 19, 1900</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">100-meter Ferris wheel &bull; 1,600 passengers</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">Du Bois hand-drew 60+ data visualizations</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">500,000 attended opening day</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">Electric cars outsold gasoline cars in 1900</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">2+ million souvenir postcards sold</span><span class="ticker-dot">&bull;</span>
+    <span class="ticker-item">25 million meals served</span><span class="ticker-dot">&bull;</span>
+  </div>
+</div>
+
+<!-- Score Display -->
+<div class="score-display" id="scoreDisplay">
+  <span>&#9733;</span> EXPO SCORE: <span id="scoreValue">0</span>
+</div>
+
+<!-- Navigation Dots -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- Projection Mode Toggle -->
+<button class="projection-toggle" id="projectionToggle" onclick="toggleProjection()" title="Toggle autoplay projection mode">
+  <span class="toggle-icon">&#9654;</span> PROJECTION MODE
+</button>
+
+<!-- Projection Speed Controls -->
+<div class="projection-controls" id="projectionControls">
+  <button class="fullscreen-btn" onclick="toggleFullscreen()" id="fullscreenBtn" title="Toggle fullscreen (F)">&#x26F6; FULLSCREEN</button>
+  <button class="speed-btn" onclick="setProjectionSpeed(14000)" data-speed="14000">Slow (14s)</button>
+  <button class="speed-btn active" onclick="setProjectionSpeed(8000)" data-speed="8000">Normal (8s)</button>
+  <button class="speed-btn" onclick="setProjectionSpeed(5000)" data-speed="5000">Fast (5s)</button>
+</div>
+
+<!-- Pause indicator -->
+<div class="projection-pause-indicator" id="pauseIndicator">PAUSED</div>
+
+<!-- ============================================
+     SECTION 0: HERO
+     ============================================ -->
+<section id="hero" class="section">
+  <div class="hero-stars" id="heroStars"></div>
+  <div class="section-inner" style="text-align:center; position:relative; z-index:2;">
+    <div class="hero-date reveal">APRIL 14 &mdash; NOVEMBER 12, 1900</div>
+    <h1 class="hero-main-title reveal reveal-delay-1">
+      <span class="gold">Paris</span> Exposition
+    </h1>
+    <div class="hero-wrapped reveal reveal-delay-2" id="heroWrapped"><span class="slot-letter">W</span><span class="slot-letter">R</span><span class="slot-letter">A</span><span class="slot-letter">P</span><span class="slot-letter">P</span><span class="slot-letter">E</span><span class="slot-letter">D</span><div class="hero-shimmer" id="heroShimmer"></div></div>
+    <p class="hero-tagline reveal reveal-delay-3">Your year at the world&rsquo;s fair &bull; 212 days of wonder</p>
+    <div class="reveal reveal-delay-4">
+      <span class="badge badge-gold">EXPOSITION UNIVERSELLE</span>
+    </div>
+  </div>
+  <div class="scroll-indicator" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">
+    <span>Scroll to begin</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 1: TOTAL ATTENDANCE
+     ============================================ -->
+<section id="s1" class="section bg-gradient-1 paper-texture" data-section="1">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 01 of 27</span>
+      <h2 class="section-title" style="color:var(--cream)">Total Attendance</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="visitors.jpeg" alt="51 million visitors attended the 1900 Paris Exposition - more than France's entire population" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+      <div class="stat-number reveal reveal-delay-2" data-count="51000000">0</div>
+      <div class="stat-label reveal reveal-delay-3" style="color:var(--cream)">visitors showed up</div>
+      <div class="stat-sublabel reveal reveal-delay-3">No streaming. No Instagram. 50 million showed up anyway.</div>
+      <div style="margin-top:20px;" class="reveal reveal-delay-4">
+        <span class="comparison-callout" style="color:var(--cream)">&#127758; More than France&rsquo;s entire population at the time (41M)</span>
+      </div>
+      <div style="margin-top:12px;" class="reveal reveal-delay-5">
+        <button class="dyk-trigger" onclick="openDYK('dyk1')" style="color:var(--cream)">
+          <span class="icon">&#128161;</span> Did you know? Tap to learn more
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DYK Popup 1 -->
+<div class="dyk-popup" id="dyk1">
+  <div class="dyk-card">
+    <button class="dyk-close" onclick="closeDYK('dyk1')">&times;</button>
+    <h3>&#128161; Did You Know?</h3>
+    <p>The 1900 Paris Exposition was the <strong>most attended event in human history</strong> up to that point. It wouldn't be surpassed until the 1970 Osaka Expo (64 million).</p>
+    <p>To put 51 million in perspective: the entire population of the United States in 1900 was only 76 million. Nearly <strong>two-thirds of America's population equivalent</strong> walked through those gates.</p>
+    <p>On the single busiest day&mdash;September 2, 1900&mdash;over <strong>1.2 million people</strong> visited. That's roughly the entire population of Prague at the time, all crammed into 543 acres.</p>
+  </div>
+</div>
+
+<!-- ============================================
+     SECTION 2: TOP TRAVELERS
+     ============================================ -->
+<section id="s2" class="section bg-gradient-2 paper-texture" data-section="2">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 02 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">You Were in the Top 0.001%</h2>
+      <p class="section-subtitle section-subtitle-dark">Of World Travelers</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="travelers.jpeg" alt="You were in the top 0.001% of world travelers - World Traveler Platinum Status" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:30px;" class="reveal reveal-delay-2">
+      <span class="badge badge-burgundy">WORLD TRAVELER &mdash; PLATINUM STATUS</span>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-style:italic; color:var(--burgundy);" class="reveal reveal-delay-3">
+      In 1900, most people never left their village. You traveled internationally. By steamship and rail. No GPS. No Google Maps. Just vibes and a sense of adventure.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 3: COUNTRIES
+     ============================================ -->
+<section id="s3" class="section bg-midnight paper-texture" data-section="3">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 03 of 27</span>
+      <h2 class="section-title">Your Global Lineup</h2>
+      <p class="section-subtitle">40 countries officially participated</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="countries.jpeg" alt="The Grand Exposition of 1900 - Attendance vs 2025 Country Populations comparison" loading="lazy">
+    </div>
+    <div class="flourish reveal reveal-delay-2"></div>
+    <p style="text-align:center; font-style:italic; color:var(--dusty-rose);" class="reveal reveal-delay-2">
+      56 were invited. 40 said yes. Plus colonies and protectorates from France, Britain, Netherlands, and Portugal.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 4: COUNTRY COMPARISONS
+     ============================================ -->
+<section id="s4" class="section bg-gradient-2 paper-texture" data-section="4">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 04 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">Bigger Than Countries</h2>
+      <p class="section-subtitle section-subtitle-dark">50.8 million visitors vs. modern populations</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="countries2.jpeg" alt="Paris Exposition attendance compared to country populations - 50.8 million people" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <button class="dyk-trigger" onclick="openDYK('dyk2')" style="color:var(--midnight)">
+        <span class="icon">&#128161;</span> Did you know? The math gets wild
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="dyk-popup" id="dyk2">
+  <div class="dyk-card">
+    <button class="dyk-close" onclick="closeDYK('dyk2')">&times;</button>
+    <h3>&#128161; The Math Gets Wild</h3>
+    <p>Combine Australia + New Zealand + Ireland + Finland&mdash;that's about <strong>36 million</strong> people today. The Expo still beat them.</p>
+    <p>Stack Jamaica + Trinidad + Bahamas + Barbados together? That's roughly <strong>4 million</strong>. The Expo had that many visitors in a <em>single week</em>.</p>
+    <p>The only way to match the Expo's attendance with modern concert tours? You'd need to run <strong>Taylor Swift's Eras Tour five times back-to-back</strong>.</p>
+  </div>
+</div>
+
+<!-- ============================================
+     SECTION 5: CONCERT TOUR COMPARISON
+     ============================================ -->
+<section id="s5" class="section bg-gradient-3 paper-texture" data-section="5">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 05 of 27</span>
+      <h2 class="section-title">Bigger Than Every Concert Tour</h2>
+      <p class="section-subtitle">No streaming. No Instagram. Still unmatched.</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="tour.jpeg" alt="Paris Exposition 1900 attendance vs modern concert tour attendance comparison" loading="lazy">
+    </div>
+    <div style="margin-top:24px;" class="reveal reveal-delay-2">
+      <div class="graphic-card">
+        <img src="tour2.jpeg" alt="Stacked concert tour comparison - you'd need Eras Tour x5 to match" loading="lazy">
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:20px" class="reveal reveal-delay-3">
+      <span class="badge badge-gold">ATTENDANCE RECORD: UNTOUCHABLE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 6: EXHIBITORS
+     ============================================ -->
+<section id="s6" class="section bg-gradient-2 paper-texture" data-section="6">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 06 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">83,047 Exhibitors</h2>
+      <p class="section-subtitle section-subtitle-dark">Half from France. The rest from around the world.</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="exhibitors.jpeg" alt="83,047 exhibitors - France ~41,000, United States 7,161, Everyone else 35,000+" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:20px;" class="reveal reveal-delay-2">
+      <span class="comparison-callout" style="color:var(--midnight)">&#128202; That&rsquo;s one exhibitor for every 614 attendees</span>
+    </div>
+    <p style="text-align:center; margin-top:12px; font-style:italic; color:var(--burgundy);" class="reveal reveal-delay-3">
+      No Etsy. No Amazon. Just showing up.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 7: FAIRGROUNDS
+     ============================================ -->
+<section id="s7" class="section bg-midnight paper-texture" data-section="7">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 07 of 27</span>
+      <h2 class="section-title">Size of the Fairgrounds</h2>
+      <p class="section-subtitle">The largest world&rsquo;s fair grounds in history</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="fairgrounds.jpeg" alt="543 acres - the largest world's fair grounds in history, 4.5x Vatican City" loading="lazy">
+    </div>
+    <div class="stat-grid" style="margin-top:30px;">
+      <div class="stat-box reveal reveal-delay-2">
+        <div class="stat-number" style="font-size:2.5rem;" data-count="543">0</div>
+        <div class="stat-label">Acres</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-3">
+        <div class="stat-number" style="font-size:2.5rem;">4.5x</div>
+        <div class="stat-label">Vatican City</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-4">
+        <div class="stat-number" style="font-size:2.5rem;">5</div>
+        <div class="stat-label">Zones</div>
+      </div>
+    </div>
+    <div class="expo-map-container reveal reveal-delay-3" id="expoMap">
+      <svg viewBox="0 0 600 480" xmlns="http://www.w3.org/2000/svg">
+        <!-- Seine River -->
+        <path d="M0,165 Q150,150 300,160 Q450,170 600,155" fill="none" stroke="rgba(45,107,107,0.3)" stroke-width="12" stroke-linecap="round"/>
+        <text x="300" y="163" text-anchor="middle" style="font-family:'Cormorant Garamond',serif;font-size:9px;fill:rgba(45,107,107,0.5);font-style:italic;">~ La Seine ~</text>
+        <!-- Trocadero -->
+        <rect x="200" y="80" width="200" height="65" rx="8" class="map-zone" data-zone="trocadero"/>
+        <text x="300" y="110" text-anchor="middle" class="zone-label" data-zone="trocadero">Trocad&eacute;ro</text>
+        <text x="300" y="122" text-anchor="middle" class="zone-icon" data-zone="trocadero">&#127760;</text>
+        <!-- Eiffel Tower -->
+        <polygon points="300,140 288,195 312,195" class="map-zone" data-zone="eiffel" style="fill:rgba(201,162,39,0.08);"/>
+        <text x="300" y="182" text-anchor="middle" class="zone-label" data-zone="eiffel" style="font-size:6px;">Tour Eiffel</text>
+        <!-- Champ de Mars -->
+        <rect x="160" y="200" width="280" height="100" rx="8" class="map-zone" data-zone="champdemars"/>
+        <text x="300" y="242" text-anchor="middle" class="zone-label" data-zone="champdemars">Champ de Mars</text>
+        <text x="240" y="260" text-anchor="middle" class="zone-icon" data-zone="champdemars" style="font-size:10px;">&#9881;</text>
+        <text x="300" y="262" text-anchor="middle" style="font-family:'Source Serif 4',serif;font-size:6px;fill:rgba(201,162,39,0.15);">Tech &amp; Industry Pavilions</text>
+        <text x="360" y="260" text-anchor="middle" class="zone-icon" data-zone="champdemars" style="font-size:10px;">&#127912;</text>
+        <!-- Quai d'Orsay / Foreign Pavilions -->
+        <rect x="440" y="180" width="140" height="60" rx="6" class="map-zone" data-zone="foreign"/>
+        <text x="510" y="208" text-anchor="middle" class="zone-label" data-zone="foreign">Foreign</text>
+        <text x="510" y="220" text-anchor="middle" class="zone-label" data-zone="foreign" style="font-size:6px;">Pavilions</text>
+        <!-- Esplanade des Invalides -->
+        <rect x="180" y="315" width="240" height="70" rx="8" class="map-zone" data-zone="invalides"/>
+        <text x="300" y="348" text-anchor="middle" class="zone-label" data-zone="invalides">Esplanade des Invalides</text>
+        <text x="300" y="362" text-anchor="middle" class="zone-icon" data-zone="invalides">&#127941;</text>
+        <!-- Palace of Social Economy (Du Bois) -->
+        <rect x="430" y="260" width="120" height="45" rx="6" class="map-zone" data-zone="social"/>
+        <text x="490" y="280" text-anchor="middle" class="zone-label" data-zone="social" style="font-size:6px;">Palace of Social</text>
+        <text x="490" y="290" text-anchor="middle" class="zone-label" data-zone="social" style="font-size:6px;">Economy (Du Bois)</text>
+        <!-- Pont Alexandre III -->
+        <rect x="260" y="395" width="80" height="16" rx="4" class="map-zone" data-zone="pont"/>
+        <text x="300" y="405" text-anchor="middle" class="zone-label" data-zone="pont" style="font-size:5px;">Pont Alexandre III</text>
+        <!-- Grand Palais -->
+        <rect x="160" y="420" width="145" height="50" rx="8" class="map-zone" data-zone="grandpalais"/>
+        <text x="232" y="448" text-anchor="middle" class="zone-label" data-zone="grandpalais">Grand Palais</text>
+        <text x="232" y="460" text-anchor="middle" class="zone-icon" data-zone="grandpalais">&#127959;</text>
+        <!-- Petit Palais -->
+        <rect x="320" y="420" width="120" height="50" rx="8" class="map-zone" data-zone="petitpalais"/>
+        <text x="380" y="448" text-anchor="middle" class="zone-label" data-zone="petitpalais">Petit Palais</text>
+        <!-- Entrance -->
+        <rect x="20" y="200" width="120" height="50" rx="6" class="map-zone" data-zone="entrance"/>
+        <text x="80" y="222" text-anchor="middle" class="zone-label" data-zone="entrance">Main Entrance</text>
+        <text x="80" y="236" text-anchor="middle" class="zone-icon" data-zone="entrance">&#128682;</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 8: ADMISSION PRICE
+     ============================================ -->
+<section id="s8" class="section bg-gradient-2 paper-texture" data-section="8">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 08 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">Admission Price</h2>
+      <p class="section-subtitle section-subtitle-dark">Your ticket. Your 2 hours of labor.</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="price.jpeg" alt="Admission price: 1 Franc - about 2 hours of work for the average Parisian" loading="lazy">
+    </div>
+    <p style="text-align:center; margin-top:20px; font-size:0.9rem; font-style:italic; color:var(--burgundy);" class="reveal reveal-delay-2">
+      *Additional charges may apply for literally everything*
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 9: TIME SPENT
+     ============================================ -->
+<section id="s9" class="section bg-burgundy paper-texture" data-section="9">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 09 of 27</span>
+      <h2 class="section-title">Time Spent</h2>
+      <p class="section-subtitle">212 days of operation. 57 days to see it all.</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="timespent.jpeg" alt="212 days of operation, April 14 - November 12, 1900. Time to see everything: 57 days straight, no sleep" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <span class="badge badge-gold">COMPLETIONIST: IMPOSSIBLE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 10: TRAVEL ORIGINS
+     ============================================ -->
+<section id="s10" class="section bg-gradient-2 paper-texture" data-section="10">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 10 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">Where Did People Come From?</h2>
+      <p class="section-subtitle section-subtitle-dark">Travel origins &mdash; the world converged on Paris</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="travel.jpeg" alt="Travel origins map showing visitors from all continents converging on Paris" loading="lazy">
+    </div>
+    <div class="travel-map-container reveal reveal-delay-2" id="travelMap">
+      <svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <circle cx="420" cy="180" r="50" fill="none" stroke="#C9A227" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"/>
+        <circle cx="420" cy="180" r="110" fill="none" stroke="#C9A227" stroke-width="0.5" opacity="0.12" stroke-dasharray="4 4"/>
+        <circle cx="420" cy="180" r="170" fill="none" stroke="#C9A227" stroke-width="0.5" opacity="0.08" stroke-dasharray="4 4"/>
+        <circle cx="420" cy="180" r="8" fill="#C9A227" class="paris-dot"/>
+        <circle cx="420" cy="180" r="14" fill="none" stroke="#C9A227" stroke-width="1" opacity="0.4"/>
+        <text x="420" y="208" text-anchor="middle" class="map-label" style="font-size:12px;font-weight:700;fill:#C9A227;">PARIS</text>
+        <path d="M355,130 C380,145 400,160 415,175" fill="none" stroke="#C9A227" stroke-width="2.5" pathLength="1" class="travel-route" stroke-linecap="round"/>
+        <circle cx="355" cy="130" r="5" fill="#C9A227" class="travel-dot"/>
+        <text x="300" y="122" class="map-label" style="fill:#C9A227;">FRANCE</text>
+        <text x="300" y="135" class="map-sublabel">~35M by train</text>
+        <path d="M560,85 C510,110 470,145 425,175" fill="none" stroke="#D4AF37" stroke-width="2" pathLength="1" class="travel-route" stroke-linecap="round"/>
+        <circle cx="560" cy="85" r="4" fill="#D4AF37" class="travel-dot"/>
+        <text x="570" y="78" class="map-label" style="fill:#D4AF37;">EUROPE</text>
+        <text x="570" y="91" class="map-sublabel">~12M by rail &amp; ferry</text>
+        <path d="M540,290 C500,255 460,220 425,185" fill="none" stroke="#D4AF37" stroke-width="1.5" pathLength="1" class="travel-route" stroke-linecap="round" opacity="0.5"/>
+        <circle cx="540" cy="290" r="3" fill="#D4AF37" class="travel-dot" opacity="0.6"/>
+        <path d="M80,160 C180,80 300,120 415,175" fill="none" stroke="#8B2635" stroke-width="2" pathLength="1" class="travel-route" stroke-linecap="round"/>
+        <circle cx="80" cy="160" r="5" fill="#8B2635" class="travel-dot"/>
+        <text x="25" y="150" class="map-label" style="fill:#8B2635;">AMERICAS</text>
+        <text x="25" y="165" class="map-sublabel">~500K &middot; 7-10 day steamship</text>
+        <path d="M740,145 C650,90 550,130 425,175" fill="none" stroke="#2D6B6B" stroke-width="1.5" pathLength="1" class="travel-route" stroke-linecap="round"/>
+        <circle cx="740" cy="145" r="4" fill="#2D6B6B" class="travel-dot"/>
+        <text x="748" y="138" class="map-label" style="fill:#2D6B6B;">ASIA &amp; PACIFIC</text>
+        <text x="748" y="153" class="map-sublabel">~50K &middot; 30+ day journey</text>
+        <text x="420" y="350" text-anchor="middle" style="font-family:'Cormorant Garamond',serif;font-size:11px;fill:#C4A4A4;font-style:italic;">The world converged on Paris &mdash; by rail, steamship, and sheer determination</text>
+      </svg>
+    </div>
+    <div class="stat-grid" style="margin-top:30px;">
+      <div class="stat-box reveal reveal-delay-2" style="background:rgba(139,38,53,0.08);">
+        <div class="stat-number" style="font-size:1.8rem; color:var(--burgundy);">~35M</div>
+        <div class="stat-label" style="color:var(--midnight)">France</div>
+        <div class="stat-sublabel" style="color:var(--burgundy)">Train &amp; walking</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-3" style="background:rgba(139,38,53,0.08);">
+        <div class="stat-number" style="font-size:1.8rem; color:var(--burgundy);">~12M</div>
+        <div class="stat-label" style="color:var(--midnight)">Europe</div>
+        <div class="stat-sublabel" style="color:var(--burgundy)">Train &amp; ferry</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-4" style="background:rgba(139,38,53,0.08);">
+        <div class="stat-number" style="font-size:1.8rem; color:var(--burgundy);">~500K</div>
+        <div class="stat-label" style="color:var(--midnight)">Americas</div>
+        <div class="stat-sublabel" style="color:var(--burgundy)">7-10 day steamship</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-5" style="background:rgba(139,38,53,0.08);">
+        <div class="stat-number" style="font-size:1.8rem; color:var(--burgundy);">~50K</div>
+        <div class="stat-label" style="color:var(--midnight)">Asia &amp; Pacific</div>
+        <div class="stat-sublabel" style="color:var(--burgundy)">30+ day journey</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 11: QUIZ 1 - TRAVEL TIME
+     ============================================ -->
+<section id="s11" class="section bg-gradient-1 paper-texture" data-section="11">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 11 of 27</span>
+      <h2 class="section-title" style="color:var(--cream)">&#127919; Quiz Time</h2>
+      <p class="section-subtitle">Test your 1900 knowledge</p>
+    </div>
+    <div class="quiz-container reveal reveal-delay-1">
+      <p class="quiz-question" style="color:var(--cream)">How long did it take to travel from New York to Paris in 1900?</p>
+      <div class="quiz-options" id="quiz1">
+        <div class="quiz-option" onclick="answerQuiz('quiz1', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#9992;&#65039;</span>
+          2 days by airplane
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz1', this, true)" style="color:var(--cream)">
+          <span class="option-icon">&#128674;</span>
+          7-10 days by steamship
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz1', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#128676;</span>
+          3 days by fast clipper
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz1', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#128642;</span>
+          5 days by rail &amp; ferry
+        </div>
+      </div>
+      <div class="quiz-result" id="quiz1-result" style="color:var(--cream)">
+        <h4>&#128674; 7-10 Days by Steamship!</h4>
+        <p>The fastest ocean liners of 1900 could cross the Atlantic in about 7 days. Most passengers took 8-10 days. And that's <em>just</em> the ocean crossing&mdash;you still had to get to the port city first. From Tokyo? That was a 30-40 day journey.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 12: INNOVATIONS
+     ============================================ -->
+<section id="s12" class="section bg-gradient-2 paper-texture" data-section="12">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 12 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">Your 1900 Tech Playlist</h2>
+      <p class="section-subtitle section-subtitle-dark">On Repeat: 1900 &mdash; Innovations debuted at the Expo</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="innovations.jpeg" alt="Innovations debuted: Paris Metro, Moving Sidewalks, Escalators, Diesel Engine, Trolleybus, Talking Films, Grande Roue, Electric Cars" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <button class="dyk-trigger" onclick="openDYK('dyk3')" style="color:var(--midnight)">
+        <span class="icon">&#128161;</span> Did you know? Electric cars in 1900
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="dyk-popup" id="dyk3">
+  <div class="dyk-card">
+    <button class="dyk-close" onclick="closeDYK('dyk3')">&times;</button>
+    <h3>&#9889; Electric Cars in 1900!</h3>
+    <p>Yes, electric vehicles were showcased at the 1900 Expo. In fact, at the turn of the century, <strong>electric cars outsold gasoline cars</strong> in the United States.</p>
+    <p>The moving sidewalk (<em>Trottoir Roulant</em>) was 3.5 kilometers long and moved at two speeds&mdash;visitors stepped from a slow platform to a faster one. Over <strong>6 million people</strong> rode it during the Expo.</p>
+    <p>The Paris Metro opened on <strong>July 19, 1900</strong>, specifically timed for the Exposition. Line 1 ran from Porte Maillot to Porte de Vincennes. It still runs today.</p>
+  </div>
+</div>
+
+<!-- ============================================
+     SECTION 13: QUIZ 2 - INNOVATIONS
+     ============================================ -->
+<section id="s13" class="section bg-gradient-3 paper-texture" data-section="13">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 13 of 27</span>
+      <h2 class="section-title">&#127919; Which Innovation?</h2>
+      <p class="section-subtitle">Pick the one you&rsquo;d most want to experience</p>
+    </div>
+    <div class="quiz-container reveal reveal-delay-1">
+      <p class="quiz-question">If you were at the 1900 Expo, which innovation would you try first?</p>
+      <div class="quiz-options" id="quiz2">
+        <div class="quiz-option" onclick="answerPersonality('quiz2', this, 'explorer')" style="color:var(--cream)">
+          <span class="option-icon">&#128646;</span>
+          The Moving Sidewalk
+        </div>
+        <div class="quiz-option" onclick="answerPersonality('quiz2', this, 'visionary')" style="color:var(--cream)">
+          <span class="option-icon">&#127909;</span>
+          Talking Films
+        </div>
+        <div class="quiz-option" onclick="answerPersonality('quiz2', this, 'thrill')" style="color:var(--cream)">
+          <span class="option-icon">&#127905;</span>
+          The Grande Roue (Ferris Wheel)
+        </div>
+        <div class="quiz-option" onclick="answerPersonality('quiz2', this, 'pragmatist')" style="color:var(--cream)">
+          <span class="option-icon">&#128643;</span>
+          The Paris Metro
+        </div>
+      </div>
+      <div class="quiz-result" id="quiz2-result" style="color:var(--cream)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 14: THE OLYMPICS
+     ============================================ -->
+<section id="s14" class="section bg-gradient-2 paper-texture" data-section="14">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 14 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">The Olympics Happened Here</h2>
+      <p class="section-subtitle section-subtitle-dark">First Olympics outside Greece &bull; Most chaotic Olympics ever</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="olympics.jpeg" alt="1900 Summer Olympics - 997 athletes, 22 women, 24 countries. Events included live pigeon shooting and obstacle swimming" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <span class="badge badge-burgundy">THE VIBES WERE... UNCLEAR</span>
+    </div>
+    <div style="text-align:center; margin-top:16px;" class="reveal reveal-delay-3">
+      <button class="dyk-trigger" onclick="openDYK('dyk4')" style="color:var(--midnight)">
+        <span class="icon">&#128161;</span> Did you know? Olympic chaos facts
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="dyk-popup" id="dyk4">
+  <div class="dyk-card">
+    <button class="dyk-close" onclick="closeDYK('dyk4')">&times;</button>
+    <h3>&#127941; Olympic Chaos</h3>
+    <p><strong>Live pigeon shooting</strong> was an official event. The winner killed 21 birds. It remains the only Olympic event where animals were intentionally killed.</p>
+    <p><strong>Many athletes didn't know they were in the Olympics.</strong> The Games were so poorly organized and intertwined with the Exposition that some competitors thought they were just in local sporting events.</p>
+    <p>The <strong>obstacle swimming race</strong> required competitors to climb over boats and swim under them&mdash;in the polluted Seine River.</p>
+    <p>Medals weren't awarded until <strong>years later</strong>. Some athletes never received them at all.</p>
+  </div>
+</div>
+
+<!-- ============================================
+     SECTION 15: THE BANQUET
+     ============================================ -->
+<section id="s15" class="section bg-midnight paper-texture" data-section="15">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 15 of 27</span>
+      <h2 class="section-title">The Banquet</h2>
+      <p class="section-subtitle">20,777 mayors. One dinner. In a garden.</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="seating.jpeg" alt="The Banquet - President Loubet hosted 20,777 mayors. The seating chart alone took weeks." loading="lazy">
+    </div>
+    <div class="stat-grid" style="margin-top:30px;">
+      <div class="stat-box reveal reveal-delay-2">
+        <div class="stat-number" style="font-size:2.2rem;" data-count="20777">0</div>
+        <div class="stat-label">Mayors Fed</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-3">
+        <div class="stat-number" style="font-size:2.2rem;" data-count="22000">0</div>
+        <div class="stat-label">Bottles of Wine</div>
+      </div>
+      <div class="stat-box reveal reveal-delay-4">
+        <div class="stat-number" style="font-size:2.2rem;">1</div>
+        <div class="stat-label">Garden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 16: WHAT GOT BUILT
+     ============================================ -->
+<section id="s16" class="section bg-gradient-2 paper-texture" data-section="16">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 16 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">What Got Built</h2>
+      <p class="section-subtitle section-subtitle-dark">Permanent structures&mdash;still standing 125+ years later</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="built.jpeg" alt="Permanent structures built for the Expo: Grand Palais, Petit Palais, Pont Alexandre III, Gare d'Orsay, Paris Metro - all still standing" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <span class="badge badge-gold">STILL STANDING: 5 OF 5</span>
+    </div>
+    <p style="text-align:center; margin-top:16px; font-style:italic; color:var(--burgundy);" class="reveal reveal-delay-3">
+      Fun fact: The Grand Palais used 9,000 tonnes of metal&mdash;more than the Eiffel Tower (7,000 tonnes).
+    </p>
+
+    <!-- Then vs Now Comparisons -->
+    <h3 class="reveal reveal-delay-4" style="font-family:'Playfair Display',serif; text-align:center; color:var(--midnight); margin:36px 0 6px; font-size:1.3rem;">Then &amp; Now &mdash; Drag to Compare</h3>
+    <p style="text-align:center; font-style:italic; color:var(--burgundy); font-size:0.85rem; margin-bottom:20px;" class="reveal reveal-delay-4">125 years later, they&rsquo;re still standing</p>
+
+    <div class="two-col reveal reveal-delay-5" style="gap:20px;">
+      <div class="compare-wrap">
+        <p class="compare-title" style="color:var(--midnight)">Eiffel Tower</p>
+        <div class="compare-container" data-compare>
+          <div class="compare-after">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Tour_Eiffel_Wikimedia_Commons.jpg/960px-Tour_Eiffel_Wikimedia_Commons.jpg" alt="Eiffel Tower today" loading="lazy">
+          </div>
+          <div class="compare-before">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Eiffel_Tower%2C_full-view_looking_toward_the_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-Eiffel_Tower%2C_full-view_looking_toward_the_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Eiffel Tower during 1900 Exposition" loading="lazy">
+          </div>
+          <div class="compare-slider-line">
+            <div class="compare-handle">&#8596;</div>
+          </div>
+          <span class="compare-label compare-label-before">1900</span>
+          <span class="compare-label compare-label-after">TODAY</span>
+        </div>
+      </div>
+      <div class="compare-wrap">
+        <p class="compare-title" style="color:var(--midnight)">Grand Palais &amp; Pont Alexandre III</p>
+        <div class="compare-container" data-compare>
+          <div class="compare-after">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Le_Grand_Palais_depuis_le_pont_Alexandre_III_%C3%A0_Paris.jpg/960px-Le_Grand_Palais_depuis_le_pont_Alexandre_III_%C3%A0_Paris.jpg" alt="Grand Palais from Pont Alexandre III today" loading="lazy">
+          </div>
+          <div class="compare-before">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/The_Grand_Palace%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-The_Grand_Palace%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Grand Palais during 1900 Exposition" loading="lazy">
+          </div>
+          <div class="compare-slider-line">
+            <div class="compare-handle">&#8596;</div>
+          </div>
+          <span class="compare-label compare-label-before">1900</span>
+          <span class="compare-label compare-label-after">TODAY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 17: HISTORICAL CONTEXT PHOTOS
+     ============================================ -->
+<section id="s17" class="section bg-midnight paper-texture" data-section="17">
+  <div class="parallax-filigree">
+    <div class="filigree-el" style="top:8%;left:3%;" data-speed="0.04">&#10048;</div>
+    <div class="filigree-el" style="top:50%;right:5%;font-size:45px;" data-speed="-0.03">&#10047;</div>
+    <div class="filigree-el" style="bottom:12%;left:40%;font-size:70px;" data-speed="0.05">&#10053;</div>
+  </div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 17 of 27</span>
+      <h2 class="section-title">Scenes from the Exposition</h2>
+      <p class="section-subtitle">Actual photographs &amp; illustrations from 1900</p>
+    </div>
+    <div class="photo-grid reveal reveal-delay-1">
+      <div class="context-photo tall">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Vue_panoramique_de_l%27exposition_universelle_de_1900.jpg/960px-Vue_panoramique_de_l%27exposition_universelle_de_1900.jpg" alt="Panoramic view of the 1900 Paris Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="context-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Eiffel_Tower%2C_full-view_looking_toward_the_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-Eiffel_Tower%2C_full-view_looking_toward_the_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Eiffel Tower looking toward the Trocadero, 1900 Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="context-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Le_trottoir_roulant%2C_Exposition_Universelle_1900.jpg/960px-Le_trottoir_roulant%2C_Exposition_Universelle_1900.jpg" alt="The Moving Sidewalk (Trottoir Roulant) at the 1900 Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="context-photo wide">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/The_Grand_Palace%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-The_Grand_Palace%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Grand Palais during the 1900 Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+    <p class="photo-caption reveal reveal-delay-2" style="margin-top:16px;">
+      Public domain photographs from Wikimedia Commons &bull; Biblioth&egrave;que nationale de France
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 18: THE EXHIBIT OF AMERICAN NEGROES
+     ============================================ -->
+<section id="s18" class="section bg-gradient-2 paper-texture" data-section="18">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 18 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">The Exhibit of American Negroes</h2>
+      <p class="section-subtitle section-subtitle-dark">W.E.B. Du Bois &bull; Gold Medal Winner &bull; Palace of Social Economy</p>
+    </div>
+
+    <!-- Du Bois Portrait + Intro -->
+    <div class="two-col reveal reveal-delay-1" style="margin-bottom:30px;">
+      <div style="text-align:center;">
+        <div class="context-photo" style="max-width:360px; margin:0 auto; border-radius:50%; overflow:hidden; aspect-ratio:1; border:4px solid var(--gold);">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Portrait_of_Dr._W.E.B._Du_Bois_LCCN2004662838.jpg/960px-Portrait_of_Dr._W.E.B._Du_Bois_LCCN2004662838.jpg" alt="Portrait of W.E.B. Du Bois, circa 1900" style="object-position:top;">
+        </div>
+        <p style="margin-top:12px; font-family:'Playfair Display',serif; font-weight:700; font-size:1.2rem; color:var(--midnight);">W.E.B. Du Bois</p>
+        <p style="font-style:italic; color:var(--burgundy); font-size:0.9rem;">Sociologist &bull; Data Pioneer &bull; First Black Ph.D. from Harvard</p>
+      </div>
+      <div>
+        <blockquote style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.3rem; color:var(--burgundy); border-left:3px solid var(--gold); padding-left:20px; margin-bottom:16px;">
+          &ldquo;The problem of the twentieth century is the problem of the color line.&rdquo;
+        </blockquote>
+        <p style="color:var(--midnight); margin-bottom:12px;">
+          In just <strong>4 months</strong>, Du Bois organized one of the most remarkable exhibits at the entire Exposition: a comprehensive portrait of Black American life told through data, photographs, and artifacts.
+        </p>
+        <div class="stat-grid" style="grid-template-columns:repeat(3,1fr); gap:12px;">
+          <div class="stat-box" style="background:rgba(139,38,53,0.08); padding:14px 8px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--burgundy);">60+</div>
+            <div style="font-size:0.75rem; color:var(--midnight);">Hand-drawn charts</div>
+          </div>
+          <div class="stat-box" style="background:rgba(139,38,53,0.08); padding:14px 8px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--burgundy);">500+</div>
+            <div style="font-size:0.75rem; color:var(--midnight);">Photographs</div>
+          </div>
+          <div class="stat-box" style="background:rgba(139,38,53,0.08); padding:14px 8px;">
+            <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--burgundy);">400+</div>
+            <div style="font-size:0.75rem; color:var(--midnight);">Patents displayed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Exhibit Display Photo -->
+    <div class="graphic-card reveal reveal-delay-2" style="margin-bottom:24px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/American_Negro_Exhibit_at_the_Exposition_Universelle%2C_Paris%2C_1900.jpg/839px-American_Negro_Exhibit_at_the_Exposition_Universelle%2C_Paris%2C_1900.jpg" alt="The American Negro Exhibit display at the 1900 Paris Exposition Universelle, organized by W.E.B. Du Bois">
+    </div>
+    <p class="photo-caption" style="color:var(--burgundy);">The American Negro Exhibit at the Exposition Universelle, Paris, 1900 &bull; Library of Congress</p>
+
+    <!-- Du Bois Data Visualizations Grid -->
+    <h3 class="reveal reveal-delay-3" style="font-family:'Playfair Display',serif; text-align:center; color:var(--midnight); margin:30px 0 16px; font-size:1.4rem;">The Data Portraits &mdash; Hand-Drawn by Du Bois</h3>
+    <div class="photo-grid reveal reveal-delay-3" style="grid-template-columns: repeat(4, 1fr); gap:12px;">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/The_Georgia_Negro_LCCN2013650355.jpg/960px-The_Georgia_Negro_LCCN2013650355.jpg" alt="Du Bois: Comparative increase of white and colored population of Georgia">
+            <div class="flip-hint">TAP TO FLIP</div>
+          </div>
+          <div class="flip-card-back">
+            <h4>Population Growth</h4>
+            <p>Tracks white and Black population growth in Georgia from 1790&ndash;1890, revealing parallel trajectories with distinct inflection points around emancipation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/The_Georgia_Negro_LCCN2013650429.jpg/809px-The_Georgia_Negro_LCCN2013650429.jpg" alt="Du Bois: City and rural population of Georgia">
+            <div class="flip-hint">TAP TO FLIP</div>
+          </div>
+          <div class="flip-card-back">
+            <h4>City vs. Rural</h4>
+            <p>Visualizes urbanization of Black Georgians. Despite post-war migration to cities, the vast majority remained rural&mdash;a pattern that would shift dramatically in coming decades.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/The_Georgia_Negro_LCCN2013650431.jpg/960px-The_Georgia_Negro_LCCN2013650431.jpg" alt="Du Bois: Assessed value of property owned by Georgia Negroes">
+            <div class="flip-hint">TAP TO FLIP</div>
+          </div>
+          <div class="flip-card-back">
+            <h4>Property Ownership</h4>
+            <p>Charts the dramatic rise in property value owned by Black Georgians&mdash;from nearly nothing after emancipation to millions by 1900. A story told in data.</p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/The_Georgia_Negro_LCCN2013650428.jpg/960px-The_Georgia_Negro_LCCN2013650428.jpg" alt="Du Bois: Race amalgamation in Georgia">
+            <div class="flip-hint">TAP TO FLIP</div>
+          </div>
+          <div class="flip-card-back">
+            <h4>Race Amalgamation</h4>
+            <p>One of Du Bois&rsquo;s most visually striking spiral charts, mapping racial ancestry data. The form itself became an icon of data visualization artistry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="photo-caption reveal reveal-delay-4" style="color:var(--burgundy); margin-top:8px;">
+      Original hand-drawn data visualizations from &ldquo;The Georgia Negro&rdquo; series &bull; Library of Congress, Prints &amp; Photographs Division
+    </p>
+
+    <!-- Video about Du Bois Data Portraits -->
+    <div class="video-container reveal reveal-delay-4" style="margin-top:30px;" id="videoContainer2">
+      <a href="https://www.youtube.com/watch?v=81m7hsJAX6E" target="_blank" rel="noopener" class="video-fallback" id="videoFallback2" style="display:none; position:relative; aspect-ratio:16/9; background:var(--midnight); align-items:center; justify-content:center; flex-direction:column; gap:12px; text-decoration:none; color:var(--cream);">
+        <div style="width:72px; height:72px; border-radius:50%; background:var(--burgundy); display:flex; align-items:center; justify-content:center; border:3px solid var(--gold); font-size:28px;">&#9654;</div>
+        <span style="font-family:'Playfair Display',serif; font-size:1.1rem;">Watch: Du Bois&rsquo;s Data Portraits</span>
+        <span style="font-family:'Source Serif 4',serif; font-size:0.85rem; color:var(--dusty-rose);">Silas Munro on Visualizing Black America</span>
+      </a>
+      <iframe id="videoIframe2" src="https://www.youtube.com/embed/81m7hsJAX6E?rel=0" title="Silas Munro on W.E.B. Du Bois's Data Portraits: Visualizing Black America" referrerpolicy="no-referrer-when-downgrade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" onload="checkVideoLoad(this, 'videoFallback2')" onerror="showVideoFallback('videoIframe2', 'videoFallback2')"></iframe>
+    </div>
+    <p class="photo-caption reveal reveal-delay-5" style="color:var(--burgundy); margin-top:8px;">
+      &ldquo;W.E.B. Du Bois&rsquo;s Data Portraits: Visualizing Black America&rdquo; &bull; Silas Munro
+    </p>
+
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-5">
+      <span class="badge badge-gold">GRAND PRIX &mdash; GOLD MEDAL</span>
+    </div>
+    <p style="text-align:center; margin-top:16px; font-style:italic; color:var(--burgundy);" class="reveal reveal-delay-5">
+      No Canva. No Figma. No datasets on the cloud. Just handmade truth, presented to the world.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 19: QUIZ 3 - DU BOIS
+     ============================================ -->
+<section id="s19" class="section bg-gradient-1 paper-texture" data-section="19">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 19 of 27</span>
+      <h2 class="section-title" style="color:var(--cream)">&#127919; Du Bois Trivia</h2>
+    </div>
+    <div class="quiz-container reveal reveal-delay-1">
+      <p class="quiz-question" style="color:var(--cream)">What was the name of Du Bois's exhibit at the 1900 Paris Exposition?</p>
+      <div class="quiz-options" id="quiz3">
+        <div class="quiz-option" onclick="answerQuiz('quiz3', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#128214;</span>
+          The Black Experience in America
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz3', this, true)" style="color:var(--cream)">
+          <span class="option-icon">&#128202;</span>
+          The Exhibit of American Negroes
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz3', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#127912;</span>
+          African American Artistry
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz3', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#128218;</span>
+          The Souls of Black Folk Display
+        </div>
+      </div>
+      <div class="quiz-result" id="quiz3-result" style="color:var(--cream)">
+        <h4>&#128202; The Exhibit of American Negroes</h4>
+        <p>Du Bois organized "The Exhibit of American Negroes" for the Palace of Social Economy. It featured over 60 hand-drawn data visualizations showing the social, economic, and educational progress of Black Americans since emancipation&mdash;and won a Gold Medal (Grand Prix).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 20: DECADE BEFORE
+     ============================================ -->
+<section id="s20" class="section bg-gradient-2 paper-texture" data-section="20">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 20 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">1900: A Vibe Check</h2>
+      <p class="section-subtitle section-subtitle-dark">What was happening when Du Bois was hand-drawing pie charts</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="decadeprior.jpeg" alt="1890-1899 the decade before - Tech inventions, food innovations, and cultural context" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:20px;" class="reveal reveal-delay-2">
+      <button class="dyk-trigger" onclick="openDYK('dyk5')" style="color:var(--midnight)">
+        <span class="icon">&#128161;</span> Did you know? 1900 context
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="dyk-popup" id="dyk5">
+  <div class="dyk-card">
+    <button class="dyk-close" onclick="closeDYK('dyk5')">&times;</button>
+    <h3>&#128197; 1900 Was a Wild Year</h3>
+    <p>The year 1900 sat at the intersection of the old and new world. <strong>Horses still outnumbered cars</strong> in every city. The average life expectancy was 47 years.</p>
+    <p><strong>Pepsi-Cola was trademarked</strong> the same year as the Expo. Bayer was selling "Heroin" as cough medicine. X-rays had only been discovered 5 years earlier.</p>
+    <p>The Exposition was literally a showcase for the <strong>turning point of civilization</strong>&mdash;the last great gathering before electricity, automobiles, and cinema would reshape everything.</p>
+  </div>
+</div>
+
+<!-- ============================================
+     SECTION 21: DECADE AFTER
+     ============================================ -->
+<section id="s21" class="section bg-midnight paper-texture" data-section="21">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 21 of 27</span>
+      <h2 class="section-title">1901&ndash;1910: The Decade After</h2>
+      <p class="section-subtitle">The ripple effect of the Exposition</p>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="decadeafter.jpeg" alt="1901-1910 the decade after - what happened next in tech, food, and culture" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:24px;" class="reveal reveal-delay-2">
+      <span class="badge badge-teal">LEGACY: STILL ECHOING</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 22: VIDEO CONTEXT
+     ============================================ -->
+<section id="s22" class="section bg-gradient-2 paper-texture" data-section="22">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 22 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">See It In Motion</h2>
+      <p class="section-subtitle section-subtitle-dark">Actual footage from the 1900 Paris Exposition</p>
+    </div>
+    <div class="video-container reveal reveal-delay-1" id="videoContainer1">
+      <a href="https://www.youtube.com/watch?v=kXNjKUsnYvU" target="_blank" rel="noopener" class="video-fallback" id="videoFallback1" style="display:none; position:relative; aspect-ratio:16/9; background:var(--midnight); align-items:center; justify-content:center; flex-direction:column; gap:12px; text-decoration:none; color:var(--cream);">
+        <div style="width:72px; height:72px; border-radius:50%; background:var(--burgundy); display:flex; align-items:center; justify-content:center; border:3px solid var(--gold); font-size:28px;">&#9654;</div>
+        <span style="font-family:'Playfair Display',serif; font-size:1.1rem;">Watch on YouTube: The Paris Exposition, 1900</span>
+        <span style="font-family:'Source Serif 4',serif; font-size:0.85rem; color:var(--dusty-rose);">Historical film footage from the Exposition Universelle</span>
+      </a>
+      <iframe id="videoIframe1" src="https://www.youtube.com/embed/kXNjKUsnYvU?rel=0" title="1900 Paris Exposition footage" referrerpolicy="no-referrer-when-downgrade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" onload="checkVideoLoad(this, 'videoFallback1')" onerror="showVideoFallback('videoIframe1', 'videoFallback1')"></iframe>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-style:italic; color:var(--burgundy); font-size:0.9rem;" class="reveal reveal-delay-2">
+      &ldquo;The Paris Exposition Universelle, 1900&rdquo; &mdash; Historical film footage
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 23: QUIZ 4 - FUN FACTS
+     ============================================ -->
+<section id="s23" class="section bg-gradient-3 paper-texture" data-section="23">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 23 of 27</span>
+      <h2 class="section-title">&#127919; Final Quiz Round</h2>
+      <p class="section-subtitle">How well did you pay attention?</p>
+    </div>
+    <div class="quiz-container reveal reveal-delay-1">
+      <p class="quiz-question">How many tonnes of metal did the Grand Palais use?</p>
+      <div class="quiz-options" id="quiz4">
+        <div class="quiz-option" onclick="answerQuiz('quiz4', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#127959;</span>
+          5,000 tonnes
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz4', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#127959;</span>
+          7,000 tonnes (same as Eiffel Tower)
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz4', this, true)" style="color:var(--cream)">
+          <span class="option-icon">&#127959;</span>
+          9,000 tonnes (more than Eiffel Tower!)
+        </div>
+        <div class="quiz-option" onclick="answerQuiz('quiz4', this, false)" style="color:var(--cream)">
+          <span class="option-icon">&#127959;</span>
+          12,000 tonnes
+        </div>
+      </div>
+      <div class="quiz-result" id="quiz4-result" style="color:var(--cream)">
+        <h4>&#127959; 9,000 Tonnes!</h4>
+        <p>The Grand Palais used 9,000 tonnes of steel&mdash;2,000 more than the Eiffel Tower. Its glass roof alone covers 77,000 square feet, making it the largest glass structure in Paris. It's still used for major exhibitions today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 24: MORE CONTEXT PHOTOS
+     ============================================ -->
+<section id="s24" class="section bg-midnight paper-texture" data-section="24">
+  <div class="parallax-filigree">
+    <div class="filigree-el" style="top:15%;right:8%;" data-speed="0.035">&#10048;</div>
+    <div class="filigree-el" style="bottom:20%;left:6%;font-size:50px;" data-speed="-0.04">&#10047;</div>
+    <div class="filigree-el" style="top:60%;right:40%;font-size:55px;" data-speed="0.045">&#10053;</div>
+  </div>
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 24 of 27</span>
+      <h2 class="section-title">The World Came to Paris</h2>
+      <p class="section-subtitle">International pavilions &amp; grand architecture</p>
+    </div>
+    <div class="photo-grid reveal reveal-delay-1" style="grid-template-columns: 1fr 1fr;">
+      <div class="context-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Grand_entrance%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-Grand_entrance%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Grand entrance to the 1900 Paris Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+      <div class="context-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/The_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg/960px-The_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="The Trocadero during the 1900 Exposition" loading="lazy" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+    <div class="timeline reveal reveal-delay-2" style="margin-top:40px;">
+      <div class="timeline-item">
+        <h4 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:4px;">April 14, 1900</h4>
+        <p style="color:var(--dusty-rose);">Opening ceremony. President Loubet opens the gates. 500,000 attend on day one.</p>
+      </div>
+      <div class="timeline-item">
+        <h4 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:4px;">July 19, 1900</h4>
+        <p style="color:var(--dusty-rose);">Paris Metro opens its first line&mdash;timed perfectly for the Expo.</p>
+      </div>
+      <div class="timeline-item">
+        <h4 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:4px;">September 2, 1900</h4>
+        <p style="color:var(--dusty-rose);">Peak day: 1.2 million visitors in a single day.</p>
+      </div>
+      <div class="timeline-item">
+        <h4 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:4px;">September 22, 1900</h4>
+        <p style="color:var(--dusty-rose);">The Banquet of Mayors: 20,777 mayors dine together in the Tuileries.</p>
+      </div>
+      <div class="timeline-item">
+        <h4 style="font-family:'Playfair Display',serif; font-weight:700; margin-bottom:4px;">November 12, 1900</h4>
+        <p style="color:var(--dusty-rose);">Closing day. 212 days of wonder come to an end.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 25: YOUR ERA MATCH
+     ============================================ -->
+<section id="s25" class="section bg-gradient-1 paper-texture" data-section="25">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number">Slide 25 of 27</span>
+      <h2 class="section-title" style="color:var(--cream)">Your Era Match</h2>
+      <p class="section-subtitle">Based on your quiz answers&hellip;</p>
+    </div>
+    <div class="era-result reveal reveal-delay-1" id="eraResult">
+      <span class="badge badge-gold" style="margin-bottom:16px; display:inline-block;">YOUR RESULT</span>
+      <h3 class="era-name" id="eraName">The Art Nouveau Visionary</h3>
+      <p class="era-desc" id="eraDesc">
+        You belong at the intersection of art and technology. Like the Expo itself, you appreciate beauty in innovation and find elegance in progress. You would have marveled at the Palace of Electricity, sketched in the Grand Palais, and lingered on the moving sidewalk just to feel the future beneath your feet.
+      </p>
+      <div class="era-badge" style="margin-top:20px;">
+        <span class="badge badge-burgundy" id="eraBadge">EXPO PERSONALITY: VISIONARY</span>
+      </div>
+      <div style="margin-top:24px;">
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="stat-number" style="font-size:2rem;" id="finalScore">0</div>
+            <div class="stat-label">Quiz Score</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="font-size:2rem;">27</div>
+            <div class="stat-label">Slides Explored</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number" style="font-size:2rem;">1900</div>
+            <div class="stat-label">Your Year</div>
+          </div>
+        </div>
+        <div class="scroll-stats" id="scrollStats" style="display:none;">
+          <div class="scroll-stat-box">
+            <div class="scroll-stat-value" id="timeSpentStat">0:00</div>
+            <div class="scroll-stat-label">Time Exploring</div>
+          </div>
+          <div class="scroll-stat-box">
+            <div class="scroll-stat-value" id="scrollPace">--</div>
+            <div class="scroll-stat-label">Your Pace</div>
+          </div>
+          <div class="scroll-stat-box">
+            <div class="scroll-stat-value" id="favSection">--</div>
+            <div class="scroll-stat-label">Longest Visit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 26: SUMMARY
+     ============================================ -->
+<section id="s26" class="section bg-gradient-2 paper-texture" data-section="26">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <span class="section-number" style="color:var(--burgundy)">Slide 26 of 27</span>
+      <h2 class="section-title" style="color:var(--midnight)">Your 1900 Wrapped Summary</h2>
+    </div>
+    <div class="graphic-card reveal reveal-delay-1">
+      <img src="summary.jpeg" alt="Your 1900 Wrapped Summary - Days Open: 212, Total Visitors: 51,000,000, Countries: 40, Exhibitors: 83,047, Acres: 543, Admission: 1 Franc" loading="lazy">
+    </div>
+    <div style="text-align:center; margin-top:30px;" class="reveal reveal-delay-2">
+      <span class="badge badge-gold">LIVES CHANGED: IMMEASURABLE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SECTION 27: CLOSING / SHARE CARD
+     ============================================ -->
+<section id="s27" class="section bg-midnight paper-texture" data-section="27" style="min-height:100vh;">
+  <div class="section-inner" style="text-align:center;">
+    <div class="flourish reveal"></div>
+    <h2 class="reveal reveal-delay-1" style="font-family:'Cinzel Decorative',serif; font-size:clamp(1.8rem,5vw,3.5rem); color:var(--gold); margin-bottom:20px;">
+      Thanks for Visiting
+    </h2>
+    <p class="reveal reveal-delay-2" style="font-family:'Playfair Display',serif; font-size:clamp(1.2rem,3vw,1.8rem); font-weight:700; color:var(--cream); margin-bottom:8px;">
+      Exposition Universelle 1900
+    </p>
+    <p class="reveal reveal-delay-2" style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:var(--dusty-rose); margin-bottom:40px;">
+      April 14 &mdash; November 12 &bull; You were part of history
+    </p>
+
+    <div class="share-card reveal reveal-delay-3">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--midnight); margin-bottom:16px;">Your Expo Wrapped</h3>
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--burgundy);">51M</div>
+          <div style="font-size:0.8rem; color:var(--midnight);">Visitors</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--burgundy);">212</div>
+          <div style="font-size:0.8rem; color:var(--midnight);">Days</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--burgundy);">40</div>
+          <div style="font-size:0.8rem; color:var(--midnight);">Countries</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--burgundy);">83K</div>
+          <div style="font-size:0.8rem; color:var(--midnight);">Exhibitors</div>
+        </div>
+      </div>
+      <p style="font-style:italic; color:var(--burgundy); margin-bottom:24px; font-size:0.95rem;">
+        51 million came. The world was never the same.
+      </p>
+      <button class="share-btn" onclick="shareResult()">
+        &#128279; Share Your Expo Wrapped
+      </button>
+      <p style="margin-top:20px; font-size:0.85rem; color:var(--midnight); opacity:0.7;">
+        See you at the next world&rsquo;s fair&hellip; 1904 St. Louis
+      </p>
+    </div>
+
+    <div class="flourish reveal reveal-delay-4" style="margin-top:40px;"></div>
+    <p class="reveal reveal-delay-5" style="font-size:0.8rem; color:var(--dusty-rose); margin-top:20px; opacity:0.7;">
+      Created for the Du Bois Does Data exhibit &bull; Jamaica, Queens &bull; 2026<br>
+      Historical data sourced from BIE, Arthur Chandler, Wikipedia &amp; Library of Congress
+    </p>
+  </div>
+</section>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// ============================================
+// STATE
+// ============================================
+let score = 0;
+let personalityTraits = {};
+let answeredQuizzes = new Set();
+const totalSections = 27;
+
+// ============================================
+// HERO STARS
+// ============================================
+(function createStars() {
+  const container = document.getElementById('heroStars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('span');
+    const size = Math.random() * 3 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    container.appendChild(star);
+  }
+})();
+
+// ============================================
+// NAVIGATION DOTS
+// ============================================
+(function createNavDots() {
+  const nav = document.getElementById('navDots');
+  for (let i = 0; i <= totalSections; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.dataset.section = i;
+    dot.title = i === 0 ? 'Hero' : 'Slide ' + i;
+    dot.addEventListener('click', () => {
+      const target = i === 0 ? document.getElementById('hero') : document.getElementById('s' + i);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+    nav.appendChild(dot);
+  }
+})();
+
+// ============================================
+// SCROLL HANDLER
+// ============================================
+const progressBar = document.getElementById('progressBar');
+const navDots = document.querySelectorAll('.nav-dot');
+const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const counters = document.querySelectorAll('[data-count]');
+const counterDone = new Set();
+
+function handleScroll() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+
+  // Progress bar
+  progressBar.style.width = scrollPercent + '%';
+
+  // Reveal animations
+  reveals.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.88) {
+      el.classList.add('active');
+    }
+  });
+
+  // Counter animations
+  counters.forEach(el => {
+    if (counterDone.has(el)) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) {
+      counterDone.add(el);
+      animateCounter(el);
+    }
+  });
+
+  // Active nav dot
+  const sections = document.querySelectorAll('[data-section]');
+  let currentSection = 0;
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.5) {
+      currentSection = parseInt(section.dataset.section);
+    }
+  });
+  navDots.forEach(dot => {
+    dot.classList.toggle('active', parseInt(dot.dataset.section) === currentSection);
+  });
+
+  // Show score after section 11
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  if (scrollPercent > 35) {
+    scoreDisplay.classList.add('visible');
+  }
+}
+
+function animateCounter(el) {
+  var target = parseInt(el.dataset.count);
+  var formatted = target.toLocaleString();
+  var chars = formatted.split('');
+
+  el.textContent = '';
+  el.classList.add('odometer');
+
+  var digitIndex = 0;
+  chars.forEach(function(ch, i) {
+    if (ch === ',') {
+      var sep = document.createElement('span');
+      sep.className = 'odo-sep';
+      sep.textContent = ',';
+      el.appendChild(sep);
+    } else {
+      var col = document.createElement('span');
+      col.className = 'odo-col';
+      var drum = document.createElement('span');
+      drum.className = 'odo-drum';
+      for (var d = 0; d <= 9; d++) {
+        var s = document.createElement('span');
+        s.textContent = d;
+        drum.appendChild(s);
+      }
+      col.appendChild(drum);
+      el.appendChild(col);
+      var digit = parseInt(ch);
+      var delay = 200 + (chars.length - i) * 80;
+      (function(dr, dg, dl) {
+        setTimeout(function() {
+          dr.style.transform = 'translateY(-' + (dg * 10) + '%)';
+        }, dl);
+      })(drum, digit, delay);
+      digitIndex++;
+    }
+  });
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true });
+window.addEventListener('load', handleScroll);
+
+// ============================================
+// DID YOU KNOW POPUPS
+// ============================================
+function openDYK(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDYK(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Close on backdrop click
+document.querySelectorAll('.dyk-popup').forEach(popup => {
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) {
+      popup.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+// Close on escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.dyk-popup.open').forEach(p => {
+      p.classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});
+
+// ============================================
+// QUIZ LOGIC
+// ============================================
+function answerQuiz(quizId, el, correct) {
+  if (answeredQuizzes.has(quizId)) return;
+  answeredQuizzes.add(quizId);
+
+  // Highlight selection
+  const options = el.parentElement.querySelectorAll('.quiz-option');
+  options.forEach(opt => {
+    opt.style.pointerEvents = 'none';
+    opt.style.opacity = '0.5';
+  });
+  el.classList.add('selected');
+  el.style.opacity = '1';
+
+  // Score
+  if (correct) {
+    score += 100;
+    el.style.borderColor = '#6B8E5E';
+    el.style.background = 'rgba(107,142,94,0.3)';
+  } else {
+    el.style.borderColor = '#B85450';
+    el.style.background = 'rgba(184,84,80,0.3)';
+  }
+
+  updateScore();
+
+  // Show result
+  const result = document.getElementById(quizId + '-result');
+  if (result) {
+    result.classList.add('show');
+  }
+}
+
+function answerPersonality(quizId, el, trait) {
+  if (answeredQuizzes.has(quizId)) return;
+  answeredQuizzes.add(quizId);
+
+  personalityTraits[quizId] = trait;
+  score += 50;
+  updateScore();
+
+  const options = el.parentElement.querySelectorAll('.quiz-option');
+  options.forEach(opt => {
+    opt.style.pointerEvents = 'none';
+    opt.style.opacity = '0.5';
+  });
+  el.classList.add('selected');
+  el.style.opacity = '1';
+
+  const result = document.getElementById(quizId + '-result');
+  const messages = {
+    explorer: { title: 'The Explorer', text: 'You\'re drawn to the frontier of human movement. The Moving Sidewalk was revolutionary\u2014a 3.5km conveyor that carried 6 million visitors. You would have ridden it end to end, twice.' },
+    visionary: { title: 'The Visionary', text: 'You see the future before it arrives. Talking films in 1900 were a glimpse of cinema\u2019s total transformation of culture. You would have sat in every screening.' },
+    thrill: { title: 'The Thrill Seeker', text: 'The Grande Roue stood 100 meters tall\u2014the tallest Ferris wheel in the world at the time. You would have been first in line, 1,600 riders at a time.' },
+    pragmatist: { title: 'The Pragmatist', text: 'The Metro outlasted everything else at the Expo. While others chased spectacle, you recognized the infrastructure that would reshape Paris forever. Line 1 still runs today.' }
+  };
+  const msg = messages[trait] || messages.explorer;
+  if (result) {
+    result.innerHTML = '<h4>' + msg.title + '</h4><p>' + msg.text + '</p>';
+    result.classList.add('show');
+  }
+
+  // Update era result
+  updateEraResult();
+}
+
+function updateScore() {
+  document.getElementById('scoreValue').textContent = score;
+  document.getElementById('finalScore').textContent = score + '/350';
+}
+
+function updateEraResult() {
+  const trait = personalityTraits.quiz2 || 'visionary';
+  const eras = {
+    explorer: {
+      name: 'The Belle \u00c9poque Explorer',
+      desc: 'You belong in the golden age of discovery. Like the visitors who traveled by steamship for weeks just to see the Expo, you understand that the journey IS the destination. You would have walked every acre of the 543-acre fairgrounds, ridden every ride, and returned the next day for more.',
+      badge: 'EXPO PERSONALITY: EXPLORER'
+    },
+    visionary: {
+      name: 'The Art Nouveau Visionary',
+      desc: 'You belong at the intersection of art and technology. Like the Expo itself, you appreciate beauty in innovation and find elegance in progress. You would have marveled at the Palace of Electricity, sketched in the Grand Palais, and lingered at the talking films just to feel the future unfold.',
+      badge: 'EXPO PERSONALITY: VISIONARY'
+    },
+    thrill: {
+      name: 'The Midway Maximalist',
+      desc: 'You\u2019re here for the spectacle and you\u2019re not apologizing. The Grande Roue, the cinematographs, the Apache dancers\u2014you would have experienced every entertainment the Expo offered, twice. Your Midway Mixtape would be legendary.',
+      badge: 'EXPO PERSONALITY: MAXIMALIST'
+    },
+    pragmatist: {
+      name: 'The Infrastructure Idealist',
+      desc: 'While everyone else gazed at fireworks, you noticed the Metro. You understand that the true legacy of the 1900 Expo wasn\u2019t the spectacle\u2014it was the infrastructure that still serves Paris today. Grand Palais, Mus\u00e9e d\u2019Orsay, Pont Alexandre III: you see lasting value.',
+      badge: 'EXPO PERSONALITY: IDEALIST'
+    }
+  };
+  const era = eras[trait] || eras.visionary;
+  document.getElementById('eraName').textContent = era.name;
+  document.getElementById('eraDesc').textContent = era.desc;
+  document.getElementById('eraBadge').textContent = era.badge;
+}
+
+// ============================================
+// SHARE FUNCTIONALITY
+// ============================================
+function shareResult() {
+  const text = `Paris Exposition 1900: WRAPPED \u2728\n\n51 million visitors \u2022 212 days \u2022 40 countries \u2022 83,047 exhibitors\n\nI scored ${score}/350 on the Expo quiz!\nMy era match: ${document.getElementById('eraName').textContent}\n\n#ParisExpo1900 #DuBoisDoesData #ExpoWrapped`;
+
+  if (navigator.share) {
+    navigator.share({ title: 'Paris Exposition 1900: WRAPPED', text: text })
+      .catch(() => copyToClipboard(text));
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.share-btn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '\u2705 Copied to clipboard!';
+    btn.style.background = 'var(--sage)';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.background = '';
+    }, 2500);
+  }).catch(() => {
+    alert('Share text:\n\n' + text);
+  });
+}
+
+// ============================================
+// PARALLAX EFFECT (subtle)
+// ============================================
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const parallaxBgs = document.querySelectorAll('.parallax-bg');
+      parallaxBgs.forEach(bg => {
+        const rect = bg.parentElement.getBoundingClientRect();
+        const speed = 0.15;
+        bg.style.transform = `translateY(${rect.top * speed}px)`;
+      });
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+// ============================================
+// VIDEO FALLBACK (for file:// origins)
+// ============================================
+function showVideoFallback(iframeId, fallbackId) {
+  const iframe = document.getElementById(iframeId);
+  const fallback = document.getElementById(fallbackId);
+  if (iframe) iframe.style.display = 'none';
+  if (fallback) fallback.style.display = 'flex';
+}
+
+function checkVideoLoad(iframe, fallbackId) {
+  // If opened from file:// YouTube embeds will fail
+  if (window.location.protocol === 'file:') {
+    showVideoFallback(iframe.id, fallbackId);
+  }
+}
+
+// Auto-detect file:// protocol and switch to fallbacks
+if (window.location.protocol === 'file:') {
+  window.addEventListener('load', () => {
+    showVideoFallback('videoIframe1', 'videoFallback1');
+    showVideoFallback('videoIframe2', 'videoFallback2');
+  });
+}
+
+// ============================================
+// SMOOTH SCROLL ENGINE (pixel-level rAF)
+// ============================================
+let smoothScrollRAF = null;
+
+function smoothScrollTo(targetY, duration, onDone) {
+  cancelSmoothScroll();
+  const startY = window.scrollY;
+  const diff = targetY - startY;
+  if (Math.abs(diff) < 2) { if (onDone) onDone(); return; }
+  const startTime = performance.now();
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeInOutCubic(progress);
+    window.scrollTo(0, startY + diff * eased);
+
+    if (progress < 1) {
+      smoothScrollRAF = requestAnimationFrame(step);
+    } else {
+      smoothScrollRAF = null;
+      if (onDone) onDone();
+    }
+  }
+  smoothScrollRAF = requestAnimationFrame(step);
+}
+
+function cancelSmoothScroll() {
+  if (smoothScrollRAF) {
+    cancelAnimationFrame(smoothScrollRAF);
+    smoothScrollRAF = null;
+  }
+}
+
+// ============================================
+// FULLSCREEN
+// ============================================
+function toggleFullscreen() {
+  const btn = document.getElementById('fullscreenBtn');
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().then(() => {
+      btn.classList.add('active');
+      btn.innerHTML = '&#x26F6; EXIT FULLSCREEN';
+    }).catch(() => {});
+  } else {
+    document.exitFullscreen().then(() => {
+      btn.classList.remove('active');
+      btn.innerHTML = '&#x26F6; FULLSCREEN';
+    }).catch(() => {});
+  }
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fullscreenBtn');
+  if (!document.fullscreenElement) {
+    btn.classList.remove('active');
+    btn.innerHTML = '&#x26F6; FULLSCREEN';
+  }
+});
+
+// ============================================
+// PROJECTION / AUTOPLAY MODE
+// ============================================
+let projectionActive = false;
+let projectionPaused = false;
+let projectionTimer = null;
+let projectionSpeed = 8000; // ms dwell time per section
+const SCROLL_DURATION = 1800; // ms for the smooth scroll transition
+let currentProjectionSection = 0;
+let cursorTimer = null;
+
+function getAllSections() {
+  const sections = [document.getElementById('hero')];
+  for (let i = 1; i <= totalSections; i++) {
+    const s = document.getElementById('s' + i);
+    if (s) sections.push(s);
+  }
+  return sections;
+}
+
+function toggleProjection() {
+  projectionActive = !projectionActive;
+  const toggle = document.getElementById('projectionToggle');
+  const controls = document.getElementById('projectionControls');
+
+  if (projectionActive) {
+    document.body.classList.add('projection-mode');
+    document.documentElement.classList.add('projection-scrolling');
+    toggle.classList.add('active');
+    toggle.innerHTML = '<span class="toggle-icon">&#9724;</span> STOP PROJECTION';
+    controls.classList.add('visible');
+
+    // Auto-enter fullscreen
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().then(() => {
+        const btn = document.getElementById('fullscreenBtn');
+        btn.classList.add('active');
+        btn.innerHTML = '&#x26F6; EXIT FULLSCREEN';
+      }).catch(() => {});
+    }
+
+    // Make all reveals visible immediately
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+      el.classList.add('active');
+    });
+
+    // Trigger all counters
+    counters.forEach(el => {
+      if (!counterDone.has(el)) {
+        counterDone.add(el);
+        animateCounter(el);
+      }
+    });
+
+    // Find current section
+    const allSections = getAllSections();
+    const scrollY = window.scrollY;
+    currentProjectionSection = 0;
+    allSections.forEach((s, i) => {
+      if (s.offsetTop <= scrollY + 200) currentProjectionSection = i;
+    });
+
+    projectionPaused = false;
+    scheduleNextScroll();
+
+    // Auto-hide cursor and controls
+    const resetCursor = () => {
+      document.body.style.cursor = 'default';
+      controls.classList.remove('hidden');
+      clearTimeout(cursorTimer);
+      cursorTimer = setTimeout(() => {
+        if (projectionActive) {
+          document.body.style.cursor = 'none';
+          controls.classList.add('hidden');
+        }
+      }, 3000);
+    };
+    document.addEventListener('mousemove', resetCursor);
+    // Start the initial hide timer
+    cursorTimer = setTimeout(() => {
+      if (projectionActive) {
+        document.body.style.cursor = 'none';
+        controls.classList.add('hidden');
+      }
+    }, 3000);
+
+  } else {
+    document.body.classList.remove('projection-mode');
+    document.documentElement.classList.remove('projection-scrolling');
+    toggle.classList.remove('active');
+    toggle.innerHTML = '<span class="toggle-icon">&#9654;</span> PROJECTION MODE';
+    controls.classList.remove('visible');
+    controls.classList.remove('hidden');
+    document.body.style.cursor = 'default';
+    clearTimeout(cursorTimer);
+    cancelProjection();
+    cancelSmoothScroll();
+
+    // Auto-exit fullscreen
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(() => {
+        const btn = document.getElementById('fullscreenBtn');
+        btn.classList.remove('active');
+        btn.innerHTML = '&#x26F6; FULLSCREEN';
+      }).catch(() => {});
+    }
+  }
+}
+
+function scheduleNextScroll() {
+  cancelProjection();
+  projectionTimer = setTimeout(() => {
+    if (projectionPaused || !projectionActive) {
+      // If paused, keep checking
+      scheduleNextScroll();
+      return;
+    }
+
+    const allSections = getAllSections();
+    currentProjectionSection++;
+    if (currentProjectionSection >= allSections.length) {
+      currentProjectionSection = 0;
+    }
+
+    const target = allSections[currentProjectionSection];
+    const targetY = target.offsetTop - 0;
+
+    // Use custom smooth scroll, then schedule next after it completes + dwell
+    smoothScrollTo(targetY, SCROLL_DURATION, () => {
+      if (projectionActive) scheduleNextScroll();
+    });
+
+  }, projectionSpeed);
+}
+
+function cancelProjection() {
+  if (projectionTimer) {
+    clearTimeout(projectionTimer);
+    projectionTimer = null;
+  }
+}
+
+function setProjectionSpeed(speed) {
+  projectionSpeed = speed;
+  document.querySelectorAll('.speed-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.speed) === speed);
+  });
+  // Restart cycle with new timing
+  if (projectionActive && !projectionPaused) {
+    cancelProjection();
+    cancelSmoothScroll();
+    scheduleNextScroll();
+  }
+}
+
+function scrollToSection(index) {
+  const allSections = getAllSections();
+  currentProjectionSection = Math.max(0, Math.min(index, allSections.length - 1));
+  const target = allSections[currentProjectionSection];
+  cancelProjection();
+  cancelSmoothScroll();
+  smoothScrollTo(target.offsetTop, SCROLL_DURATION, () => {
+    if (projectionActive) scheduleNextScroll();
+  });
+}
+
+// ============================================
+// KEYBOARD + PRESENTATION CLICKER CONTROLS
+// ============================================
+// Common clicker key mappings:
+//   Logitech R400/R800/Spotlight: PageDown (fwd), PageUp (back)
+//   Kensington Presenter: PageDown (fwd), PageUp (back)
+//   Some clickers: ArrowRight/ArrowDown (fwd), ArrowLeft/ArrowUp (back)
+//   Some clickers: Enter (fwd), Backspace (back)
+//   Targus: PageDown (fwd), PageUp (back)
+//   "Black screen" button on some clickers: 'b' or '.'
+
+const NEXT_KEYS = new Set(['PageDown', 'ArrowRight', 'ArrowDown', 'Enter']);
+const PREV_KEYS = new Set(['PageUp', 'ArrowLeft', 'ArrowUp', 'Backspace']);
+const PAUSE_KEYS = new Set([' ', 'b', 'B', '.']);
+
+document.addEventListener('keydown', (e) => {
+  const tag = document.activeElement.tagName;
+  const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+
+  // F key for fullscreen (always, unless typing)
+  if ((e.key === 'f' || e.key === 'F') && !isInput) {
+    e.preventDefault();
+    toggleFullscreen();
+    return;
+  }
+
+  if (!projectionActive) return;
+
+  // NEXT slide: PageDown, ArrowRight, ArrowDown, Enter
+  if (NEXT_KEYS.has(e.key)) {
+    e.preventDefault();
+    projectionPaused = true;
+    scrollToSection(currentProjectionSection + 1);
+    return;
+  }
+
+  // PREVIOUS slide: PageUp, ArrowLeft, ArrowUp, Backspace
+  if (PREV_KEYS.has(e.key)) {
+    e.preventDefault();
+    projectionPaused = true;
+    scrollToSection(currentProjectionSection - 1);
+    return;
+  }
+
+  // PAUSE / RESUME: Space, B (black screen), period
+  if (PAUSE_KEYS.has(e.key)) {
+    e.preventDefault();
+    projectionPaused = !projectionPaused;
+    if (projectionPaused) {
+      cancelProjection();
+      cancelSmoothScroll();
+      const indicator = document.getElementById('pauseIndicator');
+      indicator.style.display = 'block';
+      indicator.style.animation = 'none';
+      void indicator.offsetWidth;
+      indicator.style.animation = 'fade-out 2s forwards';
+    } else {
+      scheduleNextScroll();
+    }
+    return;
+  }
+
+  // ESCAPE: exit projection
+  if (e.key === 'Escape') {
+    toggleProjection();
+    return;
+  }
+
+  // HOME: jump to first slide
+  if (e.key === 'Home') {
+    e.preventDefault();
+    projectionPaused = true;
+    scrollToSection(0);
+    return;
+  }
+
+  // END: jump to last slide
+  if (e.key === 'End') {
+    e.preventDefault();
+    projectionPaused = true;
+    scrollToSection(totalSections);
+    return;
+  }
+});
+
+// ============================================
+// INITIALIZE
+// ============================================
+updateEraResult();
+
+// ============================================
+// WOW FACTOR ENHANCEMENTS
+// ============================================
+
+// --- 1. Hero Slot Machine ---
+(function initSlotMachine() {
+  const wrapped = document.getElementById('heroWrapped');
+  if (!wrapped) return;
+  const letters = wrapped.querySelectorAll('.slot-letter');
+  const shimmer = document.getElementById('heroShimmer');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        letters.forEach((letter, i) => {
+          setTimeout(() => letter.classList.add('revealed'), 300 + i * 120);
+        });
+        setTimeout(() => {
+          if (shimmer) shimmer.classList.add('sweep');
+        }, 300 + letters.length * 120 + 400);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(wrapped);
+})();
+
+// --- 4. Particle System ---
+const particleCanvas = document.getElementById('particleCanvas');
+const pCtx = particleCanvas ? particleCanvas.getContext('2d') : null;
+let particles = [];
+let particleRAF = null;
+
+function resizeParticleCanvas() {
+  if (!particleCanvas) return;
+  particleCanvas.width = window.innerWidth;
+  particleCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeParticleCanvas);
+resizeParticleCanvas();
+
+function createParticleBurst(x, y, count) {
+  if (!pCtx) return;
+  count = count || 40;
+  for (let i = 0; i < count; i++) {
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+    const speed = 2 + Math.random() * 4;
+    particles.push({
+      x: x, y: y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 2,
+      size: 2 + Math.random() * 4,
+      life: 1,
+      decay: 0.01 + Math.random() * 0.015,
+      color: Math.random() > 0.3 ? '#C9A227' : (Math.random() > 0.5 ? '#D4AF37' : '#FFD700'),
+      isStar: Math.random() > 0.6
+    });
+  }
+  if (!particleRAF) animateParticles();
+}
+
+function animateParticles() {
+  if (!pCtx) return;
+  pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+  particles = particles.filter(function(p) { return p.life > 0; });
+  if (particles.length === 0) { particleRAF = null; return; }
+  particles.forEach(function(p) {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.08;
+    p.vx *= 0.99;
+    p.life -= p.decay;
+    pCtx.save();
+    pCtx.globalAlpha = p.life;
+    pCtx.fillStyle = p.color;
+    if (p.isStar) {
+      pCtx.beginPath();
+      for (var j = 0; j < 5; j++) {
+        var a = (j * 4 * Math.PI) / 5 - Math.PI / 2;
+        pCtx[j === 0 ? 'moveTo' : 'lineTo'](p.x + p.size * Math.cos(a), p.y + p.size * Math.sin(a));
+      }
+      pCtx.closePath();
+      pCtx.fill();
+    } else {
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      pCtx.fill();
+    }
+    pCtx.restore();
+  });
+  particleRAF = requestAnimationFrame(animateParticles);
+}
+
+// Monkey-patch quiz functions for particle bursts
+var _origAnswerQuiz = answerQuiz;
+answerQuiz = function(quizId, el, correct) {
+  _origAnswerQuiz(quizId, el, correct);
+  if (correct) {
+    var rect = el.getBoundingClientRect();
+    createParticleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 50);
+  }
+};
+var _origAnswerPersonality = answerPersonality;
+answerPersonality = function(quizId, el, trait) {
+  _origAnswerPersonality(quizId, el, trait);
+  var rect = el.getBoundingClientRect();
+  createParticleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 35);
+};
+
+// Burst on badge visibility
+document.querySelectorAll('.badge').forEach(function(badge) {
+  var bObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        setTimeout(function() {
+          var rect = entry.target.getBoundingClientRect();
+          createParticleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 25);
+        }, 600);
+        bObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.8 });
+  bObs.observe(badge);
+});
+
+
+// --- 8. Travel Map Animation ---
+(function initTravelMap() {
+  var mapContainer = document.getElementById('travelMap');
+  if (!mapContainer) return;
+  var mapObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var routes = mapContainer.querySelectorAll('.travel-route');
+        var dots = mapContainer.querySelectorAll('.travel-dot');
+        var labels = mapContainer.querySelectorAll('.map-label, .map-sublabel');
+        routes.forEach(function(route, i) {
+          setTimeout(function() { route.classList.add('animate'); }, i * 400);
+        });
+        dots.forEach(function(dot, i) {
+          setTimeout(function() { dot.classList.add('visible'); }, 800 + i * 300);
+        });
+        labels.forEach(function(label, i) {
+          setTimeout(function() { label.classList.add('visible'); }, 600 + i * 150);
+        });
+        mapObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  mapObserver.observe(mapContainer);
+})();
+
+// --- 9. Scroll Tracking ---
+var scrollTracker = {
+  startTime: Date.now(),
+  sectionTimes: {},
+  currentSection: null,
+  sectionStart: Date.now(),
+  viewed: new Set(),
+  enter: function(num) {
+    if (this.currentSection !== null && this.currentSection !== num) {
+      this.sectionTimes[this.currentSection] = (this.sectionTimes[this.currentSection] || 0) + (Date.now() - this.sectionStart);
+    }
+    this.currentSection = num;
+    this.sectionStart = Date.now();
+    this.viewed.add(num);
+  },
+  getStats: function() {
+    if (this.currentSection !== null) {
+      this.sectionTimes[this.currentSection] = (this.sectionTimes[this.currentSection] || 0) + (Date.now() - this.sectionStart);
+      this.sectionStart = Date.now();
+    }
+    var totalMs = Date.now() - this.startTime;
+    var mins = Math.floor(totalMs / 60000);
+    var secs = Math.floor((totalMs % 60000) / 1000);
+    var maxTime = 0, maxSec = 0;
+    for (var s in this.sectionTimes) {
+      if (this.sectionTimes[s] > maxTime) { maxTime = this.sectionTimes[s]; maxSec = parseInt(s); }
+    }
+    var secsPerSlide = totalMs / 1000 / Math.max(this.viewed.size, 1);
+    var pace = secsPerSlide > 30 ? 'Leisurely Fl\u00e2neur' : secsPerSlide > 15 ? 'Curious Tourist' : secsPerSlide > 8 ? 'Speed Walker' : 'Express Train';
+    var names = {
+      0:'Hero',1:'Attendance',2:'Top Travelers',3:'Global Lineup',4:'Countries',5:'Concert Tours',
+      6:'Exhibitors',7:'Fairgrounds',8:'Admission',9:'Time Spent',10:'Travel Origins',11:'Quiz',
+      12:'Innovations',13:'Innovation Quiz',14:'Olympics',15:'The Banquet',16:'What Got Built',
+      17:'Expo Photos',18:'Du Bois',19:'Du Bois Quiz',20:'Decade Before',21:'Decade After',
+      22:'Video',23:'Final Quiz',24:'Architecture',25:'Era Match',26:'Summary',27:'Share Card'
+    };
+    return {
+      time: mins + ':' + String(secs).padStart(2, '0'),
+      pace: pace,
+      fav: names[maxSec] || 'Section ' + maxSec
+    };
+  }
+};
+var stObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      scrollTracker.enter(parseInt(entry.target.dataset.section || '0'));
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.section').forEach(function(s) { stObserver.observe(s); });
+
+// Show stats when era section is viewed
+var eraStatsObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var stats = scrollTracker.getStats();
+      var el = document.getElementById('scrollStats');
+      if (el) {
+        document.getElementById('timeSpentStat').textContent = stats.time;
+        document.getElementById('scrollPace').textContent = stats.pace;
+        document.getElementById('favSection').textContent = stats.fav;
+        el.style.display = 'grid';
+      }
+    }
+  });
+}, { threshold: 0.5 });
+var eraEl = document.getElementById('s25');
+if (eraEl) eraStatsObserver.observe(eraEl);
+
+// --- 2. Parallax Filigree ---
+(function initParallaxFiligree() {
+  var els = document.querySelectorAll('.filigree-el');
+  if (els.length === 0) return;
+  var filigreeRAF = null;
+  window.addEventListener('scroll', function() {
+    if (filigreeRAF) return;
+    filigreeRAF = requestAnimationFrame(function() {
+      var sy = window.scrollY;
+      els.forEach(function(el) {
+        var speed = parseFloat(el.dataset.speed || '0.03');
+        var parent = el.closest('.section');
+        if (parent) {
+          var offset = (sy - parent.offsetTop) * speed;
+          el.style.transform = 'translateY(' + offset + 'px) rotate(' + (offset * 0.1) + 'deg)';
+        }
+      });
+      filigreeRAF = null;
+    });
+  }, { passive: true });
+})();
+
+// --- Then vs Now Compare Sliders ---
+document.querySelectorAll('[data-compare]').forEach(function(container) {
+  var beforeEl = container.querySelector('.compare-before');
+  var sliderLine = container.querySelector('.compare-slider-line');
+  var dragging = false;
+
+  function updateSlider(x) {
+    var rect = container.getBoundingClientRect();
+    var pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+    beforeEl.style.width = (pct * 100) + '%';
+    sliderLine.style.left = (pct * 100) + '%';
+  }
+
+  container.addEventListener('mousedown', function(e) { dragging = true; updateSlider(e.clientX); });
+  window.addEventListener('mousemove', function(e) { if (dragging) { e.preventDefault(); updateSlider(e.clientX); } });
+  window.addEventListener('mouseup', function() { dragging = false; });
+  container.addEventListener('touchstart', function(e) { dragging = true; updateSlider(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchmove', function(e) { if (dragging) updateSlider(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchend', function() { dragging = false; });
+});
+
+// --- Ticker Tape ---
+(function initTicker() {
+  var ticker = document.getElementById('tickerTape');
+  if (!ticker) return;
+  var shown = false;
+  window.addEventListener('scroll', function() {
+    if (shown) return;
+    var scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+    if (scrollPct > 15) {
+      ticker.classList.add('visible');
+      shown = true;
+    }
+  }, { passive: true });
+})();
+
+// --- Progressive Expo Map ---
+(function initExpoMap() {
+  var mapEl = document.getElementById('expoMap');
+  if (!mapEl) return;
+
+  // Map section numbers to zones that should light up
+  var zoneSchedule = {
+    1: ['entrance'],
+    3: ['entrance','foreign'],
+    6: ['entrance','foreign','champdemars'],
+    7: ['entrance','foreign','champdemars','trocadero','invalides','eiffel','pont','grandpalais','petitpalais','social'],
+    12: ['entrance','foreign','champdemars','eiffel'],
+    14: ['invalides'],
+    15: ['invalides','trocadero'],
+    16: ['grandpalais','petitpalais','pont'],
+    18: ['social']
+  };
+
+  var litZones = new Set();
+
+  function lightZone(name) {
+    if (litZones.has(name)) return;
+    litZones.add(name);
+    mapEl.querySelectorAll('[data-zone="' + name + '"]').forEach(function(el) {
+      el.classList.add('lit');
+    });
+  }
+
+  // Check which sections have been passed and light corresponding zones
+  var mapObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var secNum = parseInt(entry.target.dataset.section || '0');
+        // Light all zones for this section and earlier
+        for (var s in zoneSchedule) {
+          if (parseInt(s) <= secNum) {
+            zoneSchedule[s].forEach(function(z) { lightZone(z); });
+          }
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.section[data-section]').forEach(function(s) {
+    mapObserver.observe(s);
+  });
+})();
+
+</script>
+</body>
+</html>
