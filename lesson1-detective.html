@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1: Become a Data Detective | Du Bois Data Portraits</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Italic/VTCDuBois-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Italic/VTCDuBois-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; }
+</style>
+<style>
+:root {
+  --crimson: #8B1A1A;
+  --gold: #C5A55A;
+  --black: #1a1a1a;
+  --green: #2D5A3D;
+  --brown: #6B4226;
+  --parchment: #F5F0E8;
+  --parchment-dark: #E8E0D0;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--parchment);
+  color: var(--black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: 'VTC Du Bois', serif; }
+/* TOP NAV + PROGRESS */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--black); color: var(--parchment);
+  padding: 0;
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px;
+}
+.nav-inner a { color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+.nav-inner a:hover { text-decoration: underline; }
+.nav-title { font-family: 'VTC Du Bois', serif; font-size: 1rem; color: var(--gold); }
+.mode-toggle {
+  background: var(--crimson); color: var(--white); border: none;
+  padding: 6px 16px; border-radius: 20px; cursor: pointer;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.85rem;
+  transition: background 0.3s;
+}
+.mode-toggle:hover { background: #a52020; }
+.progress-bar-container {
+  width: 100%; height: 6px; background: #333;
+}
+.progress-bar-fill {
+  height: 100%; width: 0%; background: linear-gradient(90deg, var(--crimson), var(--gold));
+  transition: width 0.6s ease;
+}
+/* SECTIONS */
+.section {
+  max-width: 900px; margin: 0 auto; padding: 80px 24px 60px;
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section-indicator {
+  display: inline-block; background: var(--crimson); color: var(--white);
+  padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px;
+}
+.section h2 {
+  font-size: 2rem; color: var(--crimson); margin-bottom: 8px; line-height: 1.3;
+}
+.section h3 { font-size: 1.35rem; color: var(--brown); margin: 24px 0 10px; }
+.section p { margin-bottom: 14px; font-size: 1.05rem; }
+.highlight-box {
+  background: var(--white); border-left: 5px solid var(--gold);
+  padding: 20px 24px; margin: 20px 0; border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.highlight-box.crimson { border-left-color: var(--crimson); }
+.highlight-box.green { border-left-color: var(--green); }
+/* CASE FILE STYLING */
+.case-file {
+  background: var(--white); border: 3px solid var(--brown);
+  padding: 30px; margin: 24px 0; position: relative;
+  box-shadow: 4px 4px 0 var(--brown);
+}
+.case-file::before {
+  content: 'CLASSIFIED'; position: absolute; top: -14px; left: 20px;
+  background: var(--crimson); color: var(--white); padding: 4px 18px;
+  font-weight: 700; font-size: 0.8rem; letter-spacing: 2px;
+}
+.case-file h3 { color: var(--crimson); margin-top: 8px; }
+/* DETECTIVE CARD */
+.detective-card {
+  width: 320px; height: 420px; margin: 30px auto;
+  perspective: 800px; cursor: pointer;
+}
+.detective-card-inner {
+  width: 100%; height: 100%; position: relative;
+  transition: transform 0.8s; transform-style: preserve-3d;
+}
+.detective-card.flipped .detective-card-inner { transform: rotateY(180deg); }
+.card-front, .card-back {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: 12px;
+  padding: 24px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.card-front {
+  background: linear-gradient(135deg, var(--black) 0%, #2a2a2a 100%);
+  color: var(--gold); border: 3px solid var(--gold);
+}
+.card-front .badge-icon { font-size: 4rem; margin-bottom: 16px; }
+.card-front h3 { font-size: 1.4rem; text-align: center; margin-bottom: 8px; }
+.card-front p { text-align: center; color: var(--parchment); font-size: 0.95rem; }
+.card-back {
+  background: var(--white); color: var(--black);
+  border: 3px solid var(--crimson); transform: rotateY(180deg);
+  text-align: left; justify-content: flex-start; padding-top: 30px;
+}
+.card-back h3 { color: var(--crimson); font-size: 1.2rem; margin-bottom: 12px; width: 100%; }
+.card-back ul { list-style: none; width: 100%; }
+.card-back ul li { padding: 6px 0; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+.card-back ul li strong { color: var(--brown); }
+/* TIMELINE */
+.timeline {
+  position: relative; padding: 20px 0; margin: 30px 0;
+}
+.timeline::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 4px; background: var(--brown); transform: translateX(-50%);
+}
+.timeline-item {
+  position: relative; width: 45%; padding: 16px 20px;
+  background: var(--white); border-radius: 8px; margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.timeline-item:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+.timeline-item:nth-child(odd) { margin-left: 5%; }
+.timeline-item:nth-child(even) { margin-left: 50%; }
+.timeline-item::before {
+  content: ''; position: absolute; top: 24px; width: 16px; height: 16px;
+  background: var(--crimson); border-radius: 50%; border: 3px solid var(--white);
+}
+.timeline-item:nth-child(odd)::before { right: -30px; }
+.timeline-item:nth-child(even)::before { left: -30px; }
+.timeline-item.highlight { border: 2px solid var(--gold); background: #FFFDF5; }
+.timeline-item .year { font-weight: 700; color: var(--crimson); font-size: 1.1rem; }
+.timeline-item .event { font-size: 0.95rem; color: #444; margin-top: 4px; }
+.timeline-item .detail {
+  display: none; margin-top: 8px; font-size: 0.9rem; color: #666;
+  border-top: 1px solid #eee; padding-top: 8px;
+}
+.timeline-item.open .detail { display: block; }
+/* FLIP CARDS */
+.flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+.flip-card {
+  height: 220px; perspective: 600px; cursor: pointer;
+}
+.flip-card-inner {
+  width: 100%; height: 100%; position: relative;
+  transition: transform 0.6s; transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute; width: 100%; height: 100%;
+  backface-visibility: hidden; border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 20px; text-align: center;
+}
+.flip-front {
+  background: linear-gradient(135deg, #555, var(--black));
+  color: var(--white);
+}
+.flip-front h4 { font-size: 1.1rem; margin-bottom: 8px; }
+.flip-front p { font-size: 0.85rem; opacity: 0.8; }
+.flip-back.truth {
+  background: linear-gradient(135deg, var(--green), #1a4a2d);
+  color: var(--white); transform: rotateY(180deg);
+}
+.flip-back.lie {
+  background: linear-gradient(135deg, var(--crimson), #5a1010);
+  color: var(--white); transform: rotateY(180deg);
+}
+.flip-back h4 { font-size: 1rem; margin-bottom: 8px; }
+.flip-back p { font-size: 0.9rem; }
+/* TOOLKIT STEPS */
+.toolkit-steps { margin: 24px 0; }
+.toolkit-step {
+  background: var(--white); border-radius: 10px; margin-bottom: 12px;
+  overflow: hidden; border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+.toolkit-step.active { border-color: var(--gold); }
+.toolkit-step-header {
+  display: flex; align-items: center; padding: 16px 20px;
+  cursor: pointer; gap: 14px;
+}
+.toolkit-step-header:hover { background: #faf8f2; }
+.step-number {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--crimson); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1rem; flex-shrink: 0;
+}
+.toolkit-step.active .step-number { background: var(--gold); color: var(--black); }
+.step-title { font-weight: 600; font-size: 1.05rem; }
+.step-content {
+  display: none; padding: 0 20px 20px 70px;
+  font-size: 0.95rem; color: #555;
+}
+.toolkit-step.active .step-content { display: block; }
+/* CANVAS CHARTS */
+.chart-container {
+  background: var(--white); border-radius: 12px;
+  padding: 24px; margin: 24px 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.chart-container h4 { text-align: center; color: var(--brown); margin-bottom: 16px; }
+canvas { display: block; margin: 0 auto; max-width: 100%; }
+/* TAB TOGGLE */
+.tab-container { margin: 24px 0; }
+.tab-buttons { display: flex; gap: 0; margin-bottom: 0; }
+.tab-btn {
+  flex: 1; padding: 12px; text-align: center; cursor: pointer;
+  background: var(--parchment-dark); border: 2px solid #ccc;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.95rem;
+  transition: all 0.3s;
+}
+.tab-btn:first-child { border-radius: 8px 0 0 0; }
+.tab-btn:last-child { border-radius: 0 8px 0 0; }
+.tab-btn.active { background: var(--crimson); color: var(--white); border-color: var(--crimson); }
+.tab-panel {
+  display: none; background: var(--white); border: 2px solid #ccc;
+  border-top: none; padding: 24px; border-radius: 0 0 8px 8px;
+}
+.tab-panel.active { display: block; }
+/* MATH CHALLENGE */
+.math-challenge {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  color: var(--parchment); padding: 28px; border-radius: 12px;
+  margin: 24px 0; text-align: center;
+}
+.math-challenge h4 { color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
+.math-challenge p { margin-bottom: 14px; }
+.math-challenge input {
+  padding: 10px 16px; font-size: 1.1rem; border: 2px solid var(--gold);
+  border-radius: 8px; background: #333; color: var(--white);
+  text-align: center; width: 120px;
+  font-family: 'Inter', sans-serif;
+}
+.math-challenge button {
+  padding: 10px 24px; background: var(--gold); color: var(--black);
+  border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+  margin-left: 10px; font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+.math-feedback {
+  margin-top: 12px; font-weight: 600; min-height: 24px;
+}
+.math-feedback.correct { color: #4CAF50; }
+.math-feedback.incorrect { color: #ff6b6b; }
+/* QUIZ */
+.quiz-container { margin: 24px 0; }
+.quiz-progress { display: flex; gap: 6px; margin-bottom: 20px; }
+.quiz-dot {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #ddd; display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700; color: #888;
+}
+.quiz-dot.current { background: var(--gold); color: var(--black); }
+.quiz-dot.correct { background: var(--green); color: var(--white); }
+.quiz-dot.wrong { background: var(--crimson); color: var(--white); }
+.quiz-question {
+  background: var(--white); padding: 28px; border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.quiz-question h4 { color: var(--brown); margin-bottom: 16px; font-size: 1.15rem; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option {
+  padding: 14px 20px; border: 2px solid #ddd; border-radius: 8px;
+  cursor: pointer; transition: all 0.3s; font-size: 1rem;
+  background: var(--white);
+}
+.quiz-option:hover { border-color: var(--gold); background: #fffdf5; }
+.quiz-option.selected { border-color: var(--gold); background: #fffdf5; font-weight: 600; }
+.quiz-option.correct-answer { border-color: var(--green); background: #e8f5e9; }
+.quiz-option.wrong-answer { border-color: var(--crimson); background: #fce4e4; }
+.quiz-option.disabled { pointer-events: none; }
+.quiz-nav { display: flex; justify-content: center; margin-top: 20px; gap: 12px; }
+.quiz-nav button {
+  padding: 10px 28px; border: none; border-radius: 8px;
+  font-weight: 700; cursor: pointer; font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+.btn-primary { background: var(--crimson); color: var(--white); }
+.btn-primary:hover { background: #a52020; }
+.btn-secondary { background: var(--gold); color: var(--black); }
+/* SCORE */
+.score-display {
+  text-align: center; padding: 40px; background: var(--white);
+  border-radius: 12px; margin: 24px 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.score-display .rank { font-size: 2rem; color: var(--crimson); margin-bottom: 8px; }
+.score-display .score-num { font-size: 3rem; font-weight: 900; color: var(--gold); }
+/* CREATE CHART */
+.chart-builder {
+  background: var(--white); padding: 28px; border-radius: 12px;
+  margin: 24px 0; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.chart-builder label { display: block; font-weight: 600; margin: 12px 0 6px; }
+.chart-builder input[type="text"],
+.chart-builder select,
+.chart-builder textarea {
+  width: 100%; padding: 10px 14px; border: 2px solid #ddd; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 1rem;
+}
+.chart-builder textarea { height: 70px; resize: vertical; }
+.chart-builder select { cursor: pointer; }
+.chart-builder button {
+  margin-top: 16px; padding: 12px 32px; background: var(--crimson);
+  color: var(--white); border: none; border-radius: 8px;
+  font-weight: 700; font-size: 1.05rem; cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.color-palette-options { display: flex; gap: 10px; margin: 8px 0; flex-wrap: wrap; }
+.palette-option {
+  display: flex; gap: 3px; padding: 6px 10px; border: 2px solid #ddd;
+  border-radius: 8px; cursor: pointer; transition: border-color 0.3s;
+}
+.palette-option.selected { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+.palette-swatch { width: 20px; height: 20px; border-radius: 3px; }
+/* CHECKLIST */
+.checklist { margin: 16px 0; }
+.checklist-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 0;
+  font-size: 1rem;
+}
+.checklist-item input[type="checkbox"] {
+  width: 20px; height: 20px; accent-color: var(--green); cursor: pointer;
+}
+/* BADGE ANIMATION */
+.badge-overlay {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.7); align-items: center; justify-content: center;
+}
+.badge-overlay.show { display: flex; }
+.badge-card {
+  background: var(--white); padding: 40px; border-radius: 16px;
+  text-align: center; max-width: 400px; width: 90%;
+  animation: badgePop 0.5s ease;
+}
+@keyframes badgePop {
+  0% { transform: scale(0.5); opacity: 0; }
+  80% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.badge-card .badge-icon { font-size: 5rem; display: block; margin-bottom: 16px; }
+.badge-card h3 { color: var(--crimson); margin-bottom: 8px; }
+.badge-card p { color: #666; margin-bottom: 16px; }
+.badge-card button {
+  padding: 10px 28px; background: var(--gold); color: var(--black);
+  border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+  font-size: 1rem; font-family: 'Inter', sans-serif;
+}
+/* MODE SPECIFIC */
+.explorer-only { display: none; }
+.scholar-only { display: none; }
+body.mode-explorer .explorer-only { display: block; }
+body.mode-scholar .scholar-only { display: block; }
+/* CLOSING */
+.closing-quote {
+  text-align: center; padding: 40px; margin: 30px 0;
+  background: linear-gradient(135deg, var(--black), #2a2a2a);
+  color: var(--parchment); border-radius: 12px;
+}
+.closing-quote blockquote {
+  font-family: 'VTC Du Bois', serif; font-size: 1.5rem;
+  font-style: italic; line-height: 1.5; margin-bottom: 12px;
+  color: var(--gold);
+}
+.closing-quote cite { font-size: 1rem; color: #aaa; }
+.next-links {
+  display: flex; gap: 16px; justify-content: center; margin-top: 30px; flex-wrap: wrap;
+}
+.next-links a {
+  padding: 14px 28px; border-radius: 10px; text-decoration: none;
+  font-weight: 700; font-size: 1rem; transition: transform 0.3s;
+}
+.next-links a:hover { transform: translateY(-2px); }
+.link-hub { background: var(--black); color: var(--gold); }
+.link-next { background: var(--crimson); color: var(--white); }
+/* SEPARATOR */
+.section-sep {
+  border: none; border-top: 3px dashed var(--gold); margin: 0 auto;
+  max-width: 200px; opacity: 0.5;
+}
+/* SOUND TOGGLE */
+.sound-toggle{position:fixed;bottom:20px;right:20px;z-index:1500;width:48px;height:48px;border-radius:50%;background:var(--black);border:2px solid var(--gold);color:var(--gold);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.3);transition:transform 0.2s;}
+.sound-toggle:hover{transform:scale(1.1);}
+/* ACHIEVEMENT SYSTEM */
+.trophy-btn{position:fixed;bottom:20px;left:20px;z-index:1500;width:48px;height:48px;border-radius:50%;background:var(--gold);border:2px solid var(--brown);color:var(--black);font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,0.3);transition:transform 0.2s;}
+.trophy-btn:hover{transform:scale(1.1);}
+.badge-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2500;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.badge-drawer-overlay.open{opacity:1;pointer-events:auto;}
+.badge-drawer{position:fixed;top:0;left:-360px;width:340px;height:100%;background:var(--parchment);z-index:2600;transition:left 0.4s ease;overflow-y:auto;padding:30px 24px;box-shadow:4px 0 20px rgba(0,0,0,0.3);}
+.badge-drawer-overlay.open .badge-drawer{left:0;}
+.badge-drawer h3{font-family:'VTC Du Bois',serif;color:var(--crimson);font-size:1.5rem;margin-bottom:20px;border-bottom:2px solid var(--gold);padding-bottom:10px;}
+.badge-drawer .badge-item{display:flex;align-items:center;gap:14px;padding:14px;margin-bottom:10px;border-radius:10px;background:var(--white);border:2px solid #ddd;transition:all 0.3s;}
+.badge-drawer .badge-item.earned{border-color:var(--gold);background:#FFFDF5;}
+.badge-drawer .badge-item.locked{opacity:0.5;filter:grayscale(1);}
+.badge-drawer .badge-item .b-icon{font-size:2rem;flex-shrink:0;}
+.badge-drawer .badge-item .b-info h4{font-size:1rem;color:var(--black);margin:0;}
+.badge-drawer .badge-item .b-info p{font-size:0.8rem;color:#888;margin:2px 0 0;}
+.badge-drawer .close-drawer{position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--brown);}
+.badge-toast{position:fixed;right:-400px;top:80px;z-index:3000;background:var(--white);border:3px solid var(--gold);border-radius:12px;padding:16px 24px;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:flex;align-items:center;gap:14px;transition:right 0.5s ease;max-width:340px;}
+.badge-toast.show{right:20px;}
+.badge-toast .toast-icon{font-size:2.2rem;}
+.badge-toast .toast-text h4{margin:0;color:var(--crimson);font-size:1rem;}
+.badge-toast .toast-text p{margin:2px 0 0;font-size:0.85rem;color:#666;}
+/* DRAG AND DROP */
+.dnd-activity{background:var(--white);border:2px solid var(--gold);border-radius:12px;padding:24px;margin:24px 0;}
+.dnd-activity h4{color:var(--brown);font-family:'VTC Du Bois',serif;margin-bottom:16px;font-size:1.2rem;}
+.dnd-sources{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;}
+.dnd-chip{padding:10px 18px;background:var(--black);color:var(--gold);border-radius:8px;cursor:grab;font-weight:600;font-size:0.95rem;user-select:none;transition:transform 0.2s,opacity 0.2s;}
+.dnd-chip:active{cursor:grabbing;transform:scale(1.05);}
+.dnd-chip.placed{opacity:0.4;pointer-events:none;}
+.dnd-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.dnd-zone{border:2px dashed #ccc;border-radius:10px;padding:16px;min-height:70px;text-align:center;transition:all 0.3s;}
+.dnd-zone .zone-label{font-weight:600;color:var(--brown);font-size:0.9rem;margin-bottom:8px;}
+.dnd-zone .zone-slot{min-height:36px;border-radius:6px;background:#f9f6f0;display:flex;align-items:center;justify-content:center;font-size:0.9rem;color:#888;}
+.dnd-zone.drag-over{border-color:var(--gold);background:#FFFDF5;}
+.dnd-zone.correct{border-color:var(--green);background:#e8f5e9;}
+.dnd-zone.incorrect{animation:dndShake 0.4s ease;}
+.dnd-result{margin-top:16px;text-align:center;font-weight:700;font-size:1.1rem;color:var(--green);display:none;}
+@keyframes dndShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);}50%{transform:translateX(-4px);}}
+/* TYPEWRITER QUOTES */
+.typewriter-cursor{display:inline-block;width:2px;height:1.2em;background:var(--gold);vertical-align:text-bottom;animation:twBlink 0.7s step-end infinite;margin-left:2px;}
+@keyframes twBlink{0%,100%{opacity:1;}50%{opacity:0;}}
+/* CERTIFICATE */
+.cert-modal-overlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;overflow-y:auto;padding:20px;}
+.cert-modal-overlay.show{display:flex;}
+.cert-modal{background:var(--parchment);max-width:650px;width:100%;border:6px double var(--gold);border-radius:4px;padding:50px 40px;text-align:center;position:relative;box-shadow:0 0 0 2px var(--brown),0 10px 40px rgba(0,0,0,0.4);}
+.cert-modal h2{font-family:'VTC Du Bois',serif;color:var(--crimson);font-size:2rem;margin-bottom:4px;}
+.cert-modal .cert-sub{font-family:'VTC Du Bois',serif;color:var(--brown);font-size:1.2rem;margin-bottom:20px;}
+.cert-modal .cert-seal{font-size:3.5rem;margin:10px 0;}
+.cert-modal .cert-body{font-size:1rem;color:var(--black);line-height:1.8;margin:10px 0;}
+.cert-modal .cert-name-input{border:none;border-bottom:2px solid var(--gold);background:transparent;font-family:'VTC Du Bois',serif;font-size:1.4rem;text-align:center;padding:6px 20px;color:var(--crimson);outline:none;width:80%;margin:10px 0;}
+.cert-modal .cert-name-display{font-family:'VTC Du Bois',serif;font-size:1.6rem;color:var(--crimson);margin:10px 0;min-height:2em;}
+.cert-modal .cert-date{color:#888;font-size:0.9rem;margin-top:10px;}
+.cert-btns{display:flex;gap:12px;justify-content:center;margin-top:20px;}
+.cert-btns button{padding:10px 24px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;font-size:1rem;}
+.cert-btn-print{background:var(--crimson);color:var(--white);}
+.cert-btn-close{background:#ddd;color:var(--black);}
+@media print{body>*:not(.cert-modal-overlay){display:none!important;}.cert-modal-overlay{position:static;background:none;display:flex!important;padding:0;}.cert-modal{box-shadow:none;}.cert-btns{display:none!important;}.cert-modal .cert-name-input{display:none!important;}.cert-modal .cert-name-display{display:block!important;}}
+/* PARALLAX DIVIDERS */
+.parallax-divider{height:120px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;max-width:900px;margin:0 auto;}
+.parallax-divider svg{position:absolute;opacity:0.1;width:100%;height:100%;transition:transform 0.1s linear;}
+.parallax-divider .gold-line{position:relative;width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);z-index:1;}
+/* SVG BORDER ART */
+.svg-border-art{position:relative;}
+.svg-border-art svg.corner-decoration{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.svg-border-art svg.corner-decoration path,.svg-border-art svg.corner-decoration circle{stroke:var(--gold);fill:none;stroke-width:2;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease;}
+.svg-border-art.animated svg.corner-decoration path,.svg-border-art.animated svg.corner-decoration circle{stroke-dashoffset:0;}
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .section h2 { font-size: 1.5rem; }
+  .flip-grid { grid-template-columns: 1fr; }
+  .timeline::before { left: 20px; }
+  .timeline-item { width: 80%; margin-left: 15% !important; }
+  .timeline-item:nth-child(odd)::before,
+  .timeline-item:nth-child(even)::before { left: -28px; }
+  .detective-card { width: 280px; height: 380px; }
+  .tab-btn { font-size: 0.8rem; padding: 10px 6px; }
+  .nav-title { display: none; }
+}
+/* Fun fact callout */
+.fun-fact {
+  background: #FFFDE7; border: 2px dashed var(--gold);
+  padding: 16px 20px; border-radius: 10px; margin: 16px 0;
+  font-size: 0.95rem;
+}
+.fun-fact strong { color: var(--brown); }
+/* Scholar prompt */
+.scholar-prompt {
+  background: #f3ede0; border-left: 4px solid var(--brown);
+  padding: 16px 20px; margin: 16px 0; border-radius: 0 8px 8px 0;
+}
+.scholar-prompt strong { color: var(--crimson); }
+.scholar-prompt textarea {
+  width: 100%; margin-top: 10px; padding: 10px; border: 1px solid #ccc;
+  border-radius: 6px; font-family: 'Inter', sans-serif;
+  font-size: 0.95rem; min-height: 80px; resize: vertical;
+}
+/* Celebration particles */
+.celebration-canvas {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 1999;
+}
+</style>
+</head>
+<body class="mode-explorer">
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-inner">
+    <a href="index.html">Back to Hub</a>
+    <span class="nav-title">Lesson 1: Become a Data Detective</span>
+    <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">Switch to Scholar</button>
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</nav>
+
+<!-- SPACER FOR FIXED NAV -->
+<div style="height: 58px;"></div>
+
+<!-- ============== SECTION 1 ============== -->
+<section class="section" id="section1" data-section="1">
+  <span class="section-indicator">Section 1 of 9</span>
+  <h2>The Case: Paris, 1900</h2>
+
+  <div class="explorer-only">
+    <div class="case-file svg-border-art" id="caseFile" style="opacity:0; transform: translateY(20px); transition: all 1s ease;">
+      <h3>CASE FILE #1900-PARIS</h3>
+      <p><strong>Location:</strong> Paris, France - Exposition Universelle (World's Fair)</p>
+      <p><strong>Date:</strong> April 15 - November 12, 1900</p>
+      <p><strong>Visitors:</strong> Over 50,000,000 (fifty million!)</p>
+      <p><strong>Mission:</strong> Show the world the real story of Black Americans using nothing but facts and data.</p>
+      <p><strong>Lead Detective:</strong> W.E.B. Du Bois</p>
+      <p><strong>Status:</strong> <span style="color: var(--crimson); font-weight:700;">DECLASSIFIED</span></p>
+    </div>
+  </div>
+
+  <p>Picture this: It is the year <strong>1900</strong>. The greatest World's Fair ever assembled is about to open in Paris, France. Over <strong>50 million visitors</strong> from around the globe will walk through its gates. Countries from every continent are building grand pavilions to show off their achievements.</p>
+
+  <p>The United States wants to demonstrate its "progress" since the Civil War. But there is a problem -- a big one.</p>
+
+  <div class="highlight-box crimson">
+    <h3>The Problem</h3>
+    <p>It had been only <strong>35 years since slavery ended</strong>. Much of the world still believed in racist pseudoscience -- fake "research" that claimed Black people were inferior. Jim Crow laws were spreading across the South, stripping away rights. In 1896, the Supreme Court had ruled in <em>Plessy v. Ferguson</em> that "separate but equal" was constitutional.</p>
+    <p>The deck was stacked. The lies were loud.</p>
+  </div>
+
+  <p>Into this storm stepped one remarkable man. The U.S. government gave sociologist <strong>W.E.B. Du Bois</strong> an extraordinary challenge: create an exhibit for the Paris World's Fair that would show the real story of Black Americans -- not through opinions or arguments, but through <strong>data</strong>.</p>
+
+  <div class="highlight-box green">
+    <h3>The Question</h3>
+    <p><strong>How could one person use facts, charts, and numbers to fight an entire world full of lies?</strong></p>
+    <p>That is what this lesson is about. You are going to learn exactly how Du Bois did it -- and by the end, you will be able to do it too.</p>
+  </div>
+
+  <div class="explorer-only">
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> The 1900 Paris World's Fair also debuted escalators, talking films, and the diesel engine. It was literally where the future was invented -- and Du Bois was right there, inventing the future of data visualization.
+    </div>
+  </div>
+
+  <div class="scholar-only">
+    <div class="scholar-prompt">
+      <strong>Scholar's Corner: Historical Context</strong>
+      <p>The 1896 <em>Plessy v. Ferguson</em> decision enshrined "separate but equal" into law. The era of "scientific racism" used phrenology (skull measurements) and eugenics to justify white supremacy. Du Bois's exhibit was not just educational -- it was a direct, data-driven counter-argument to an entire system of oppression.</p>
+      <p><strong>Think deeper:</strong> Why might data and charts have been more persuasive to a European audience in 1900 than a moral or emotional argument? Consider the cultural moment -- the Age of Science and Reason.</p>
+      <textarea placeholder="Write your thoughts here..."></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 2 ============== -->
+<section class="section" id="section2" data-section="2">
+  <span class="section-indicator">Section 2 of 9</span>
+  <h2>Meet Your Lead Detective: W.E.B. Du Bois</h2>
+
+  <p>Every great investigation needs a brilliant detective. Ours is one of the most important intellectuals in American history.</p>
+
+  <div class="explorer-only">
+    <p style="text-align:center; color: var(--brown); font-weight:600; margin-bottom:8px;">Click the card to reveal the detective's profile!</p>
+    <div class="detective-card" id="detectiveCard" onclick="this.classList.toggle('flipped')">
+      <div class="detective-card-inner">
+        <div class="card-front">
+          <div class="badge-icon">&#128270;</div>
+          <h3>DETECTIVE ID CARD</h3>
+          <p>W.E.B. Du Bois</p>
+          <p style="font-size:0.8rem; margin-top:12px; opacity:0.7;">TAP TO REVEAL</p>
+        </div>
+        <div class="card-back">
+          <h3>W.E.B. Du Bois (1868-1963)</h3>
+          <ul>
+            <li><strong>Born:</strong> 1868, Great Barrington, Massachusetts</li>
+            <li><strong>Education:</strong> First Black American to earn a Ph.D. from Harvard University</li>
+            <li><strong>Profession:</strong> Sociologist, historian, writer, civil rights activist</li>
+            <li><strong>Achievement:</strong> Co-founded the NAACP in 1909</li>
+            <li><strong>Legacy:</strong> Pioneered data visualization and sociology as tools for justice</li>
+            <li><strong>Died:</strong> August 27, 1963 -- one day before the March on Washington</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>William Edward Burghardt Du Bois</strong> was born in 1868 in Massachusetts -- just three years after slavery ended. He grew up to become the <strong>first Black American to earn a Ph.D. from Harvard University</strong>. He was a sociologist, historian, author, and one of the most important civil rights leaders in American history.</p>
+    <p>In 1909, he co-founded the <strong>NAACP</strong> (National Association for the Advancement of Colored People), which remains the largest civil rights organization in the United States.</p>
+  </div>
+
+  <p>Du Bois died on <strong>August 27, 1963</strong> -- just one day before the historic March on Washington where Dr. Martin Luther King Jr. delivered his "I Have a Dream" speech. His entire life spanned the arc from emancipation to the Civil Rights Movement.</p>
+
+  <div class="scholar-only">
+    <div class="highlight-box crimson">
+      <h3>Du Bois's Most Famous Insight</h3>
+      <p style="font-family:'VTC Du Bois',serif; font-size:1.2rem; font-style:italic; color: var(--crimson);">"The problem of the twentieth century is the problem of the color line."</p>
+      <p>-- W.E.B. Du Bois, <em>The Souls of Black Folk</em> (1903)</p>
+    </div>
+    <div class="scholar-prompt">
+      <strong>Scholar's Corner:</strong> Du Bois wrote this in 1903. Consider: Was he right? Did the "color line" remain the defining problem of the 20th century? What evidence from the century supports or complicates his claim?
+      <textarea placeholder="Write your analysis here..."></textarea>
+    </div>
+  </div>
+
+  <h3>Key Moments: An Interactive Timeline</h3>
+  <p>Click any event to learn more about it.</p>
+
+  <div class="timeline" id="timeline">
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1863</div>
+      <div class="event">Emancipation Proclamation</div>
+      <div class="detail">President Abraham Lincoln declared that enslaved people in Confederate states "shall be then, thenceforward, and forever free." This was a turning point in the Civil War and the beginning of the end of slavery in America.</div>
+    </div>
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1865</div>
+      <div class="event">Slavery Officially Ends (13th Amendment)</div>
+      <div class="detail">The 13th Amendment to the Constitution permanently abolished slavery throughout the United States. Approximately 4 million people were freed.</div>
+    </div>
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1868</div>
+      <div class="event">W.E.B. Du Bois is Born</div>
+      <div class="detail">Born in Great Barrington, Massachusetts, just three years after slavery ended. He would grow up to become one of the most important intellectuals of the modern era.</div>
+    </div>
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1896</div>
+      <div class="event">Plessy v. Ferguson</div>
+      <div class="detail">The Supreme Court ruled that racial segregation was legal under the doctrine of "separate but equal." This decision legalized Jim Crow laws and would not be overturned until 1954.</div>
+    </div>
+    <div class="timeline-item highlight" onclick="this.classList.toggle('open')">
+      <div class="year">1900</div>
+      <div class="event" style="color:var(--crimson); font-weight:700;">Paris World's Fair -- Du Bois Exhibits</div>
+      <div class="detail">Du Bois and his team created 63 stunning hand-drawn data visualizations for the "Exhibit of American Negroes" at the Paris Exposition Universelle. The exhibit won a Grand Prix (gold medal). This is our case!</div>
+    </div>
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1909</div>
+      <div class="event">NAACP Founded</div>
+      <div class="detail">Du Bois co-founded the National Association for the Advancement of Colored People, which became the most influential civil rights organization in the U.S. He edited its magazine, <em>The Crisis</em>, for 24 years.</div>
+    </div>
+    <div class="timeline-item" onclick="this.classList.toggle('open')">
+      <div class="year">1963</div>
+      <div class="event">Du Bois Dies (Aug 27) / March on Washington (Aug 28)</div>
+      <div class="detail">Du Bois passed away in Accra, Ghana, at age 95. The very next day, Dr. Martin Luther King Jr. delivered his "I Have a Dream" speech to 250,000 people in Washington, D.C. The movement Du Bois helped build was reaching its crescendo.</div>
+    </div>
+  </div>
+
+  <div class="explorer-only">
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> Du Bois's exhibit at the 1900 Paris World's Fair won a Grand Prix -- the highest award! The judges were so impressed by his data visualizations that they gave him gold.
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 3 ============== -->
+<section class="section" id="section3" data-section="3">
+  <span class="section-indicator">Section 3 of 9</span>
+  <h2>Fighting Lies with Facts</h2>
+
+  <p>Du Bois faced a world drowning in racist propaganda. Powerful people used fake science to justify discrimination. So how did he fight back?</p>
+
+  <p><strong>He did not use a sword. He used data.</strong></p>
+
+  <div class="highlight-box">
+    <p>Du Bois and his students at Atlanta University created <strong>63 hand-drawn data visualizations</strong> -- charts, graphs, and maps -- using real census data and original research. These charts were so beautifully designed and ahead of their time that modern critics have called them <em>"strikingly vibrant and modern, almost anticipating Mondrian or Kandinsky."</em></p>
+    <p style="text-align: right; font-style: italic; color: #888;">-- Alison Meier, Hyperallergic</p>
+  </div>
+
+  <h3>The Lies vs. The Truth</h3>
+  <p>Click each card to flip it and see how Du Bois fought misinformation with data.</p>
+
+  <div class="flip-grid">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <h4>THE LIE</h4>
+          <p>"Black people are intellectually inferior"</p>
+          <p style="font-size:0.75rem; opacity:0.6;">Click to see the truth</p>
+        </div>
+        <div class="flip-back truth">
+          <h4>THE TRUTH</h4>
+          <p>Du Bois showed data on rising literacy rates, growing numbers of college graduates, and thriving Black-owned businesses -- all achieved just decades after slavery.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <h4>THE LIE</h4>
+          <p>"Phrenology proves racial hierarchy"</p>
+          <p style="font-size:0.75rem; opacity:0.6;">Click to see the truth</p>
+        </div>
+        <div class="flip-back truth">
+          <h4>THE TRUTH</h4>
+          <p>Phrenology (skull measurements) was pseudoscience with no basis in fact. Du Bois countered with real sociology -- census data, economic statistics, and demographic analysis. Science vs. fake science.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <h4>THE LIE</h4>
+          <p>"Black communities are declining"</p>
+          <p style="font-size:0.75rem; opacity:0.6;">Click to see the truth</p>
+        </div>
+        <div class="flip-back truth">
+          <h4>THE TRUTH</h4>
+          <p>Du Bois's population charts showed explosive, sustained growth in the Black American population. The community was large, permanent, and growing stronger with every decade.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-front">
+          <h4>THE LIE</h4>
+          <p>"Claims without evidence, designed to justify discrimination"</p>
+          <p style="font-size:0.75rem; opacity:0.6;">Click to see the truth</p>
+        </div>
+        <div class="flip-back truth">
+          <h4>THE TRUTH</h4>
+          <p>Du Bois used real U.S. Census data, original surveys, and rigorous methodology. Every chart had a source. Every claim had evidence. He met propaganda with proof.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explorer-only">
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> Du Bois hand-drew all 63 charts! There were no computers, no design software, no printing machines for color graphics. He and his students at Atlanta University created every single visualization by hand, using ink and watercolors. Today, data scientists use Du Bois's color choices and layouts as inspiration.
+    </div>
+  </div>
+
+  <div class="scholar-only">
+    <div class="scholar-prompt">
+      <strong>Scholar's Corner: The Power of Data</strong>
+      <p>Consider why data was potentially more effective than moral arguments alone. In the late 1800s, moral arguments against slavery had existed for over a century -- yet discrimination continued. Du Bois chose a different approach: empirical evidence presented with stunning visual design.</p>
+      <p><strong>Critical Thinking:</strong> What makes data persuasive? Can data be misused? How did Du Bois use design choices (color, layout, scale) to make his data more compelling? Think about the difference between presenting raw numbers and presenting a story told through data.</p>
+      <textarea placeholder="Analyze the effectiveness of Du Bois's approach..."></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 4 ============== -->
+<section class="section" id="section4" data-section="4">
+  <span class="section-indicator">Section 4 of 9</span>
+  <h2>Detective's Toolkit: 5 Steps to Read Any Chart</h2>
+
+  <p>Before we examine Du Bois's evidence, every good detective needs the right tools. Here are the <strong>5 steps</strong> that will let you read and understand any data visualization you encounter -- whether it was made in 1900 or today.</p>
+
+  <div class="toolkit-steps" id="toolkitSteps">
+    <div class="toolkit-step active" onclick="activateStep(this)">
+      <div class="toolkit-step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Read the Title</div>
+      </div>
+      <div class="step-content">
+        <p><strong>What does this chart measure?</strong> The title tells you the subject of the investigation. Without reading the title, you are looking at meaningless shapes and colors.</p>
+        <p><em>Example:</em> A Du Bois chart titled "City and Rural Population" immediately tells you this chart compares where people live -- cities versus countryside.</p>
+        <div class="explorer-only">
+          <div class="fun-fact"><strong>Detective Tip:</strong> Always read the title FIRST, even before looking at the picture. It is like reading the label on a case file before opening it!</div>
+        </div>
+      </div>
+    </div>
+    <div class="toolkit-step" onclick="activateStep(this)">
+      <div class="toolkit-step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Check the Axes</div>
+      </div>
+      <div class="step-content">
+        <p><strong>What is the X-axis (horizontal)? What is the Y-axis (vertical)? What are the units?</strong></p>
+        <p>The axes are like the grid lines on a map. The X-axis usually shows categories or time (like years). The Y-axis usually shows amounts (like population or percentages).</p>
+        <p><em>Example:</em> X-axis = "Year (1860-1900)" and Y-axis = "Population in Millions" tells you that as you move right, time passes, and as you move up, the population is larger.</p>
+      </div>
+    </div>
+    <div class="toolkit-step" onclick="activateStep(this)">
+      <div class="toolkit-step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Notice the Pattern</div>
+      </div>
+      <div class="step-content">
+        <p><strong>Is the data going up? Going down? Staying the same?</strong></p>
+        <p>Look for the overall trend. Is the line climbing? Are the bars getting taller? Is there a sudden jump or drop? Patterns are the clues your data is giving you.</p>
+        <p><em>Example:</em> If a population line goes steadily upward from left to right, the pattern is "consistent growth." That is a powerful clue.</p>
+      </div>
+    </div>
+    <div class="toolkit-step" onclick="activateStep(this)">
+      <div class="toolkit-step-header">
+        <div class="step-number">4</div>
+        <div class="step-title">Look for Comparisons</div>
+      </div>
+      <div class="step-content">
+        <p><strong>Are there multiple colors, lines, or groups being compared?</strong></p>
+        <p>Many charts compare two or more things side by side. Look for different colors, multiple bars, or separate lines. The comparison is often where the most important story is hiding.</p>
+        <p><em>Example:</em> Du Bois often used crimson and gold to compare different groups or time periods. The contrast made the data's story impossible to ignore.</p>
+      </div>
+    </div>
+    <div class="toolkit-step" onclick="activateStep(this)">
+      <div class="toolkit-step-header">
+        <div class="step-number">5</div>
+        <div class="step-title">Ask "Why Does This Matter?"</div>
+      </div>
+      <div class="step-content">
+        <p><strong>What was the detective trying to prove with this chart?</strong></p>
+        <p>Every chart is created with a purpose. Du Bois did not make charts for decoration -- each one was a piece of evidence in his argument. Ask yourself: What point is this chart making? Why would someone show me this data?</p>
+        <p><em>Example:</em> A chart showing rising literacy rates after slavery matters because it proves that when given the opportunity to learn, formerly enslaved people and their descendants seized it immediately and dramatically.</p>
+        <div class="scholar-only">
+          <div class="scholar-prompt">
+            <strong>Scholar's Corner:</strong> Step 5 is where critical thinking happens. Consider: Can the same data be presented in ways that tell different stories? How does the chart-maker's perspective influence which data they choose to show?
+            <textarea placeholder="Reflect on data presentation and perspective..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="explorer-only">
+    <div class="highlight-box green">
+      <h3>Practice Round</h3>
+      <p>Let us practice with a simple example. Imagine a bar chart titled "Books Read Per Student, 2020-2023" with bars showing: 2020 = 8 books, 2021 = 12 books, 2022 = 15 books, 2023 = 19 books.</p>
+      <ol style="margin:12px 0 0 20px;">
+        <li><strong>Title:</strong> Books read per student over four years</li>
+        <li><strong>Axes:</strong> X = Year, Y = Number of books</li>
+        <li><strong>Pattern:</strong> Going UP every year -- consistent growth</li>
+        <li><strong>Comparisons:</strong> Each year compared to the next</li>
+        <li><strong>Why it matters:</strong> Students are reading more each year -- education improvements are working!</li>
+      </ol>
+      <p style="margin-top:12px;">See? Five steps, and you have cracked the chart like a detective cracks a case.</p>
+    </div>
+  </div>
+
+  <div class="dnd-activity" id="dndActivity">
+    <h4>Sorting Challenge: Match the Chart Type!</h4>
+    <p style="font-size:0.95rem;color:#555;margin-bottom:14px;">Drag each chart type and drop it on what it shows best.</p>
+    <div class="dnd-sources" id="dndSources">
+      <div class="dnd-chip" draggable="true" data-chart="bar">Bar Chart</div>
+      <div class="dnd-chip" draggable="true" data-chart="line">Line Chart</div>
+      <div class="dnd-chip" draggable="true" data-chart="pie">Pie Chart</div>
+      <div class="dnd-chip" draggable="true" data-chart="map">Map</div>
+    </div>
+    <div class="dnd-targets">
+      <div class="dnd-zone" data-answer="bar" id="zone-bar">
+        <div class="zone-label">Comparing amounts</div>
+        <div class="zone-slot">Drop here</div>
+      </div>
+      <div class="dnd-zone" data-answer="line" id="zone-line">
+        <div class="zone-label">Showing change over time</div>
+        <div class="zone-slot">Drop here</div>
+      </div>
+      <div class="dnd-zone" data-answer="pie" id="zone-pie">
+        <div class="zone-label">Showing parts of a whole</div>
+        <div class="zone-slot">Drop here</div>
+      </div>
+      <div class="dnd-zone" data-answer="map" id="zone-map">
+        <div class="zone-label">Showing geographic data</div>
+        <div class="zone-slot">Drop here</div>
+      </div>
+    </div>
+    <div class="dnd-result" id="dndResult">Great job! You matched all chart types correctly!</div>
+  </div>
+
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 5 ============== -->
+<section class="section" id="section5" data-section="5">
+  <span class="section-indicator">Section 5 of 9</span>
+  <h2>Clue #1: Population Growth</h2>
+
+  <p>Now let us examine the evidence. Du Bois wanted to prove that the Black American community was <strong>large, permanent, and growing</strong> -- not disappearing, as racists claimed.</p>
+
+  <p>Let us apply our 5-step toolkit to this data:</p>
+
+  <div class="chart-container svg-border-art" id="popChartContainer">
+    <h4>Black American Population, 1900 - 2020</h4>
+    <canvas id="popChart" width="800" height="420"></canvas>
+    <div class="explorer-only" style="text-align:center; margin-top:10px;">
+      <button onclick="animatePopChart()" style="padding:8px 20px; background:var(--crimson); color:white; border:none; border-radius:6px; cursor:pointer; font-family:'Inter',sans-serif; font-weight:600;">Animate the Chart</button>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <h3>Reading This Chart (5 Steps)</h3>
+    <p><strong>1. Title:</strong> "Black American Population, 1900-2020"</p>
+    <p><strong>2. Axes:</strong> X-axis = Year (1900 to 2020). Y-axis = Population in millions.</p>
+    <p><strong>3. Pattern:</strong> Steady upward growth -- the line climbs from 8.8 million to 41.1 million!</p>
+    <p><strong>4. Comparisons:</strong> Each decade compared to the last shows continuous growth.</p>
+    <p><strong>5. Why it matters:</strong> Du Bois proved the Black community was large and growing. This directly countered claims that the population would "die out."</p>
+  </div>
+
+  <p>Look at those numbers: from <strong>8.8 million</strong> in 1900 to <strong>41.1 million</strong> in 2020. That is nearly <strong>5 times larger</strong> in just 120 years!</p>
+
+  <div class="math-challenge" id="mathChallenge1">
+    <h4>Math Challenge</h4>
+    <p>How many times larger is the 2020 population compared to 1900?</p>
+    <p>Calculate: 41.1 &divide; 8.8 = ?</p>
+    <div>
+      <input type="number" id="mathInput1" step="0.01" placeholder="?.??">
+      <button onclick="checkMath1()">Check</button>
+    </div>
+    <div class="math-feedback" id="mathFeedback1"></div>
+  </div>
+
+  <div class="explorer-only">
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> 41.1 million people is larger than the entire population of Canada! The Black American community is not just large -- it is one of the biggest demographic groups in the entire Western Hemisphere.
+    </div>
+  </div>
+
+  <div class="scholar-only">
+    <div class="scholar-prompt">
+      <strong>Scholar's Corner: Growth Rate Analysis</strong>
+      <p>The population grew from 8.8M to 41.1M over 120 years (12 decades). That is roughly 13.5% growth per decade on average. But growth was not uniform:</p>
+      <ul style="margin: 8px 0 8px 20px;">
+        <li>1900-1920: 8.8M to 10.5M = 19.3% growth</li>
+        <li>1960-1980: 18.9M to 26.5M = 40.2% growth</li>
+        <li>2000-2020: 34.7M to 41.1M = 18.4% growth</li>
+      </ul>
+      <p><strong>Critical Thinking:</strong> Why was growth fastest between 1960-1980? Consider migration, the Civil Rights Movement, improved healthcare access, and changes in how race was counted on the census. What factors drive population growth?</p>
+      <textarea placeholder="Analyze the growth rate variations..."></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 6 ============== -->
+<section class="section" id="section6" data-section="6">
+  <span class="section-indicator">Section 6 of 9</span>
+  <h2>Clue #2: The Journey for Opportunity</h2>
+
+  <p>Du Bois knew that where people live tells a powerful story. In 1900, the geography of Black America was still shaped by slavery. Let us trace the incredible journey from then to now.</p>
+
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <div class="tab-btn active" onclick="switchTab('tab1900', this)">1900 (Then)</div>
+      <div class="tab-btn" onclick="switchTab('tabMigration', this)">Great Migration</div>
+      <div class="tab-btn" onclick="switchTab('tab2020', this)">2020 (Now)</div>
+    </div>
+    <div class="tab-panel active" id="tab1900">
+      <h3>1900: The Shadow of Slavery</h3>
+      <p><strong>90% of Black Americans lived in the South.</strong></p>
+      <p>Total population: 8.8 million. It had been only 35 years since slavery ended. Most Black Americans still lived in the same states -- and often on the same land -- where their ancestors had been enslaved. Opportunities for education and employment were severely limited by Jim Crow laws.</p>
+      <div class="highlight-box crimson">
+        <p>Think about it: 90% in one region. That is not a choice -- that is the geography of slavery, still dictating where people could live, work, and dream, three and a half decades after emancipation.</p>
+      </div>
+    </div>
+    <div class="tab-panel" id="tabMigration">
+      <h3>The Great Migration (1916-1970)</h3>
+      <p>One of the largest internal migrations in human history:</p>
+      <ul style="margin: 12px 0 12px 24px;">
+        <li><strong>6 million+ Black Americans</strong> moved from the rural South to cities in the North, Midwest, and West</li>
+        <li>Escaping Jim Crow, lynching, and sharecropping</li>
+        <li>Seeking factory jobs, better schools, and the right to vote</li>
+        <li>Created vibrant communities: Harlem (NYC), Bronzeville (Chicago), Paradise Valley (Detroit)</li>
+      </ul>
+      <div class="explorer-only">
+        <div class="fun-fact">
+          <strong>Fun Fact:</strong> The Great Migration transformed American culture. Jazz, blues, the Harlem Renaissance, gospel, and soul music -- all of these artistic movements were fueled by the energy of Black communities building new lives in new cities.
+        </div>
+      </div>
+      <div class="scholar-only">
+        <div class="scholar-prompt">
+          <strong>Scholar's Corner:</strong> The Great Migration was driven by "push" factors (Jim Crow, lynching, economic exploitation) and "pull" factors (factory jobs, voting rights, better schools). How do push and pull factors still shape migration today? Think about current patterns of people moving between states.
+          <textarea placeholder="Analyze migration push/pull factors..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab2020">
+      <h3>2020: A Transformed Geography</h3>
+      <p>Today, Black Americans live across the entire nation:</p>
+      <ul style="margin: 12px 0 12px 24px;">
+        <li><strong>South: 58%</strong> (~23.8 million)</li>
+        <li><strong>North/Midwest: 32%</strong> (~13.2 million)</li>
+        <li><strong>West: 10%</strong> (~4.1 million)</li>
+      </ul>
+      <p>Interestingly, a "Reverse Migration" has been happening since the 1970s, with many Black Americans moving back to the South -- this time by choice, drawn by economic opportunity, lower cost of living, and family roots.</p>
+      <p>From 90% in the South to 58% -- the Great Migration reshaped America forever.</p>
+    </div>
+  </div>
+
+  <div class="math-challenge" id="mathChallenge2">
+    <h4>Math Challenge</h4>
+    <p>If 58% of 41.1 million Black Americans live in the South today, how many is that?</p>
+    <p>Calculate: 41.1 &times; 0.58 = ?</p>
+    <div>
+      <input type="number" id="mathInput2" step="0.1" placeholder="?.?">
+      <button onclick="checkMath2()">Check</button>
+    </div>
+    <div class="math-feedback" id="mathFeedback2"></div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 7 ============== -->
+<section class="section" id="section7" data-section="7">
+  <span class="section-indicator">Section 7 of 9</span>
+  <h2>Clue #3: The Rise of Education</h2>
+
+  <p>This might be the most powerful clue of all. Remember: during slavery, it was <strong>illegal</strong> to teach enslaved people to read. In many states, anyone caught teaching a Black person to read could be fined, whipped, or imprisoned.</p>
+
+  <p>Despite this, by 1900 -- just 35 years after slavery ended -- Du Bois showed that the Black literacy rate had already reached <strong>55%</strong>. Think about what that means: over half of the community had learned to read in a single generation, starting from a position where reading was literally a crime.</p>
+
+  <div class="chart-container" id="eduChartContainer">
+    <h4>High School Completion Rate: Black Americans</h4>
+    <canvas id="eduChart" width="800" height="400"></canvas>
+  </div>
+
+  <div class="highlight-box green">
+    <h3>What the Data Shows</h3>
+    <p><strong>1940: 7.3%</strong> had completed high school. Just decades after slavery, with underfunded segregated schools.</p>
+    <p><strong>1980: 51.2%</strong> completed high school. The Civil Rights Movement and desegregation transformed access to education.</p>
+    <p><strong>2020: 90.1%</strong> completed high school. Near parity with the national average.</p>
+    <p>The gap between Black and white high school graduation rates narrowed from <strong>17 percentage points to just 4</strong>.</p>
+  </div>
+
+  <p>The biggest jump happened between 1940 and 1980. Why? The Civil Rights Movement, the <em>Brown v. Board of Education</em> decision (1954) that ended legal school segregation, and federal funding for education all combined to dramatically expand opportunity.</p>
+
+  <div class="explorer-only">
+    <div class="fun-fact">
+      <strong>Fun Fact:</strong> From ILLEGAL to 90.1%! The journey from "reading is a crime" to "9 out of 10 completing high school" is one of the most remarkable educational achievements in human history. Du Bois would be proud -- he always said education was the key to freedom.
+    </div>
+  </div>
+
+  <div class="scholar-only">
+    <div class="scholar-prompt">
+      <strong>Scholar's Corner: The 1940-1980 Leap</strong>
+      <p>The biggest jump in high school completion (7.3% to 51.2%) happened in the decades surrounding the Civil Rights Movement. Consider these factors:</p>
+      <ul style="margin: 8px 0 8px 20px;">
+        <li>Brown v. Board of Education (1954) -- ended legal school segregation</li>
+        <li>Civil Rights Act (1964) -- prohibited discrimination in federally funded programs</li>
+        <li>Elementary and Secondary Education Act (1965) -- massive federal funding for schools</li>
+        <li>The Great Migration -- moved families to areas with better-funded schools</li>
+      </ul>
+      <p><strong>Critical Thinking:</strong> If the graduation gap is now only 4 points, does that mean educational equity has been achieved? What other metrics might reveal ongoing disparities (funding per student, college completion, school quality)?</p>
+      <textarea placeholder="Analyze education equity beyond graduation rates..."></textarea>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 8 ============== -->
+<section class="section" id="section8" data-section="8">
+  <span class="section-indicator">Section 8 of 9</span>
+  <h2>The Verdict + Your First Case</h2>
+
+  <h3>The Verdict: What the Evidence Proves</h3>
+
+  <div class="highlight-box green">
+    <h3>What Du Bois Proved in 1900</h3>
+    <ul style="margin: 8px 0 0 20px;">
+      <li>The Black American population was <strong>large, permanent, and growing</strong></li>
+      <li>Educational progress was <strong>remarkable</strong>, despite starting from a position where learning was illegal</li>
+      <li>The community had <strong>diverse occupations</strong>, owned businesses, and built institutions</li>
+      <li><strong>Strong communities</strong> with churches, schools, and civic organizations were thriving</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box crimson">
+    <h3>What the Data Shows Today (Continuing the Story)</h3>
+    <ul style="margin: 8px 0 0 20px;">
+      <li><strong>5-fold population growth</strong>: 8.8M to 41.1M -- larger than most countries</li>
+      <li><strong>Historic migration</strong>: 6M+ people moved in the Great Migration, reshaping America</li>
+      <li><strong>Near-parity graduation</strong>: From 7.3% to 90.1% high school completion -- only 4 points from the national average</li>
+      <li>The story Du Bois began telling in 1900 is a story of <strong>resilience, growth, and achievement</strong></li>
+    </ul>
+  </div>
+
+  <h3>Your First Case: Create Your Own Visualization</h3>
+
+  <p>Now it is your turn to be the data detective. Below is real data from Jefferson Middle School's perfect attendance records. Your job: build a chart that tells the story this data is trying to tell.</p>
+
+  <div class="highlight-box">
+    <h4>The Data: Jefferson Middle School -- Students with Perfect Attendance</h4>
+    <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+      <tr style="background:var(--black); color:var(--gold);">
+        <th style="padding:8px; text-align:left;">Year</th>
+        <th style="padding:8px; text-align:right;">Students</th>
+      </tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px;">2019</td><td style="padding:8px; text-align:right;">45</td></tr>
+      <tr style="border-bottom:1px solid #ddd; background:#fff5f5;"><td style="padding:8px;">2020 (Pandemic)</td><td style="padding:8px; text-align:right;">30</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px;">2021</td><td style="padding:8px; text-align:right;">38</td></tr>
+      <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px;">2022</td><td style="padding:8px; text-align:right;">52</td></tr>
+      <tr><td style="padding:8px;">2023</td><td style="padding:8px; text-align:right;">61</td></tr>
+    </table>
+  </div>
+
+  <div class="chart-builder svg-border-art" id="chartBuilder">
+    <h3>Build Your Chart</h3>
+
+    <label for="chartTitle">Chart Title:</label>
+    <input type="text" id="chartTitle" placeholder="">
+
+    <label for="chartType">Chart Type:</label>
+    <select id="chartType">
+      <option value="bar">Bar Chart</option>
+      <option value="line">Line Chart</option>
+    </select>
+
+    <label>Color Palette:</label>
+    <div class="color-palette-options" id="paletteOptions">
+      <div class="palette-option selected" onclick="selectPalette(this, 0)">
+        <div class="palette-swatch" style="background:#8B1A1A;"></div>
+        <div class="palette-swatch" style="background:#C5A55A;"></div>
+        <div class="palette-swatch" style="background:#2D5A3D;"></div>
+      </div>
+      <div class="palette-option" onclick="selectPalette(this, 1)">
+        <div class="palette-swatch" style="background:#1a1a1a;"></div>
+        <div class="palette-swatch" style="background:#6B4226;"></div>
+        <div class="palette-swatch" style="background:#C5A55A;"></div>
+      </div>
+      <div class="palette-option" onclick="selectPalette(this, 2)">
+        <div class="palette-swatch" style="background:#2D5A3D;"></div>
+        <div class="palette-swatch" style="background:#8B1A1A;"></div>
+        <div class="palette-swatch" style="background:#1a1a1a;"></div>
+      </div>
+    </div>
+
+    <label for="chartTrend">Describe the Trend (one sentence):</label>
+    <textarea id="chartTrend" placeholder=""></textarea>
+
+    <button onclick="drawUserChart()">Draw My Chart</button>
+  </div>
+
+  <div class="chart-container" id="userChartContainer" style="display:none;">
+    <h4 id="userChartTitle"></h4>
+    <canvas id="userChart" width="800" height="400"></canvas>
+    <p id="userChartTrend" style="text-align:center; font-style:italic; margin-top:12px; color:#666;"></p>
+  </div>
+
+  <div class="checklist" id="chartChecklist" style="display:none;">
+    <h4 style="margin-bottom:10px;">Du Bois Quality Checklist:</h4>
+    <div class="checklist-item"><input type="checkbox" id="ck1"> <label for="ck1">Chart has a clear, descriptive title</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck2"> <label for="ck2">Axes are labeled (Year and Students)</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck3"> <label for="ck3">All 5 data points are plotted correctly</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck4"> <label for="ck4">Bold, intentional color choices (Du Bois style)</label></div>
+    <div class="checklist-item"><input type="checkbox" id="ck5"> <label for="ck5">Trend sentence explains what the data shows</label></div>
+  </div>
+</section>
+
+<div class="parallax-divider"><svg class="parallax-svg" viewBox="0 0 400 120" preserveAspectRatio="none"></svg><div class="gold-line"></div></div>
+
+<!-- ============== SECTION 9 ============== -->
+<section class="section" id="section9" data-section="9">
+  <span class="section-indicator">Section 9 of 9</span>
+  <h2>Final Quiz: Test Your Detective Skills</h2>
+
+  <p>Time to see how much you have learned, detective. Answer all 8 questions to earn your rank.</p>
+
+  <div class="quiz-container" id="quizContainer">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div class="quiz-question" id="quizQuestion"></div>
+    <div class="quiz-nav" id="quizNav"></div>
+  </div>
+
+  <div id="quizResults" style="display:none;">
+    <div class="score-display" id="scoreDisplay"></div>
+    <div style="text-align:center;margin:20px 0;">
+      <button onclick="openCertificate()" style="padding:14px 32px;background:var(--gold);color:var(--black);border:none;border-radius:10px;font-weight:700;font-size:1.1rem;cursor:pointer;font-family:'VTC Du Bois',serif;letter-spacing:1px;">&#127942; Get Your Certificate</button>
+    </div>
+
+    <div class="explorer-only" id="badgeArea"></div>
+
+    <div class="scholar-only">
+      <div class="scholar-prompt">
+        <strong>Final Reflection (Scholar Mode)</strong>
+        <p>Du Bois created his data visualizations over 120 years ago, yet they still resonate today. In 2-3 sentences, reflect: Why does data remain a powerful tool for social justice? What can modern data scientists learn from Du Bois's approach?</p>
+        <textarea placeholder="Write your final reflection..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing-quote" style="margin-top:40px;">
+    <blockquote>"Imagine what we might be if we grow to what we wish."</blockquote>
+    <cite>-- W.E.B. Du Bois</cite>
+  </div>
+
+  <div class="next-links">
+    <a href="index.html" class="link-hub">Back to Hub</a>
+    <a href="lesson2.html" class="link-next">Continue to Lesson 2</a>
+  </div>
+</section>
+
+<div style="height: 60px;"></div>
+
+<!-- BADGE OVERLAY -->
+<div class="badge-overlay" id="badgeOverlay">
+  <div class="badge-card">
+    <span class="badge-icon" id="badgeEmoji">&#128270;</span>
+    <h3 id="badgeTitle">Lesson Complete!</h3>
+    <p id="badgeText">You have completed Lesson 1.</p>
+    <button onclick="document.getElementById('badgeOverlay').classList.remove('show')">Continue</button>
+  </div>
+</div>
+
+<!-- CELEBRATION CANVAS -->
+<canvas class="celebration-canvas" id="celebrationCanvas"></canvas>
+
+<!-- SOUND TOGGLE -->
+<button class="sound-toggle" id="soundToggle" onclick="toggleSound()" title="Toggle sound">&#128264;</button>
+
+<!-- TROPHY / ACHIEVEMENTS BUTTON -->
+<button class="trophy-btn" id="trophyBtn" onclick="openBadgeDrawer()" title="View achievements">&#127942;</button>
+
+<!-- BADGE DRAWER -->
+<div class="badge-drawer-overlay" id="badgeDrawerOverlay" onclick="closeBadgeDrawer()">
+  <div class="badge-drawer" onclick="event.stopPropagation()">
+    <button class="close-drawer" onclick="closeBadgeDrawer()">&times;</button>
+    <h3>Your Achievements</h3>
+    <div id="badgeDrawerList"></div>
+  </div>
+</div>
+
+<!-- BADGE TOAST -->
+<div class="badge-toast" id="badgeToast">
+  <span class="toast-icon" id="toastIcon"></span>
+  <div class="toast-text">
+    <h4 id="toastTitle">Badge Earned!</h4>
+    <p id="toastDesc"></p>
+  </div>
+</div>
+
+<!-- CERTIFICATE MODAL -->
+<div class="cert-modal-overlay" id="certOverlay">
+  <div class="cert-modal" id="certContent">
+    <div class="cert-seal">&#127942;</div>
+    <h2>Certificate of Achievement</h2>
+    <div class="cert-sub">Data Detective Program</div>
+    <div class="cert-body">
+      This certifies that<br>
+      <input class="cert-name-input" id="certNameInput" type="text" placeholder="Enter Your Name" oninput="document.getElementById('certNameDisplay').textContent=this.value||'Your Name Here'">
+      <div class="cert-name-display" id="certNameDisplay" style="display:none;">Your Name Here</div>
+      <br>has successfully completed<br>
+      <strong>Lesson 1: Become a Data Detective</strong><br>
+      with a score of <strong id="certScore">0/8</strong> (<span id="certPct">0%</span>)<br>
+      earning the rank of <strong id="certRank">Trainee</strong>
+    </div>
+    <div class="cert-date" id="certDate"></div>
+    <div class="cert-seal">&#9733;</div>
+    <div class="cert-btns">
+      <button class="cert-btn-print" onclick="window.print()">Print Certificate</button>
+      <button class="cert-btn-close" onclick="closeCertificate()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== MODE MANAGEMENT ====================
+let currentMode = 'explorer';
+
+function initMode() {
+  const params = new URLSearchParams(window.location.search);
+  const urlMode = params.get('mode');
+  const storedMode = localStorage.getItem('dubois-mode');
+  if (urlMode === 'scholar' || urlMode === 'explorer') {
+    currentMode = urlMode;
+  } else if (storedMode === 'scholar' || storedMode === 'explorer') {
+    currentMode = storedMode;
+  }
+  applyMode();
+}
+
+function applyMode() {
+  document.body.className = 'mode-' + currentMode;
+  localStorage.setItem('dubois-mode', currentMode);
+  const btn = document.getElementById('modeToggle');
+  btn.textContent = currentMode === 'explorer' ? 'Switch to Scholar' : 'Switch to Explorer';
+  // Set placeholder hints based on mode
+  setBuilderHints();
+}
+
+function toggleMode() {
+  currentMode = currentMode === 'explorer' ? 'scholar' : 'explorer';
+  applyMode();
+}
+
+function setBuilderHints() {
+  const titleInput = document.getElementById('chartTitle');
+  const trendInput = document.getElementById('chartTrend');
+  if (currentMode === 'explorer') {
+    titleInput.placeholder = 'e.g., "Jefferson Middle School Perfect Attendance, 2019-2023"';
+    trendInput.placeholder = 'e.g., "Attendance dropped during the pandemic but recovered and grew even higher by 2023."';
+  } else {
+    titleInput.placeholder = 'Write a descriptive title for your chart...';
+    trendInput.placeholder = 'Describe what the data reveals...';
+  }
+}
+
+// ==================== PROGRESS BAR ====================
+function updateProgress() {
+  const sections = document.querySelectorAll('.section');
+  let lastVisible = 0;
+  sections.forEach((sec, i) => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.6) lastVisible = i;
+  });
+  const pct = ((lastVisible + 1) / sections.length) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ==================== SCROLL REVEAL ====================
+function revealSections() {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) {
+      sec.classList.add('visible');
+    }
+  });
+  updateProgress();
+}
+
+// ==================== CASE FILE ANIMATION ====================
+function animateCaseFile() {
+  const cf = document.getElementById('caseFile');
+  if (cf) {
+    setTimeout(() => {
+      cf.style.opacity = '1';
+      cf.style.transform = 'translateY(0)';
+    }, 600);
+  }
+}
+
+// ==================== TOOLKIT STEPS ====================
+function activateStep(el) {
+  document.querySelectorAll('.toolkit-step').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ==================== TAB TOGGLE ====================
+function switchTab(tabId, btnEl) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btnEl.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// ==================== MATH CHALLENGES ====================
+function checkMath1() {
+  const val = parseFloat(document.getElementById('mathInput1').value);
+  const fb = document.getElementById('mathFeedback1');
+  if (isNaN(val)) { fb.textContent = 'Please enter a number.'; fb.className = 'math-feedback incorrect'; return; }
+  if (val >= 4.4 && val <= 5.0) {
+    fb.textContent = 'Correct! 41.1 / 8.8 = approximately 4.67. The population grew nearly 5 times!';
+    fb.className = 'math-feedback correct';
+  } else {
+    fb.textContent = 'Not quite. Try dividing 41.1 by 8.8. Hint: the answer is between 4 and 5.';
+    fb.className = 'math-feedback incorrect';
+  }
+}
+
+function checkMath2() {
+  const val = parseFloat(document.getElementById('mathInput2').value);
+  const fb = document.getElementById('mathFeedback2');
+  if (isNaN(val)) { fb.textContent = 'Please enter a number.'; fb.className = 'math-feedback incorrect'; return; }
+  if (val >= 22.5 && val <= 25.0) {
+    fb.textContent = 'Correct! 41.1 x 0.58 = approximately 23.8 million people live in the South today.';
+    fb.className = 'math-feedback correct';
+  } else {
+    fb.textContent = 'Not quite. Multiply 41.1 by 0.58. Hint: the answer is around 23-24 million.';
+    fb.className = 'math-feedback incorrect';
+  }
+}
+
+// ==================== POPULATION CHART ====================
+let popAnimated = false;
+const popData = [
+  {year: 1900, pop: 8.8},
+  {year: 1920, pop: 10.5},
+  {year: 1940, pop: 12.9},
+  {year: 1960, pop: 18.9},
+  {year: 1980, pop: 26.5},
+  {year: 2000, pop: 34.7},
+  {year: 2020, pop: 41.1}
+];
+
+function drawPopChart(progress) {
+  const canvas = document.getElementById('popChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = {top: 30, right: 40, bottom: 50, left: 70};
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = '#FDFBF7';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = '#e0d8c8';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + (chartH / 5) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+  }
+
+  // Y-axis labels
+  ctx.fillStyle = '#666';
+  ctx.font = '13px Inter, sans-serif';
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 5; i++) {
+    const val = 50 - i * 10;
+    const y = pad.top + (chartH / 5) * i;
+    ctx.fillText(val + 'M', pad.left - 10, y + 5);
+  }
+
+  // X-axis labels
+  ctx.textAlign = 'center';
+  popData.forEach((d, i) => {
+    const x = pad.left + (i / (popData.length - 1)) * chartW;
+    ctx.fillText(d.year, x, H - pad.bottom + 25);
+  });
+
+  // Axis labels
+  ctx.font = 'bold 14px Inter, sans-serif';
+  ctx.fillStyle = '#444';
+  ctx.textAlign = 'center';
+  ctx.fillText('Year', W / 2, H - 8);
+
+  ctx.save();
+  ctx.translate(16, H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Population (Millions)', 0, 0);
+  ctx.restore();
+
+  // Data points and line
+  const pts = popData.map((d, i) => ({
+    x: pad.left + (i / (popData.length - 1)) * chartW,
+    y: pad.top + chartH - (d.pop / 50) * chartH
+  }));
+
+  const numPoints = Math.floor(progress * pts.length);
+  const frac = (progress * pts.length) - numPoints;
+
+  if (numPoints >= 1) {
+    // Fill area
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pad.top + chartH);
+    for (let i = 0; i < numPoints && i < pts.length; i++) {
+      ctx.lineTo(pts[i].x, pts[i].y);
+    }
+    if (numPoints < pts.length && frac > 0) {
+      const prevPt = pts[numPoints - 1];
+      const nextPt = pts[numPoints];
+      ctx.lineTo(prevPt.x + (nextPt.x - prevPt.x) * frac, prevPt.y + (nextPt.y - prevPt.y) * frac);
+    }
+    const lastDrawnX = numPoints < pts.length && frac > 0
+      ? pts[numPoints - 1].x + (pts[numPoints].x - pts[numPoints - 1].x) * frac
+      : pts[Math.min(numPoints - 1, pts.length - 1)].x;
+    ctx.lineTo(lastDrawnX, pad.top + chartH);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(139, 26, 26, 0.1)';
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < numPoints && i < pts.length; i++) {
+      ctx.lineTo(pts[i].x, pts[i].y);
+    }
+    if (numPoints < pts.length && frac > 0) {
+      const prevPt = pts[numPoints - 1];
+      const nextPt = pts[numPoints];
+      ctx.lineTo(prevPt.x + (nextPt.x - prevPt.x) * frac, prevPt.y + (nextPt.y - prevPt.y) * frac);
+    }
+    ctx.strokeStyle = '#8B1A1A';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Points and labels
+    for (let i = 0; i < numPoints && i < pts.length; i++) {
+      ctx.beginPath();
+      ctx.arc(pts[i].x, pts[i].y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = '#8B1A1A';
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(pts[i].x, pts[i].y, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Value label
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = 'bold 12px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(popData[i].pop + 'M', pts[i].x, pts[i].y - 14);
+    }
+  }
+}
+
+function animatePopChart() {
+  if (popAnimated) { drawPopChart(1); return; }
+  popAnimated = true;
+  let start = null;
+  const duration = 2500;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    drawPopChart(eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Auto-animate population chart on scroll
+let popChartTriggered = false;
+function checkPopChart() {
+  if (popChartTriggered) return;
+  const container = document.getElementById('popChartContainer');
+  if (!container) return;
+  const rect = container.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7) {
+    popChartTriggered = true;
+    animatePopChart();
+  }
+}
+
+// ==================== EDUCATION CHART ====================
+const eduData = [
+  {year: '1940', pct: 7.3, color: '#8B1A1A'},
+  {year: '1980', pct: 51.2, color: '#C5A55A'},
+  {year: '2020', pct: 90.1, color: '#1a1a1a'}
+];
+let eduAnimated = false;
+
+function drawEduChart(progress) {
+  const canvas = document.getElementById('eduChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = {top: 30, right: 40, bottom: 60, left: 70};
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#FDFBF7';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = '#e0d8c8';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.top + (chartH / 5) * i;
+    ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+    const val = 100 - i * 20;
+    ctx.fillStyle = '#666';
+    ctx.font = '13px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(val + '%', pad.left - 10, y + 5);
+  }
+
+  const barW = chartW / (eduData.length * 2 + 1);
+  eduData.forEach((d, i) => {
+    const x = pad.left + barW + i * barW * 2;
+    const barH = (d.pct / 100) * chartH * progress;
+    const y = pad.top + chartH - barH;
+
+    // Bar
+    ctx.fillStyle = d.color;
+    ctx.fillRect(x, y, barW, barH);
+
+    // Year label
+    ctx.fillStyle = '#444';
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(d.year, x + barW / 2, pad.top + chartH + 22);
+
+    // Value label
+    if (progress > 0.5) {
+      ctx.fillStyle = d.color;
+      ctx.font = 'bold 16px Inter, sans-serif';
+      ctx.fillText(d.pct + '%', x + barW / 2, y - 10);
+    }
+  });
+
+  // Axis labels
+  ctx.fillStyle = '#444';
+  ctx.font = 'bold 14px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Year', W / 2, H - 8);
+
+  ctx.save();
+  ctx.translate(16, H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Completion Rate (%)', 0, 0);
+  ctx.restore();
+}
+
+function animateEduChart() {
+  if (eduAnimated) return;
+  eduAnimated = true;
+  let start = null;
+  const duration = 2000;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    drawEduChart(eased);
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // Celebration for explorer mode
+      if (currentMode === 'explorer') {
+        triggerMiniCelebration();
+      }
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+let eduChartTriggered = false;
+function checkEduChart() {
+  if (eduChartTriggered) return;
+  const container = document.getElementById('eduChartContainer');
+  if (!container) return;
+  const rect = container.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.7) {
+    eduChartTriggered = true;
+    animateEduChart();
+  }
+}
+
+// ==================== USER CHART BUILDER ====================
+let selectedPalette = 0;
+const palettes = [
+  ['#8B1A1A', '#C5A55A', '#2D5A3D', '#6B4226', '#1a1a1a'],
+  ['#1a1a1a', '#6B4226', '#C5A55A', '#8B1A1A', '#2D5A3D'],
+  ['#2D5A3D', '#8B1A1A', '#1a1a1a', '#C5A55A', '#6B4226']
+];
+
+function selectPalette(el, idx) {
+  document.querySelectorAll('.palette-option').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPalette = idx;
+}
+
+const userData = [
+  {year: '2019', val: 45},
+  {year: '2020', val: 30},
+  {year: '2021', val: 38},
+  {year: '2022', val: 52},
+  {year: '2023', val: 61}
+];
+
+function drawUserChart() {
+  const title = document.getElementById('chartTitle').value.trim() || 'My Chart';
+  const type = document.getElementById('chartType').value;
+  const trend = document.getElementById('chartTrend').value.trim();
+  const colors = palettes[selectedPalette];
+
+  document.getElementById('userChartContainer').style.display = 'block';
+  document.getElementById('userChartTitle').textContent = title;
+  document.getElementById('userChartTrend').textContent = trend;
+  document.getElementById('chartChecklist').style.display = 'block';
+
+  const canvas = document.getElementById('userChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = {top: 30, right: 40, bottom: 60, left: 70};
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+
+  // Animate
+  let start = null;
+  const duration = 1500;
+  function step(timestamp) {
+    if (!start) start = timestamp;
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#FDFBF7';
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = '#e0d8c8';
+    ctx.lineWidth = 1;
+    const maxVal = 70;
+    for (let i = 0; i <= 7; i++) {
+      const y = pad.top + (chartH / 7) * i;
+      ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(W - pad.right, y); ctx.stroke();
+      ctx.fillStyle = '#666';
+      ctx.font = '12px Inter, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(Math.round(70 - i * 10), pad.left - 10, y + 4);
+    }
+
+    if (type === 'bar') {
+      const barW = chartW / (userData.length * 2 + 1);
+      userData.forEach((d, i) => {
+        const x = pad.left + barW + i * barW * 2;
+        const barH = (d.val / maxVal) * chartH * eased;
+        const y = pad.top + chartH - barH;
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fillRect(x, y, barW, barH);
+        ctx.fillStyle = '#444';
+        ctx.font = 'bold 13px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(d.year, x + barW / 2, pad.top + chartH + 22);
+        if (eased > 0.5) {
+          ctx.fillStyle = colors[i % colors.length];
+          ctx.font = 'bold 14px Inter, sans-serif';
+          ctx.fillText(d.val, x + barW / 2, y - 8);
+        }
+      });
+    } else {
+      // Line chart
+      const pts = userData.map((d, i) => ({
+        x: pad.left + (i / (userData.length - 1)) * chartW,
+        y: pad.top + chartH - (d.val / maxVal) * chartH
+      }));
+
+      const numPts = Math.ceil(eased * pts.length);
+      if (numPts >= 1) {
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < numPts; i++) ctx.lineTo(pts[i].x, pts[i].y);
+        ctx.strokeStyle = colors[0];
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        for (let i = 0; i < numPts; i++) {
+          ctx.beginPath();
+          ctx.arc(pts[i].x, pts[i].y, 6, 0, Math.PI * 2);
+          ctx.fillStyle = colors[i % colors.length];
+          ctx.fill();
+          ctx.fillStyle = '#444';
+          ctx.font = 'bold 12px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(userData[i].val, pts[i].x, pts[i].y - 14);
+        }
+      }
+
+      // X labels for line chart
+      userData.forEach((d, i) => {
+        const x = pad.left + (i / (userData.length - 1)) * chartW;
+        ctx.fillStyle = '#444';
+        ctx.font = 'bold 13px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(d.year, x, pad.top + chartH + 22);
+      });
+    }
+
+    // Axis labels
+    ctx.fillStyle = '#444';
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Year', W / 2, H - 8);
+    ctx.save();
+    ctx.translate(16, H / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.fillText('Students', 0, 0);
+    ctx.restore();
+
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+
+  // Scroll to chart
+  setTimeout(() => {
+    document.getElementById('userChartContainer').scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 200);
+}
+
+// ==================== QUIZ ====================
+const quizQuestions = [
+  {
+    q: 'What year did W.E.B. Du Bois present his data visualizations at the Paris World\'s Fair?',
+    options: ['1865', '1896', '1900', '1909'],
+    correct: 2
+  },
+  {
+    q: 'How many hand-drawn charts did Du Bois and his team create for the exhibit?',
+    options: ['12', '37', '63', '100'],
+    correct: 2
+  },
+  {
+    q: 'What percentage of Black Americans lived in the South in 1900?',
+    options: ['50%', '70%', '80%', '90%'],
+    correct: 3
+  },
+  {
+    q: 'What was the Black American high school completion rate in 1940?',
+    options: ['7.3%', '15.6%', '23.1%', '51.2%'],
+    correct: 0
+  },
+  {
+    q: 'Approximately how many times larger was the Black American population in 2020 compared to 1900?',
+    options: ['~2 times', '~3 times', '~5 times', '~10 times'],
+    correct: 2
+  },
+  {
+    q: 'What was the Great Migration?',
+    options: [
+      'Europeans moving to America in the 1800s',
+      '6M+ Black Americans moving from South to North/West (1916-1970)',
+      'The movement of people during the Gold Rush',
+      'Du Bois moving to Paris in 1900'
+    ],
+    correct: 1
+  },
+  {
+    q: 'What was Du Bois\'s primary "weapon" against racist pseudoscience?',
+    options: ['Political speeches', 'Legal challenges', 'Data and evidence', 'Military force'],
+    correct: 2
+  },
+  {
+    q: 'What did Du Bois prove about the Black American community through his charts?',
+    options: [
+      'It was small and declining',
+      'It was large, permanent, and growing',
+      'It was entirely urban',
+      'It was only in the North'
+    ],
+    correct: 1
+  }
+];
+
+let currentQuestion = 0;
+let quizAnswers = new Array(quizQuestions.length).fill(-1);
+let quizLocked = new Array(quizQuestions.length).fill(false);
+
+function initQuiz() {
+  renderQuizProgress();
+  renderQuizQuestion();
+}
+
+function renderQuizProgress() {
+  const container = document.getElementById('quizProgress');
+  container.innerHTML = '';
+  quizQuestions.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'quiz-dot';
+    if (i === currentQuestion) dot.classList.add('current');
+    if (quizLocked[i]) {
+      dot.classList.add(quizAnswers[i] === quizQuestions[i].correct ? 'correct' : 'wrong');
+    }
+    dot.textContent = i + 1;
+    container.appendChild(dot);
+  });
+}
+
+function renderQuizQuestion() {
+  const qData = quizQuestions[currentQuestion];
+  const container = document.getElementById('quizQuestion');
+
+  let html = '<h4>Question ' + (currentQuestion + 1) + ' of ' + quizQuestions.length + ': ' + qData.q + '</h4>';
+  html += '<div class="quiz-options">';
+  qData.options.forEach((opt, i) => {
+    let cls = 'quiz-option';
+    if (quizLocked[currentQuestion]) {
+      cls += ' disabled';
+      if (i === qData.correct) cls += ' correct-answer';
+      if (i === quizAnswers[currentQuestion] && i !== qData.correct) cls += ' wrong-answer';
+    } else if (quizAnswers[currentQuestion] === i) {
+      cls += ' selected';
+    }
+    html += '<div class="' + cls + '" onclick="selectQuizOption(' + i + ')">' + opt + '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+
+  // Nav buttons
+  const nav = document.getElementById('quizNav');
+  let navHtml = '';
+  if (currentQuestion > 0) {
+    navHtml += '<button class="btn-secondary" onclick="prevQuestion()">Previous</button>';
+  }
+  if (!quizLocked[currentQuestion]) {
+    navHtml += '<button class="btn-primary" onclick="submitAnswer()">Submit Answer</button>';
+  } else if (currentQuestion < quizQuestions.length - 1) {
+    navHtml += '<button class="btn-primary" onclick="nextQuestion()">Next Question</button>';
+  } else {
+    navHtml += '<button class="btn-primary" onclick="showResults()">See My Results</button>';
+  }
+  nav.innerHTML = navHtml;
+}
+
+function selectQuizOption(idx) {
+  if (quizLocked[currentQuestion]) return;
+  quizAnswers[currentQuestion] = idx;
+  renderQuizQuestion();
+}
+
+function submitAnswer() {
+  if (quizAnswers[currentQuestion] === -1) return;
+  quizLocked[currentQuestion] = true;
+  renderQuizProgress();
+  renderQuizQuestion();
+}
+
+function nextQuestion() {
+  if (currentQuestion < quizQuestions.length - 1) {
+    currentQuestion++;
+    renderQuizProgress();
+    renderQuizQuestion();
+  }
+}
+
+function prevQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuizProgress();
+    renderQuizQuestion();
+  }
+}
+
+function showResults() {
+  let correct = 0;
+  quizQuestions.forEach((q, i) => { if (quizAnswers[i] === q.correct) correct++; });
+  const pct = Math.round((correct / quizQuestions.length) * 100);
+
+  let rank, rankColor;
+  if (pct >= 90) { rank = 'Master Detective'; rankColor = '#C5A55A'; }
+  else if (pct >= 70) { rank = 'Senior Agent'; rankColor = '#2D5A3D'; }
+  else if (pct >= 50) { rank = 'Junior Detective'; rankColor = '#6B4226'; }
+  else { rank = 'Trainee'; rankColor = '#8B1A1A'; }
+
+  document.getElementById('quizContainer').style.display = 'none';
+  document.getElementById('quizResults').style.display = 'block';
+
+  const scoreEl = document.getElementById('scoreDisplay');
+  scoreEl.innerHTML = '<div class="rank" style="color:' + rankColor + ';">' + rank + '</div>' +
+    '<div class="score-num">' + correct + '/' + quizQuestions.length + '</div>' +
+    '<p style="font-size:1.2rem; margin-top:8px;">You scored <strong>' + pct + '%</strong></p>' +
+    '<p style="color:#888; margin-top:8px;">You answered ' + correct + ' out of ' + quizQuestions.length + ' questions correctly.</p>';
+
+  // Explorer badge
+  if (currentMode === 'explorer') {
+    document.getElementById('badgeArea').innerHTML =
+      '<div style="text-align:center; margin-top:20px;"><p style="color:var(--brown); font-weight:600;">You earned the <strong>Data Detective Badge</strong> for completing Lesson 1!</p></div>';
+    showBadge(rank, pct);
+  }
+
+  // Celebration
+  if (pct >= 70) triggerCelebration();
+}
+
+// ==================== BADGE OVERLAY ====================
+function showBadge(rank, pct) {
+  const overlay = document.getElementById('badgeOverlay');
+  document.getElementById('badgeEmoji').innerHTML = pct >= 90 ? '&#127942;' : pct >= 70 ? '&#11088;' : '&#128270;';
+  document.getElementById('badgeTitle').textContent = rank + '!';
+  document.getElementById('badgeText').textContent = 'You completed Lesson 1: Become a Data Detective with a score of ' + pct + '%.';
+  overlay.classList.add('show');
+}
+
+// ==================== CELEBRATION PARTICLES ====================
+function triggerCelebration() {
+  const canvas = document.getElementById('celebrationCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = ['#8B1A1A', '#C5A55A', '#2D5A3D', '#6B4226', '#1a1a1a', '#FFD700'];
+
+  for (let i = 0; i < 120; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 200,
+      w: 6 + Math.random() * 8,
+      h: 6 + Math.random() * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vy: 2 + Math.random() * 4,
+      vx: (Math.random() - 0.5) * 3,
+      rotation: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 10
+    });
+  }
+
+  let frames = 0;
+  function animate() {
+    frames++;
+    if (frames > 180) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.y += p.vy;
+      p.x += p.vx;
+      p.rotation += p.rotSpeed;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - frames / 180);
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+function triggerMiniCelebration() {
+  const canvas = document.getElementById('celebrationCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = ['#C5A55A', '#2D5A3D', '#8B1A1A'];
+  for (let i = 0; i < 40; i++) {
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+      y: canvas.height / 2,
+      vx: (Math.random() - 0.5) * 8,
+      vy: -3 - Math.random() * 6,
+      r: 3 + Math.random() * 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      life: 60 + Math.random() * 40
+    });
+  }
+  let frames = 0;
+  function animate() {
+    frames++;
+    if (frames > 100) { ctx.clearRect(0, 0, canvas.width, canvas.height); return; }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.15;
+      p.life--;
+      if (p.life > 0) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.life / 100);
+        ctx.fill();
+      }
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ==================== FEATURE 1: SOUND SYSTEM ====================
+let soundMuted = localStorage.getItem('dubois-sound-muted') === 'true';
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function updateSoundIcon() {
+  document.getElementById('soundToggle').innerHTML = soundMuted ? '&#128263;' : '&#128264;';
+}
+function toggleSound() {
+  soundMuted = !soundMuted;
+  localStorage.setItem('dubois-sound-muted', soundMuted);
+  updateSoundIcon();
+  if (!soundMuted) playClick();
+}
+function playClick() {
+  if (soundMuted) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.type = 'sine'; o.frequency.value = 800;
+  g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime + 0.05);
+}
+function playSuccess() {
+  if (soundMuted) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  [523, 659, 784].forEach((freq, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.15, audioCtx.currentTime + i * 0.1);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.1 + 0.1);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(audioCtx.currentTime + i * 0.1);
+    o.stop(audioCtx.currentTime + i * 0.1 + 0.1);
+  });
+}
+function playCelebrationSound() {
+  if (soundMuted) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  [523, 659, 784, 1047].forEach((freq, i) => {
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.12, audioCtx.currentTime + i * 0.08);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.08 + 0.15);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(audioCtx.currentTime + i * 0.08);
+    o.stop(audioCtx.currentTime + i * 0.08 + 0.15);
+  });
+}
+function playWhoosh() {
+  if (soundMuted) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const bufSize = audioCtx.sampleRate * 0.2;
+  const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const bp = audioCtx.createBiquadFilter();
+  bp.type = 'bandpass'; bp.frequency.value = 1200; bp.Q.value = 0.8;
+  const g = audioCtx.createGain();
+  g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+  src.connect(bp); bp.connect(g); g.connect(audioCtx.destination);
+  src.start(); src.stop(audioCtx.currentTime + 0.2);
+}
+
+// ==================== FEATURE 2: ACHIEVEMENT BADGE SYSTEM ====================
+const badgeDefs = [
+  {id:'time-traveler',name:'Time Traveler',icon:'\u23F3',desc:'Opened 3+ timeline events'},
+  {id:'myth-buster',name:'Myth Buster',icon:'\uD83D\uDCA5',desc:'Flipped all 4 lie/truth cards'},
+  {id:'tool-master',name:'Tool Master',icon:'\uD83D\uDD27',desc:'Completed all 5 toolkit steps'},
+  {id:'number-cruncher',name:'Number Cruncher',icon:'\uD83E\uDDD0',desc:'Got a math challenge correct'},
+  {id:'chart-creator',name:'Chart Creator',icon:'\uD83C\uDFA8',desc:'Built a chart in the builder'},
+  {id:'data-detective',name:'Data Detective',icon:'\uD83D\uDD0E',desc:'Scored 70%+ on the quiz'},
+  {id:'perfect-score',name:'Perfect Score',icon:'\uD83C\uDF1F',desc:'Got 8/8 on the quiz'}
+];
+
+let earnedBadges = JSON.parse(localStorage.getItem('dubois-badges') || '[]');
+let timelineOpens = 0;
+let flippedCards = new Set();
+let visitedSteps = new Set();
+
+function awardBadge(id) {
+  if (earnedBadges.includes(id)) return;
+  earnedBadges.push(id);
+  localStorage.setItem('dubois-badges', JSON.stringify(earnedBadges));
+  const def = badgeDefs.find(b => b.id === id);
+  if (!def) return;
+  playCelebrationSound();
+  const toast = document.getElementById('badgeToast');
+  document.getElementById('toastIcon').textContent = def.icon;
+  document.getElementById('toastTitle').textContent = def.name + ' Unlocked!';
+  document.getElementById('toastDesc').textContent = def.desc;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+function openBadgeDrawer() {
+  playClick();
+  const list = document.getElementById('badgeDrawerList');
+  list.innerHTML = '';
+  badgeDefs.forEach(b => {
+    const earned = earnedBadges.includes(b.id);
+    const div = document.createElement('div');
+    div.className = 'badge-item ' + (earned ? 'earned' : 'locked');
+    div.innerHTML = '<span class="b-icon">' + b.icon + '</span><div class="b-info"><h4>' + b.name + '</h4><p>' + (earned ? b.desc : 'Keep exploring to unlock!') + '</p></div>';
+    list.appendChild(div);
+  });
+  document.getElementById('badgeDrawerOverlay').classList.add('open');
+}
+function closeBadgeDrawer() {
+  document.getElementById('badgeDrawerOverlay').classList.remove('open');
+}
+
+function initAchievementTracking() {
+  // Track timeline opens
+  document.querySelectorAll('.timeline-item').forEach(item => {
+    item.addEventListener('click', function() {
+      playClick();
+      if (this.classList.contains('open')) {
+        timelineOpens++;
+        if (timelineOpens >= 3) awardBadge('time-traveler');
+      }
+    });
+  });
+  // Track flip cards
+  document.querySelectorAll('.flip-card').forEach((card, i) => {
+    card.addEventListener('click', function() {
+      playClick();
+      flippedCards.add(i);
+      if (flippedCards.size >= 4) awardBadge('myth-buster');
+    });
+  });
+  // Track toolkit steps
+  const origActivateStep = window.activateStep;
+  window.activateStep = function(el) {
+    origActivateStep(el);
+    playClick();
+    const steps = document.querySelectorAll('.toolkit-step');
+    steps.forEach((s, i) => { if (s === el) visitedSteps.add(i); });
+    if (visitedSteps.size >= 5) awardBadge('tool-master');
+  };
+  // Track mode toggle
+  const origToggleMode = window.toggleMode;
+  window.toggleMode = function() {
+    origToggleMode();
+    playWhoosh();
+  };
+}
+
+// ==================== FEATURE 3: DRAG AND DROP ====================
+function initDragAndDrop() {
+  const chips = document.querySelectorAll('.dnd-chip');
+  const zones = document.querySelectorAll('.dnd-zone');
+  let correctCount = 0;
+
+  chips.forEach(chip => {
+    chip.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text/plain', this.dataset.chart);
+      this.style.opacity = '0.5';
+      playClick();
+    });
+    chip.addEventListener('dragend', function() {
+      this.style.opacity = this.classList.contains('placed') ? '0.4' : '1';
+    });
+  });
+
+  zones.forEach(zone => {
+    zone.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      if (!this.classList.contains('correct')) this.classList.add('drag-over');
+    });
+    zone.addEventListener('dragleave', function() {
+      this.classList.remove('drag-over');
+    });
+    zone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('drag-over');
+      if (this.classList.contains('correct')) return;
+      const chartType = e.dataTransfer.getData('text/plain');
+      const slot = this.querySelector('.zone-slot');
+      if (chartType === this.dataset.answer) {
+        this.classList.add('correct');
+        slot.textContent = document.querySelector('[data-chart="'+chartType+'"]').textContent;
+        slot.style.color = 'var(--green)'; slot.style.fontWeight = '700';
+        document.querySelector('[data-chart="'+chartType+'"]').classList.add('placed');
+        correctCount++;
+        playSuccess();
+        if (correctCount >= 4) {
+          document.getElementById('dndResult').style.display = 'block';
+          playCelebrationSound();
+        }
+      } else {
+        this.classList.add('incorrect');
+        slot.textContent = 'Try again!'; slot.style.color = 'var(--crimson)';
+        setTimeout(() => {
+          this.classList.remove('incorrect');
+          slot.textContent = 'Drop here'; slot.style.color = '#888';
+        }, 800);
+        playClick();
+      }
+    });
+  });
+}
+
+// ==================== FEATURE 4: TYPEWRITER QUOTES ====================
+function initTypewriter() {
+  const targets = [
+    { sel: '.closing-quote blockquote', text: '"Imagine what we might be if we grow to what we wish."' },
+    { sel: '.scholar-only .highlight-box.crimson p[style*="font-style:italic"]', text: '"The problem of the twentieth century is the problem of the color line."' }
+  ];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.twDone) {
+        entry.target.dataset.twDone = 'true';
+        const originalText = entry.target.dataset.twText;
+        entry.target.textContent = '';
+        const cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+        entry.target.appendChild(cursor);
+        let i = 0;
+        function typeNext() {
+          if (i < originalText.length) {
+            entry.target.insertBefore(document.createTextNode(originalText[i]), cursor);
+            i++;
+            setTimeout(typeNext, 40);
+          } else {
+            setTimeout(() => { if (cursor.parentNode) cursor.remove(); }, 2000);
+          }
+        }
+        typeNext();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  targets.forEach(t => {
+    const el = document.querySelector(t.sel);
+    if (el) {
+      el.dataset.twText = t.text;
+      el.textContent = '';
+      observer.observe(el);
+    }
+  });
+}
+
+// ==================== FEATURE 5: CERTIFICATE ====================
+let certData = { score: 0, total: 8, pct: 0, rank: 'Trainee' };
+
+function openCertificate() {
+  playSuccess();
+  document.getElementById('certScore').textContent = certData.score + '/' + certData.total;
+  document.getElementById('certPct').textContent = certData.pct + '%';
+  document.getElementById('certRank').textContent = certData.rank;
+  document.getElementById('certDate').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('certOverlay').classList.add('show');
+}
+function closeCertificate() {
+  document.getElementById('certOverlay').classList.remove('show');
+}
+
+// ==================== FEATURE 6: PARALLAX DIVIDERS ====================
+const svgPatterns = [
+  // Concentric circles
+  '<circle cx="200" cy="60" r="15" fill="none" stroke="#C5A55A" stroke-width="1.5"/><circle cx="200" cy="60" r="30" fill="none" stroke="#C5A55A" stroke-width="1.5"/><circle cx="200" cy="60" r="45" fill="none" stroke="#C5A55A" stroke-width="1.5"/><circle cx="200" cy="60" r="55" fill="none" stroke="#C5A55A" stroke-width="1"/>',
+  // Radiating lines
+  '<line x1="200" y1="60" x2="200" y2="5" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="250" y2="15" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="270" y2="60" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="250" y2="105" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="200" y2="115" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="150" y2="105" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="130" y2="60" stroke="#8B1A1A" stroke-width="1.5"/><line x1="200" y1="60" x2="150" y2="15" stroke="#8B1A1A" stroke-width="1.5"/>',
+  // Nested diamonds
+  '<polygon points="200,20 240,60 200,100 160,60" fill="none" stroke="#6B4226" stroke-width="1.5"/><polygon points="200,35 225,60 200,85 175,60" fill="none" stroke="#6B4226" stroke-width="1.5"/><polygon points="200,48 210,60 200,72 190,60" fill="none" stroke="#6B4226" stroke-width="1.5"/>',
+  // Spiral (approximated)
+  '<path d="M200,60 Q215,45 220,60 Q225,80 200,80 Q175,80 175,60 Q175,35 200,35 Q230,35 230,60 Q230,90 200,90" fill="none" stroke="#2D5A3D" stroke-width="1.5"/>'
+];
+
+function initParallaxDividers() {
+  const dividers = document.querySelectorAll('.parallax-divider');
+  dividers.forEach((d, i) => {
+    const svg = d.querySelector('.parallax-svg');
+    svg.innerHTML = svgPatterns[i % svgPatterns.length];
+  });
+}
+
+function updateParallax() {
+  const scrollY = window.scrollY;
+  document.querySelectorAll('.parallax-divider').forEach(d => {
+    const rect = d.getBoundingClientRect();
+    const offset = (rect.top + rect.height / 2) * 0.3;
+    const svg = d.querySelector('.parallax-svg');
+    svg.style.transform = 'translateY(' + (offset * 0.15) + 'px)';
+  });
+}
+
+// ==================== FEATURE 7: SVG BORDER ART ====================
+function initSvgBorderArt() {
+  const targets = document.querySelectorAll('.svg-border-art');
+  targets.forEach(el => {
+    const w = el.offsetWidth || 300;
+    const h = el.offsetHeight || 200;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'corner-decoration');
+    svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    const cornerLen = Math.min(40, w * 0.12, h * 0.15);
+    const cr = 4;
+    // Top-left
+    svg.innerHTML = '<path d="M' + cornerLen + ',2 L2,2 L2,' + cornerLen + '"/>' +
+      '<circle cx="2" cy="2" r="' + cr + '"/>' +
+      // Top-right
+      '<path d="M' + (w - cornerLen) + ',2 L' + (w - 2) + ',2 L' + (w - 2) + ',' + cornerLen + '"/>' +
+      '<circle cx="' + (w - 2) + '" cy="2" r="' + cr + '"/>' +
+      // Bottom-left
+      '<path d="M2,' + (h - cornerLen) + ' L2,' + (h - 2) + ' L' + cornerLen + ',' + (h - 2) + '"/>' +
+      '<circle cx="2" cy="' + (h - 2) + '" r="' + cr + '"/>' +
+      // Bottom-right
+      '<path d="M' + (w - 2) + ',' + (h - cornerLen) + ' L' + (w - 2) + ',' + (h - 2) + ' L' + (w - cornerLen) + ',' + (h - 2) + '"/>' +
+      '<circle cx="' + (w - 2) + '" cy="' + (h - 2) + '" r="' + cr + '"/>';
+    el.appendChild(svg);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  targets.forEach(el => observer.observe(el));
+}
+
+// ==================== HOOK SOUNDS INTO EXISTING FUNCTIONS ====================
+// Override math checks to add sounds and badge
+const origCheckMath1 = window.checkMath1;
+window.checkMath1 = function() {
+  origCheckMath1();
+  const fb = document.getElementById('mathFeedback1');
+  if (fb.classList.contains('correct')) { playSuccess(); awardBadge('number-cruncher'); }
+  else playClick();
+};
+const origCheckMath2 = window.checkMath2;
+window.checkMath2 = function() {
+  origCheckMath2();
+  const fb = document.getElementById('mathFeedback2');
+  if (fb.classList.contains('correct')) { playSuccess(); awardBadge('number-cruncher'); }
+  else playClick();
+};
+
+// Override submitAnswer to add sound
+const origSubmitAnswer = window.submitAnswer;
+window.submitAnswer = function() {
+  const wasLocked = quizLocked[currentQuestion];
+  origSubmitAnswer();
+  if (!wasLocked && quizLocked[currentQuestion]) {
+    if (quizAnswers[currentQuestion] === quizQuestions[currentQuestion].correct) playSuccess();
+    else playClick();
+  }
+};
+
+// Override drawUserChart to add badge
+const origDrawUserChart = window.drawUserChart;
+window.drawUserChart = function() {
+  origDrawUserChart();
+  playSuccess();
+  awardBadge('chart-creator');
+};
+
+// Override showResults to add badges + certificate data
+const origShowResults = window.showResults;
+window.showResults = function() {
+  origShowResults();
+  let correct = 0;
+  quizQuestions.forEach((q, i) => { if (quizAnswers[i] === q.correct) correct++; });
+  const pct = Math.round((correct / quizQuestions.length) * 100);
+  let rank;
+  if (pct >= 90) rank = 'Master Detective';
+  else if (pct >= 70) rank = 'Senior Agent';
+  else if (pct >= 50) rank = 'Junior Detective';
+  else rank = 'Trainee';
+  certData = { score: correct, total: quizQuestions.length, pct: pct, rank: rank };
+  if (pct >= 70) awardBadge('data-detective');
+  if (correct === quizQuestions.length) awardBadge('perfect-score');
+  playCelebrationSound();
+};
+
+// ==================== INITIALIZATION ====================
+window.addEventListener('DOMContentLoaded', function() {
+  initMode();
+  revealSections();
+  animateCaseFile();
+  drawPopChart(0);
+  drawEduChart(0);
+  initQuiz();
+  updateSoundIcon();
+  initAchievementTracking();
+  initDragAndDrop();
+  initTypewriter();
+  initParallaxDividers();
+  setTimeout(initSvgBorderArt, 300);
+
+  // Handle canvas resize
+  function resizeCanvases() {
+    const canvases = document.querySelectorAll('canvas:not(.celebration-canvas)');
+    canvases.forEach(c => {
+      const container = c.parentElement;
+      if (container) {
+        const w = Math.min(800, container.clientWidth - 48);
+        if (w > 0 && w !== c.width) {
+          c.width = w;
+          // Redraw relevant charts
+          if (c.id === 'popChart') drawPopChart(popAnimated ? 1 : 0);
+          if (c.id === 'eduChart') drawEduChart(eduAnimated ? 1 : 0);
+        }
+      }
+    });
+  }
+
+  window.addEventListener('resize', resizeCanvases);
+  setTimeout(resizeCanvases, 100);
+});
+
+window.addEventListener('scroll', function() {
+  revealSections();
+  checkPopChart();
+  checkEduChart();
+  updateParallax();
+});
+</script>
+</body>
+</html>
