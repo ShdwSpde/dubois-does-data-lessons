@@ -989,10 +989,8 @@ body {
   background: linear-gradient(90deg, var(--midnight), rgba(26,31,60,0.97), var(--midnight));
   border-top: 1px solid rgba(201,162,39,0.3);
   overflow: hidden; z-index: 999;
-  opacity: 0; transform: translateY(100%);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
 }
-.ticker-tape.visible { opacity: 1; transform: translateY(0); }
 body.projection-mode .ticker-tape { display: none !important; }
 .ticker-track {
   display: flex; white-space: nowrap;
@@ -3488,21 +3486,6 @@ document.querySelectorAll('[data-compare]').forEach(function(container) {
   window.addEventListener('touchmove', function(e) { if (dragging) updateSlider(e.touches[0].clientX); }, { passive: true });
   window.addEventListener('touchend', function() { dragging = false; });
 });
-
-// --- Ticker Tape ---
-(function initTicker() {
-  var ticker = document.getElementById('tickerTape');
-  if (!ticker) return;
-  var shown = false;
-  window.addEventListener('scroll', function() {
-    if (shown) return;
-    var scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-    if (scrollPct > 15) {
-      ticker.classList.add('visible');
-      shown = true;
-    }
-  }, { passive: true });
-})();
 
 // --- Progressive Expo Map ---
 (function initExpoMap() {
