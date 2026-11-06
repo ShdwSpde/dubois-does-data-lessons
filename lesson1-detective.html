@@ -471,9 +471,25 @@ body.mode-scholar .scholar-only { display: block; }
 .svg-border-art svg.corner-decoration{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 .svg-border-art svg.corner-decoration path,.svg-border-art svg.corner-decoration circle{stroke:var(--gold);fill:none;stroke-width:2;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease;}
 .svg-border-art.animated svg.corner-decoration path,.svg-border-art.animated svg.corner-decoration circle{stroke-dashoffset:0;}
+/* Overflow fixes */
+img, video, canvas, svg { max-width: 100%; height: auto; }
+.card, .stat-box, .challenge, .quiz-box, .chart-wrap, .fc-card,
+.badge-toast, .cert-modal, .dnd-zone, [class*="reveal"],
+.section, .lesson-section, .highlight-box, .case-file, .chart-container,
+.math-challenge, .quiz-question, .score-display, .chart-builder {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.flip-grid, .next-links, .dnd-sources, .dnd-targets, .color-palette-options { flex-wrap: wrap; }
+.detective-card { max-width: 100%; }
+
 /* RESPONSIVE */
 @media (max-width: 700px) {
+  .section, .lesson-section { padding-left: 16px; padding-right: 16px; }
+  .card, .stat-box, .challenge, .quiz-box { padding: 20px 16px; }
   .section h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.15rem; }
   .flip-grid { grid-template-columns: 1fr; }
   .timeline::before { left: 20px; }
   .timeline-item { width: 80%; margin-left: 15% !important; }
@@ -482,6 +498,11 @@ body.mode-scholar .scholar-only { display: block; }
   .detective-card { width: 280px; height: 380px; }
   .tab-btn { font-size: 0.8rem; padding: 10px 6px; }
   .nav-title { display: none; }
+  .cert-modal { padding: 30px 20px; }
+  .badge-drawer { width: 280px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  .hero { padding: 60px 16px 30px; }
+  .hero h1 { font-size: 1.8rem; }
 }
 /* Fun fact callout */
 .fun-fact {

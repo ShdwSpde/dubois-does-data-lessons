@@ -15,7 +15,7 @@
 :root{--crimson:#8B1A1A;--gold:#C5A55A;--dark-gold:#B8960C;--black:#1a1a1a;--dark-green:#2D5A3D;--parchment:#F5F0E8;--warm-bg:#D4C5A0;--tan:#E8DCC8;--brown:#6B4226;--red-accent:#C41E3A;--yellow:#E8C840}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--tan);color:var(--black);line-height:1.6}
+body{font-family:'Inter',sans-serif;background:var(--tan);color:var(--black);line-height:1.6;overflow-x:hidden}
 
 /* NAV */
 nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(26,26,26,0.97);backdrop-filter:blur(10px)}
@@ -329,6 +329,18 @@ footer strong{color:var(--gold)}
   body{background:#fff !important}
 }
 
+/* Overflow fixes */
+img, video, canvas, svg { max-width: 100%; height: auto; }
+.card, .stat-box, .challenge, .quiz-box, .chart-wrap, .fc-card,
+.badge-toast, .cert-modal, .dnd-zone, [class*="reveal"],
+.section, .lesson-section, .highlight-box, .prompt-card, .gap-card,
+.sensory-card, .vocab-card, .flip-front, .flip-back {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.stat-row, .closing-links, .dnd-items, .chart-legend { flex-wrap: wrap; }
+
 @media(max-width:800px){
   .grid-2,.chart-notes,.sensory-grid,.dnd-targets{grid-template-columns:1fr}
   .grid-3,.vocab-grid{grid-template-columns:1fr 1fr}
@@ -336,6 +348,18 @@ footer strong{color:var(--gold)}
   .chart-wrap,.quiz-box{padding:28px 18px;margin:20px 10px}
   .badge-drawer{left:10px;width:calc(100vw - 80px)}
   .cert-modal{padding:28px 20px}
+}
+@media(max-width:700px){
+  .lesson-section, .section { padding-left: 16px; padding-right: 16px; }
+  .card, .stat-box, .challenge, .quiz-box { padding: 20px 16px; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.15rem; }
+  .hero { padding: 60px 16px 30px; }
+  .hero h1 { font-size: 1.8rem; }
+  .cert-modal { padding: 30px 20px; }
+  .badge-drawer { width: 280px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  .timeline-wrap { -webkit-overflow-scrolling: touch; }
 }
 @media(max-width:550px){
   .grid-3,.vocab-grid{grid-template-columns:1fr}

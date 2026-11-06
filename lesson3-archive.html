@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3: Ask the Archive — Talking to Du Bois | Du Bois Data Portraits</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Upright/VTCDuBois-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Italic/VTCDuBois-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; }
+  @font-face { font-family: 'VTC Du Bois'; src: url('VTC Du Bois Desktop/TTF/Italic/VTCDuBois-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; }
+</style>
+<style>
+:root {
+  --crimson: #8B1A1A;
+  --gold: #C5A55A;
+  --dark-gold: #B8960C;
+  --black: #1a1a1a;
+  --green: #2D5A3D;
+  --brown: #6B4226;
+  --parchment: #F5F0E8;
+  --parchment-dark: #E8E0D0;
+  --tan: #E8DCC8;
+  --white: #FFFFFF;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--parchment);
+  color: var(--black);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4 { font-family: 'VTC Du Bois', serif; }
+
+/* Overflow fixes */
+img, video, canvas, svg { max-width: 100%; height: auto; }
+.card, .stat-box, .challenge, .quiz-box, .chart-wrap, .fc-card,
+.badge-toast, .cert-modal, .dnd-zone, [class*="reveal"],
+.section, .lesson-section, .highlight-box, .archive-response,
+.eval-card, .pipeline-step, .question-card, .limit-card {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  background: rgba(26,26,26,0.97); backdrop-filter: blur(10px);
+}
+.nav-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 56px;
+}
+.nav-brand { font-family: 'VTC Du Bois', serif; color: var(--gold); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-home { color: #aaa; text-decoration: none; font-size: .82rem; font-weight: 600; padding: 6px 12px; border-radius: 4px; transition: .3s; }
+.nav-home:hover { color: var(--gold); background: rgba(197,165,90,.1); }
+.mode-toggle {
+  background: var(--gold); color: var(--black); border: none;
+  padding: 6px 14px; border-radius: 20px; font-weight: 700;
+  font-size: .78rem; cursor: pointer; letter-spacing: .5px; transition: .3s;
+}
+.mode-toggle:hover { background: #d4b664; }
+
+/* PROGRESS */
+.progress-bar { position: fixed; top: 56px; left: 0; width: 100%; height: 5px; background: rgba(255,255,255,.1); z-index: 999; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--crimson), var(--gold)); width: 0%; transition: width .4s; border-radius: 0 3px 3px 0; }
+.section-indicator-float { position: fixed; top: 68px; right: 20px; background: var(--black); color: var(--gold); padding: 4px 12px; border-radius: 20px; font-size: .75rem; font-weight: 700; z-index: 998; opacity: .8; transition: .3s; }
+
+/* SECTIONS */
+.lesson-section { padding: 80px 24px; max-width: 900px; margin: 0 auto; }
+.section-tag {
+  display: inline-block; background: var(--crimson); color: #fff;
+  padding: 4px 14px; border-radius: 3px; font-size: .72rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;
+}
+h2.sec-title {
+  font-size: clamp(1.7rem, 4vw, 2.6rem); color: var(--crimson);
+  margin-bottom: 8px; line-height: 1.2;
+}
+.sec-sub { font-size: 1.05rem; color: #666; margin-bottom: 36px; max-width: 700px; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(28px); transition: all .7s ease-out; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden; padding: 80px 20px 40px;
+  background: linear-gradient(135deg, #1a0a0a 0%, #2a1515 40%, #1a1a2a 70%, var(--black) 100%);
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 40%, rgba(197,165,90,.12) 0%, transparent 55%),
+              radial-gradient(ellipse at 70% 60%, rgba(139,26,26,.10) 0%, transparent 55%);
+}
+.hero-content { position: relative; z-index: 2; max-width: 800px; }
+.hero-badge {
+  display: inline-block; background: var(--gold); color: var(--black);
+  padding: 6px 22px; border-radius: 30px; font-size: .82rem;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px;
+}
+.hero h1 { font-size: clamp(2.5rem, 6vw, 4.2rem); color: #fff; line-height: 1.1; margin-bottom: 10px; }
+.hero h1 span { color: var(--gold); }
+.hero h2 { font-size: clamp(1rem, 2.5vw, 1.5rem); color: #ccc; font-weight: 400; margin-bottom: 20px; }
+.hero-prompt {
+  font-family: 'VTC Du Bois', serif; font-style: italic; color: var(--gold);
+  font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px;
+}
+.hero-cta {
+  display: inline-block; background: var(--crimson); color: #fff;
+  padding: 14px 34px; text-decoration: none; font-weight: 700;
+  border-radius: 6px; transition: .3s; text-transform: uppercase;
+  letter-spacing: 1px; font-size: .95rem;
+}
+.hero-cta:hover { background: #a52020; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,26,26,.4); }
+
+/* EXPLORER / SCHOLAR */
+.explorer-only { display: none; }
+.scholar-only { display: none; }
+body.mode-explorer .explorer-only { display: block; }
+body.mode-scholar .scholar-only { display: block; }
+
+/* CARDS */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+.card {
+  background: #fff; border-radius: 14px; padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06); transition: .3s;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,.1); }
+.card h3 { font-size: 1.25rem; margin-bottom: 8px; color: var(--crimson); }
+.card p, .card li { font-size: .92rem; color: #555; line-height: 1.6; }
+.card ul { padding-left: 18px; }
+.card li { margin-bottom: 6px; }
+.card-dark { background: var(--black); color: #ddd; }
+.card-dark h3 { color: var(--gold); }
+.card-dark p, .card-dark li { color: #bbb; }
+
+/* HIGHLIGHT BOX */
+.highlight-box {
+  background: var(--white); border-left: 5px solid var(--gold);
+  padding: 20px 24px; margin: 20px 0; border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.highlight-box.crimson { border-left-color: var(--crimson); }
+.highlight-box.green { border-left-color: var(--green); }
+
+/* PIPELINE DIAGRAM */
+.pipeline {
+  display: flex; align-items: stretch; gap: 0; margin: 30px 0;
+  flex-wrap: wrap; justify-content: center;
+}
+.pipeline-step {
+  background: var(--white); border-radius: 12px; padding: 20px;
+  flex: 1; min-width: 140px; max-width: 200px; text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06); cursor: pointer;
+  transition: .3s; position: relative;
+}
+.pipeline-step:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+.pipeline-step.active { border: 2px solid var(--gold); background: #FFFDF5; }
+.pipeline-step .step-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+.pipeline-step h4 { font-size: .95rem; color: var(--crimson); margin-bottom: 4px; }
+.pipeline-step p { font-size: .8rem; color: #888; }
+.pipeline-arrow {
+  display: flex; align-items: center; padding: 0 6px; color: var(--gold);
+  font-size: 1.5rem; font-weight: 700;
+}
+.pipeline-detail {
+  display: none; background: var(--white); border: 2px solid var(--gold);
+  border-radius: 12px; padding: 20px 24px; margin-top: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+.pipeline-detail.active { display: block; }
+.pipeline-detail h4 { color: var(--brown); margin-bottom: 8px; }
+.pipeline-detail p { font-size: .92rem; color: #555; line-height: 1.6; }
+
+/* ARCHIVE RESPONSE CARDS */
+.archive-response {
+  background: var(--white); border-radius: 14px; padding: 28px;
+  margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,.06);
+  border-left: 5px solid var(--brown);
+  transition: .3s;
+}
+.archive-response:hover { box-shadow: 0 8px 30px rgba(0,0,0,.1); }
+.archive-response .response-label {
+  display: inline-block; background: var(--crimson); color: #fff;
+  padding: 3px 12px; border-radius: 20px; font-size: .72rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.archive-response .response-question {
+  font-family: 'VTC Du Bois', serif; font-size: 1.2rem;
+  color: var(--crimson); margin-bottom: 12px;
+}
+.archive-response .response-answer {
+  font-size: .95rem; color: #444; line-height: 1.7; margin-bottom: 16px;
+}
+.archive-response .response-source {
+  background: #f9f6f0; border-radius: 8px; padding: 14px 18px;
+  margin-top: 12px; border-left: 3px solid var(--gold);
+}
+.archive-response .source-label {
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--brown); margin-bottom: 6px;
+}
+.archive-response .source-text {
+  font-family: 'VTC Du Bois', serif; font-style: italic;
+  font-size: .95rem; color: var(--black); line-height: 1.6;
+}
+.archive-response .source-cite {
+  font-size: .82rem; color: #888; margin-top: 6px; font-style: normal;
+}
+
+/* EVALUATION CARDS */
+.eval-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 24px 0; }
+.eval-card {
+  background: var(--white); border-radius: 14px; padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06); cursor: pointer;
+  transition: .3s; border: 3px solid transparent; position: relative;
+}
+.eval-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.1); }
+.eval-card.selected { border-color: var(--gold); }
+.eval-card.trustworthy { border-color: var(--green); }
+.eval-card.untrustworthy { border-color: var(--crimson); }
+.eval-card .eval-badge {
+  position: absolute; top: -10px; right: 12px; padding: 3px 10px;
+  border-radius: 20px; font-size: .7rem; font-weight: 700; display: none;
+}
+.eval-card.trustworthy .eval-badge { display: block; background: var(--green); color: #fff; }
+.eval-card.untrustworthy .eval-badge { display: block; background: var(--crimson); color: #fff; }
+.eval-card h4 { font-size: 1rem; color: var(--brown); margin-bottom: 8px; }
+.eval-card p { font-size: .88rem; color: #555; line-height: 1.5; }
+.eval-card .citation-mark {
+  margin-top: 10px; font-size: .78rem; padding: 4px 10px;
+  border-radius: 4px; display: inline-block;
+}
+.citation-present { background: rgba(45,90,61,.1); color: var(--green); }
+.citation-absent { background: rgba(139,26,26,.1); color: var(--crimson); }
+.citation-fake { background: rgba(139,26,26,.1); color: var(--crimson); }
+
+/* LIMIT CARDS */
+.limit-card {
+  background: var(--white); border-radius: 14px; padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06); margin: 16px 0;
+  border-left: 5px solid #ccc;
+}
+.limit-card h4 { font-size: 1.05rem; color: var(--brown); margin-bottom: 6px; }
+.limit-card .limit-question {
+  font-family: 'VTC Du Bois', serif; font-style: italic;
+  font-size: 1rem; color: var(--crimson); margin-bottom: 10px;
+}
+.limit-card p { font-size: .92rem; color: #555; line-height: 1.6; }
+.limit-card.speculative { border-left-color: #E8C840; }
+.limit-card.complex { border-left-color: var(--crimson); }
+.limit-card.excluded { border-left-color: #888; }
+
+/* QUESTION BUILDER */
+.question-builder {
+  background: var(--white); border-radius: 14px; padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06); margin: 24px 0;
+}
+.question-builder label {
+  display: block; font-weight: 600; margin: 14px 0 6px; font-size: .95rem;
+}
+.question-builder textarea, .question-builder input[type="text"] {
+  width: 100%; padding: 12px 16px; border: 2px solid #ddd; border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 1rem; transition: .3s;
+}
+.question-builder textarea { height: 100px; resize: vertical; }
+.question-builder textarea:focus, .question-builder input:focus {
+  outline: none; border-color: var(--gold);
+}
+.question-builder button {
+  margin-top: 16px; padding: 12px 32px; background: var(--crimson);
+  color: #fff; border: none; border-radius: 8px; font-weight: 700;
+  font-size: 1rem; cursor: pointer; transition: .3s;
+}
+.question-builder button:hover { background: #a52020; transform: translateY(-1px); }
+.prediction-result {
+  margin-top: 16px; padding: 16px 20px; border-radius: 10px;
+  background: #f9f6f0; border: 2px solid var(--gold); display: none;
+}
+.prediction-result.show { display: block; }
+
+/* QUESTION INPUT */
+.big-question-input {
+  width: 100%; padding: 18px 24px; border: 3px solid var(--gold);
+  border-radius: 12px; font-family: 'VTC Du Bois', serif;
+  font-size: 1.3rem; text-align: center; background: var(--white);
+  color: var(--black); transition: .3s;
+}
+.big-question-input:focus { outline: none; border-color: var(--crimson); box-shadow: 0 0 0 4px rgba(139,26,26,.1); }
+.big-question-input::placeholder { color: #bbb; }
+
+/* TABS */
+.tab-bar { display: flex; gap: 0; margin: 28px 0 0; background: var(--parchment-dark); border-radius: 10px; overflow: hidden; max-width: 100%; }
+.tab-btn {
+  flex: 1; padding: 13px 18px; border: none; background: transparent;
+  font-weight: 700; cursor: pointer; font-size: .92rem; font-family: inherit;
+  transition: .3s; color: #888;
+}
+.tab-btn.active { background: var(--crimson); color: #fff; }
+.tab-panel { display: none; margin-top: 20px; }
+.tab-panel.active { display: block; }
+
+/* CLOSING */
+.closing {
+  text-align: center; padding: 90px 20px;
+  background: linear-gradient(135deg, var(--black) 0%, #2c1810 100%);
+  color: #fff; max-width: 100%;
+}
+.closing blockquote {
+  font-family: 'VTC Du Bois', serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.1rem);
+  font-weight: 700; max-width: 750px; margin: 0 auto 18px; line-height: 1.4;
+}
+.closing cite { font-style: normal; color: var(--gold); font-size: 1.05rem; }
+.closing-links { margin-top: 30px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.closing-link {
+  display: inline-block; padding: 12px 28px; border-radius: 8px;
+  text-decoration: none; font-weight: 700; font-size: .9rem; transition: .3s;
+}
+.cl-hub { background: var(--gold); color: var(--black); }
+.cl-hub:hover { background: #d4b664; }
+.cl-next { background: var(--crimson); color: #fff; }
+.cl-next:hover { background: #a52020; }
+.cl-prev { border: 2px solid var(--gold); color: var(--gold); }
+.cl-prev:hover { background: var(--gold); color: var(--black); }
+
+footer {
+  background: var(--black); color: #888; text-align: center;
+  padding: 28px 20px; font-size: .82rem;
+}
+footer strong { color: var(--gold); }
+
+/* PARALLAX DIVIDERS */
+.parallax-divider {
+  height: 100px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  max-width: 900px; margin: 0 auto;
+}
+.gold-line {
+  width: 60%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  z-index: 1; position: relative;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .grid-2, .eval-grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .pipeline { flex-direction: column; align-items: center; }
+  .pipeline-arrow { transform: rotate(90deg); padding: 6px 0; }
+}
+@media (max-width: 700px) {
+  .lesson-section, .section { padding-left: 16px; padding-right: 16px; }
+  .card, .stat-box, .challenge, .quiz-box { padding: 20px 16px; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.15rem; }
+  .hero { padding: 60px 16px 30px; }
+  .hero h1 { font-size: 1.8rem; }
+  .cert-modal { padding: 30px 20px; }
+  .badge-drawer { width: 280px; }
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  .pipeline-step { min-width: 120px; }
+  .big-question-input { font-size: 1rem; padding: 14px 16px; }
+}
+@media (max-width: 550px) {
+  .grid-3 { grid-template-columns: 1fr; }
+  .lesson-section { padding: 50px 14px; }
+  .eval-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body class="mode-explorer">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Du Bois Does Data</a>
+    <div class="nav-right">
+      <a href="index.html" class="nav-home">Hub</a>
+      <a href="lesson2-data.html" class="nav-home">Lesson 2</a>
+      <button class="mode-toggle" id="modeBtn" onclick="toggleMode()">Explorer</button>
+    </div>
+  </div>
+</nav>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="section-indicator-float" id="secIndicator">Section 1 of 6</div>
+
+<!-- HERO -->
+<section class="hero" data-sec="0">
+  <div class="hero-content">
+    <div class="hero-badge">Lesson 3 &bull; 60&ndash;90 Minutes</div>
+    <h1><span>Ask the Archive:</span> Talking to Du Bois</h1>
+    <h2>Critical AI Literacy Meets Cultural Heritage</h2>
+    <p class="hero-prompt">What would you ask W.E.B. Du Bois if you could talk to his writing?</p>
+    <a href="#sec1" class="hero-cta">Enter the Archive</a>
+  </div>
+</section>
+
+<!-- ========== SECTION 1: What if you could ask Du Bois a question? ========== -->
+<section class="lesson-section reveal" id="sec1" data-sec="1">
+  <span class="section-tag">Section 1 of 6</span>
+  <h2 class="sec-title">What If You Could Ask Du Bois a Question?</h2>
+  <p class="sec-sub">Not a chatbot. Not a guess. An answer grounded in his own words, with citations you can check.</p>
+
+  <div style="text-align:center; margin: 30px 0;">
+    <input type="text" class="big-question-input" id="studentQuestion" placeholder="What would you ask W.E.B. Du Bois?">
+    <p style="margin-top:12px; font-size:.88rem; color:#888;">Type your question and press Enter</p>
+  </div>
+
+  <div id="questionReveal" style="display:none;">
+    <div class="highlight-box" style="margin-top:24px;">
+      <h3 style="color:var(--brown); margin-bottom:8px;">The Du Bois Living Archive</h3>
+      <p>The Du Bois Living Archive holds <strong>27 of his published works</strong> &mdash; from <em>The Suppression of the African Slave Trade</em> (1896) to <em>Darkwater</em> (1920). Ask a question, and you get an answer grounded in his own words, with citations you can verify.</p>
+      <p style="margin-top:10px;">This is not an AI making things up. This is an AI <strong>searching a real archive</strong> and showing you exactly where it found its answer.</p>
+    </div>
+
+    <div class="explorer-only">
+      <div class="highlight-box green" style="margin-top:16px;">
+        <p><strong>Try this:</strong> "What did Du Bois think about education?" The archive will search his 27 works and compose an answer from passages it finds. Every claim comes with a source.</p>
+      </div>
+    </div>
+
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <h4 style="color:var(--crimson); margin-bottom:6px;">The Technical Truth</h4>
+        <p>The system uses <strong>Retrieval Augmented Generation (RAG)</strong>. It doesn't "know" Du Bois &mdash; it <em>searches</em> his texts and composes answers from what it finds. That distinction matters enormously.</p>
+        <p style="margin-top:8px;">A language model without RAG would generate plausible-sounding Du Bois quotes from its training data &mdash; mixing real quotes with fabrications. The archive constrains the model to what's actually in the corpus. Every answer must be grounded in a retrievable passage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><div class="gold-line"></div></div>
+
+<!-- ========== SECTION 2: How the Archive Works ========== -->
+<section class="lesson-section reveal" id="sec2" data-sec="2">
+  <span class="section-tag">Section 2 of 6</span>
+  <h2 class="sec-title">How the Archive Works</h2>
+  <p class="sec-sub">From your question to a citation-backed answer &mdash; every step is transparent.</p>
+
+  <div class="explorer-only">
+    <div class="highlight-box" style="margin-bottom:24px;">
+      <p><strong>Three simple steps:</strong> You ask &rarr; It searches &rarr; It answers with quotes. Click each step below to learn more.</p>
+    </div>
+  </div>
+
+  <div class="pipeline" id="pipelineExplorer">
+    <div class="pipeline-step" data-detail="detail-question" onclick="showDetail(this)">
+      <span class="step-icon">&#x2753;</span>
+      <h4>Your Question</h4>
+      <p>You type a question</p>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" data-detail="detail-embed" onclick="showDetail(this)">
+      <span class="step-icon">&#x1F50D;</span>
+      <h4>Search</h4>
+      <p class="explorer-only">Archive searches Du Bois's works</p>
+      <p class="scholar-only">Embedding + Vector Search</p>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" data-detail="detail-retrieve" onclick="showDetail(this)">
+      <span class="step-icon">&#x1F4DA;</span>
+      <h4>Retrieve</h4>
+      <p class="explorer-only">Finds matching passages</p>
+      <p class="scholar-only">Top-K Passage Retrieval</p>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" data-detail="detail-generate" onclick="showDetail(this)">
+      <span class="step-icon">&#x1F4DD;</span>
+      <h4>Answer</h4>
+      <p class="explorer-only">Writes an answer with quotes</p>
+      <p class="scholar-only">LLM Synthesis + Citation</p>
+    </div>
+  </div>
+
+  <!-- Detail panels -->
+  <div class="pipeline-detail" id="detail-question">
+    <h4>Step 1: Your Question</h4>
+    <p>You type a question in plain English. "What did Du Bois think about the color line?" The system takes your words and prepares them for search.</p>
+    <div class="scholar-only">
+      <p style="margin-top:10px;">Technically, your question is converted into a <strong>vector embedding</strong> &mdash; a list of numbers that captures the meaning of your question. Two questions with similar meaning (like "What about the color line?" and "How did Du Bois describe racial division?") will have similar embeddings, even though they use different words.</p>
+    </div>
+  </div>
+  <div class="pipeline-detail" id="detail-embed">
+    <h4>Step 2: Searching the Archive</h4>
+    <p>The system doesn't search for keywords &mdash; it searches for <strong>meaning</strong>. Your question's embedding is compared to every passage in the archive to find the most relevant matches.</p>
+    <div class="scholar-only">
+      <p style="margin-top:10px;">The archive uses <strong>pgvector</strong> (a PostgreSQL extension) for similarity search. Each passage in the corpus is an 800-token chunk with 200-token overlap. The embedding model converts both your question and each passage into vectors, then finds the closest matches using cosine similarity. We retrieve the top results that pass a similarity threshold of 0.7 or higher.</p>
+    </div>
+  </div>
+  <div class="pipeline-detail" id="detail-retrieve">
+    <h4>Step 3: Retrieving Passages</h4>
+    <p>The archive pulls the most relevant passages from Du Bois's works. These are the raw source materials &mdash; his actual words.</p>
+    <div class="scholar-only">
+      <p style="margin-top:10px;">Retrieval quality depends on <strong>chunk size</strong> and <strong>overlap</strong>. If chunks are too small, you lose context. Too large, and irrelevant text dilutes the signal. The 800-token chunk with 200-token overlap was validated across the full corpus. The system returns the top matches, but we always <code>.slice(0, topK)</code> to prevent overflow &mdash; never trust the result count from the vector database.</p>
+    </div>
+  </div>
+  <div class="pipeline-detail" id="detail-generate">
+    <h4>Step 4: Generating the Answer</h4>
+    <p>A language model reads the retrieved passages and composes a coherent answer. The key: it must cite which passage each claim comes from. No citation = no trust.</p>
+    <div class="scholar-only">
+      <p style="margin-top:10px;">The LLM (Claude) receives the retrieved passages as context, along with instructions to ground every claim in the source material and provide citations. This is the "generation" in Retrieval Augmented Generation. The model doesn't use its training data about Du Bois &mdash; it synthesizes answers <em>only</em> from the retrieved passages. This constrains hallucination but doesn't eliminate it entirely, which is why citation verification matters.</p>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><div class="gold-line"></div></div>
+
+<!-- ========== SECTION 3: The Citation Test ========== -->
+<section class="lesson-section reveal" id="sec3" data-sec="3">
+  <span class="section-tag">Section 3 of 6</span>
+  <h2 class="sec-title">The Citation Test</h2>
+  <p class="sec-sub">Not all AI responses are created equal. Can you tell which one to trust?</p>
+
+  <div class="explorer-only">
+    <div class="highlight-box" style="margin-bottom:24px;">
+      <p><strong>Your task:</strong> Three responses to the same question. One has real citations, one has no citations, and one has <em>fake</em> citations. Click the one you trust most.</p>
+    </div>
+  </div>
+  <div class="scholar-only">
+    <div class="highlight-box crimson" style="margin-bottom:24px;">
+      <p><strong>Hallucination in RAG systems:</strong> Even with retrieval augmentation, LLMs can generate plausible but unsourced claims. They may also attribute real quotes to wrong works or fabricate citations entirely. The minimum standard for trust is a verifiable citation &mdash; a passage you can look up in the original text.</p>
+    </div>
+  </div>
+
+  <p style="text-align:center; font-family:'VTC Du Bois',serif; font-size:1.2rem; color:var(--brown); margin-bottom:20px;">Question: "What did Du Bois say about education?"</p>
+
+  <div class="eval-grid" id="evalGrid">
+    <!-- Response A: Real citation -->
+    <div class="eval-card" onclick="evaluateResponse(this, 'trustworthy')" data-trust="trustworthy">
+      <span class="eval-badge">TRUSTWORTHY</span>
+      <h4>Response A</h4>
+      <p>Du Bois argued that education was the key to racial uplift. He wrote: "The Talented Tenth of the Negro race must be made leaders of thought and missionaries of culture among their people."</p>
+      <p style="margin-top:8px; font-size:.82rem; color:#888;"><em>Source: "The Talented Tenth" (1903), paragraph 3</em></p>
+      <span class="citation-mark citation-present">Has citation</span>
+    </div>
+
+    <!-- Response B: No citation -->
+    <div class="eval-card" onclick="evaluateResponse(this, 'untrustworthy')" data-trust="untrustworthy">
+      <span class="eval-badge">UNTRUSTWORTHY</span>
+      <h4>Response B</h4>
+      <p>Du Bois believed deeply in the power of education and thought that every Black person should have access to university-level learning. He spent his entire life fighting for educational equality across the country.</p>
+      <span class="citation-mark citation-absent">No citation</span>
+    </div>
+
+    <!-- Response C: Fake citation -->
+    <div class="eval-card" onclick="evaluateResponse(this, 'untrustworthy')" data-trust="untrustworthy">
+      <span class="eval-badge">UNTRUSTWORTHY</span>
+      <h4>Response C</h4>
+      <p>Du Bois stated: "Education is the great equalizer of the conditions of men, the balance wheel of the social machinery."</p>
+      <p style="margin-top:8px; font-size:.82rem; color:#888;"><em>Source: The Souls of Black Folk (1903), Chapter 12</em></p>
+      <span class="citation-mark citation-fake">Fake citation</span>
+    </div>
+  </div>
+
+  <div id="evalFeedback" style="display:none; margin-top:20px;">
+    <div class="highlight-box green">
+      <h4 style="color:var(--green); margin-bottom:8px;">Analysis</h4>
+      <p><strong>Response A</strong> is trustworthy &mdash; the quote is real, from a specific work with a locatable passage.</p>
+      <p style="margin-top:8px;"><strong>Response B</strong> sounds reasonable but provides no source. You can't verify any of it. General statements without citations could be completely fabricated.</p>
+      <p style="margin-top:8px;"><strong>Response C</strong> is the trickiest &mdash; it <em>looks</em> cited, but that quote is actually from Horace Mann, not Du Bois. And <em>The Souls of Black Folk</em> only has a Forethought plus 14 chapters with different titles. A fake citation that looks real is more dangerous than no citation at all.</p>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><div class="gold-line"></div></div>
+
+<!-- ========== SECTION 4: What Du Bois Actually Said ========== -->
+<section class="lesson-section reveal" id="sec4" data-sec="4">
+  <span class="section-tag">Section 4 of 6</span>
+  <h2 class="sec-title">What Du Bois Actually Said</h2>
+  <p class="sec-sub">Five questions. Five real archive responses. His words, his works, verifiable.</p>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab(0)">Color Line</button>
+    <button class="tab-btn" onclick="showTab(1)">Black Church</button>
+    <button class="tab-btn" onclick="showTab(2)">Education</button>
+    <button class="tab-btn" onclick="showTab(3)">Paris 1900</button>
+    <button class="tab-btn" onclick="showTab(4)">Data &amp; Equality</button>
+  </div>
+
+  <!-- Tab 0: Color Line -->
+  <div class="tab-panel active" id="tab0">
+    <div class="archive-response">
+      <span class="response-label">Archive Response</span>
+      <div class="response-question">"What did Du Bois think about the color line?"</div>
+      <div class="response-answer">
+        Du Bois saw the color line as the defining challenge of the modern world. He argued that racial division was not merely a social inconvenience but a fundamental structural barrier that shaped politics, economics, education, and daily life for millions. He first articulated this in 1900 at the Pan-African Conference in London, and it became the organizing thesis of his most famous work.
+      </div>
+      <div class="response-source">
+        <div class="source-label">Source Passage</div>
+        <div class="source-text">"The problem of the twentieth century is the problem of the color line &mdash; the relation of the darker to the lighter races of men in Asia and Africa, in America and the islands of the sea."</div>
+        <div class="source-cite">&mdash; W.E.B. Du Bois, <em>The Souls of Black Folk</em> (1903), "Of the Dawn of Freedom"</div>
+      </div>
+    </div>
+    <div class="explorer-only">
+      <div class="highlight-box" style="margin-top:16px;">
+        <p><strong>Think about it:</strong> Du Bois wrote this in 1903. Was he right? Is the color line still a problem in the 21st century? What evidence would you use to argue your position?</p>
+      </div>
+    </div>
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <p><strong>Retrieval analysis:</strong> This passage is one of the most frequently retrieved chunks in the archive because it appears in multiple works and is highly embedded in the corpus. A good RAG system should retrieve this passage for many related queries. But does high retrieval frequency mean it's always the <em>best</em> passage for a given question? Consider: if you asked "How did Du Bois's views on race change over time?" &mdash; would this same passage be the right answer?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 1: Black Church -->
+  <div class="tab-panel" id="tab1">
+    <div class="archive-response">
+      <span class="response-label">Archive Response</span>
+      <div class="response-question">"How did Du Bois describe the Black church?"</div>
+      <div class="response-answer">
+        Du Bois documented the Black church as far more than a religious institution. In his sociological study of Philadelphia's Black community, he described it as the central organizing force of Black social life &mdash; a place where community, mutual aid, politics, education, and culture converged. He approached the church not as a theologian but as a social scientist, mapping its functions with the same rigor he applied to economic data.
+      </div>
+      <div class="response-source">
+        <div class="source-label">Source Passage</div>
+        <div class="source-text">"The Negro church of today is the social centre of Negro life in the United States, and the most characteristic expression of African character."</div>
+        <div class="source-cite">&mdash; W.E.B. Du Bois, <em>The Philadelphia Negro</em> (1899), Chapter XII: "The Organized Life of Negroes"</div>
+      </div>
+    </div>
+    <div class="explorer-only">
+      <div class="highlight-box" style="margin-top:16px;">
+        <p><strong>What stands out:</strong> Du Bois calls the church the "social centre" &mdash; not just a place of worship. What institutions in your community serve a similar role today?</p>
+      </div>
+    </div>
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <p><strong>Methodology note:</strong> <em>The Philadelphia Negro</em> (1899) was the first major sociological case study of an African American community. Du Bois combined door-to-door surveys, census data, and ethnographic observation. The archive retrieves this passage from a work that pioneered American sociology &mdash; a fact that enriches the citation beyond the quote itself.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Education -->
+  <div class="tab-panel" id="tab2">
+    <div class="archive-response">
+      <span class="response-label">Archive Response</span>
+      <div class="response-question">"What was Du Bois's view on education vs. industrial training?"</div>
+      <div class="response-answer">
+        Du Bois argued against the dominant model of industrial education promoted by Booker T. Washington. While Washington advocated for vocational training as the primary path for Black advancement, Du Bois insisted that a liberal arts education was essential for developing leaders who could fight for full citizenship rights. He did not oppose industrial education entirely but argued that it could not be the <em>only</em> path offered to Black Americans.
+      </div>
+      <div class="response-source">
+        <div class="source-label">Source Passage</div>
+        <div class="source-text">"The Talented Tenth of the Negro race must be made leaders of thought and missionaries of culture among their people. No others can do this work and Negro colleges must train men for it. The Negro race, like all other races, is going to be saved by its exceptional men."</div>
+        <div class="source-cite">&mdash; W.E.B. Du Bois, "The Talented Tenth" (1903), in <em>The Negro Problem</em></div>
+      </div>
+    </div>
+    <div class="explorer-only">
+      <div class="highlight-box" style="margin-top:16px;">
+        <p><strong>Debate it:</strong> Du Bois vs. Washington &mdash; should education focus on practical skills or on developing leaders and thinkers? Is this still a relevant debate today?</p>
+      </div>
+    </div>
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <p><strong>Retrieval note:</strong> The Du Bois-Washington debate is well-represented in the corpus across multiple works. A nuanced question about this debate should retrieve passages from both <em>The Souls of Black Folk</em> (Chapter III: "Of Mr. Booker T. Washington and Others") and "The Talented Tenth." Evaluate: does the system retrieve from multiple relevant works, or does it over-index on the most famous passage?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 3: Paris Exposition -->
+  <div class="tab-panel" id="tab3">
+    <div class="archive-response">
+      <span class="response-label">Archive Response</span>
+      <div class="response-question">"What did Du Bois say about the 1900 Paris Exposition?"</div>
+      <div class="response-answer">
+        For the 1900 Exposition Universelle in Paris, Du Bois and his students at Atlanta University created the "Exhibit of American Negroes" &mdash; a collection of 63 hand-drawn data visualizations, photographs, maps, and sociological materials that demonstrated the progress, complexity, and humanity of Black Americans. The exhibit was a direct counter-argument to the dominant narrative of Black inferiority. It won a Grand Prix at the exposition.
+      </div>
+      <div class="response-source">
+        <div class="source-label">Source Passage</div>
+        <div class="source-text">The 63 data plates &mdash; now held by the Library of Congress &mdash; used bar charts, area charts, spiral diagrams, and maps to visualize data about Black land ownership, literacy rates, occupations, and population distribution in Georgia. Each plate was drawn by hand with ink and colored pencil.</div>
+        <div class="source-cite">&mdash; Referenced across Du Bois's Atlanta University Studies and correspondence about the Exposition des N&egrave;gres d'Am&eacute;rique, 1900</div>
+      </div>
+    </div>
+    <div class="explorer-only">
+      <div class="highlight-box" style="margin-top:16px;">
+        <p><strong>Amazing fact:</strong> Du Bois and his students drew 63 data visualizations <em>by hand</em> &mdash; no computers, no software. These plates are now in the Library of Congress and are considered masterpieces of data visualization.</p>
+      </div>
+    </div>
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <p><strong>Archive limitation:</strong> The Paris Exposition plates are visual artifacts, not text. A text-based RAG system can retrieve Du Bois's <em>writing about</em> the exposition but not the plates themselves. This highlights a structural limitation of text-only archives when the primary sources are visual. A multimodal archive would retrieve the actual plates as evidence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 4: Data and Equality -->
+  <div class="tab-panel" id="tab4">
+    <div class="archive-response">
+      <span class="response-label">Archive Response</span>
+      <div class="response-question">"How did Du Bois use data to argue for equality?"</div>
+      <div class="response-answer">
+        Du Bois pioneered the use of empirical social science to argue for racial equality. Rather than appealing to emotion or moral philosophy alone, he collected data &mdash; door-to-door surveys, census analysis, economic statistics &mdash; to build an evidence-based case that contradicted racist pseudoscience. His method was radical: let the data speak, and let the data be drawn from the community itself.
+      </div>
+      <div class="response-source">
+        <div class="source-label">Source Passage</div>
+        <div class="source-text">In <em>The Philadelphia Negro</em>, Du Bois conducted over 5,000 interviews across Philadelphia's Seventh Ward, documenting employment, housing, income, family structure, and social organizations. This door-to-door methodology &mdash; years before it became standard sociological practice &mdash; produced the first rigorous empirical study of an American urban community.</div>
+        <div class="source-cite">&mdash; W.E.B. Du Bois, <em>The Philadelphia Negro: A Social Study</em> (1899), methodology described in the introduction and Chapter I</div>
+      </div>
+      <div class="response-source" style="margin-top:12px;">
+        <div class="source-label">Additional Source</div>
+        <div class="source-text">The Atlanta University Studies (1897&ndash;1914) extended this empirical approach across 18 annual research publications covering every aspect of Black American life, from health and education to business and art.</div>
+        <div class="source-cite">&mdash; Atlanta University Publications, edited by W.E.B. Du Bois</div>
+      </div>
+    </div>
+    <div class="explorer-only">
+      <div class="highlight-box" style="margin-top:16px;">
+        <p><strong>Think about it:</strong> Du Bois believed that if you showed people <em>the data</em>, they would have to change their minds. Did it work? Does data change minds today?</p>
+      </div>
+    </div>
+    <div class="scholar-only">
+      <div class="highlight-box crimson" style="margin-top:16px;">
+        <p><strong>Evaluation exercise:</strong> This response draws from multiple sources in the corpus. Rate the retrieval: did the system find the <em>best</em> passages to answer this question, or just the most frequently matched ones? What passage would <em>you</em> have retrieved if you were building the search?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><div class="gold-line"></div></div>
+
+<!-- ========== SECTION 5: When the Archive Doesn't Know ========== -->
+<section class="lesson-section reveal" id="sec5" data-sec="5">
+  <span class="section-tag">Section 5 of 6</span>
+  <h2 class="sec-title">When the Archive Doesn't Know</h2>
+  <p class="sec-sub">The most honest thing an archive can do is tell you what it doesn't know.</p>
+
+  <div class="explorer-only">
+    <div class="highlight-box" style="margin-bottom:24px;">
+      <p><strong>What happens when you ask a question the archive can't answer from its sources?</strong> That's not a failure &mdash; that's honesty. A system that admits its limits is more trustworthy than one that always has an answer.</p>
+    </div>
+  </div>
+  <div class="scholar-only">
+    <div class="highlight-box crimson" style="margin-bottom:24px;">
+      <p><strong>Corpus limitations as a feature, not a bug.</strong> The archive contains 27 works from 1896&ndash;1920. The decision about what to include &mdash; and what to exclude &mdash; is a curatorial choice that shapes every answer the system can give. What's IN the archive is a statement about what matters.</p>
+    </div>
+  </div>
+
+  <div class="limit-card speculative">
+    <h4>Speculative Question</h4>
+    <div class="limit-question">"What would Du Bois think about social media?"</div>
+    <p><strong>The archive's answer:</strong> It shouldn't answer this confidently. Du Bois died in 1963. Social media didn't exist. A responsible RAG system should flag this as speculative and refuse to generate a definitive answer from a corpus that predates the question by a century.</p>
+    <div class="scholar-only" style="margin-top:10px; padding:12px; background:rgba(232,200,64,.1); border-radius:8px;">
+      <p style="font-size:.88rem; color:#555;"><strong>The problem:</strong> An unconstrained LLM would happily generate "Du Bois would have viewed social media as a tool for..." &mdash; plausible speculation that looks like a sourced answer. RAG should prevent this, but only if the system is designed to say "I cannot answer this from the available sources" when retrieval confidence is low.</p>
+    </div>
+  </div>
+
+  <div class="limit-card complex">
+    <h4>Complex Political Evolution</h4>
+    <div class="limit-question">"Was Du Bois a communist?"</div>
+    <p><strong>The archive's answer:</strong> The 27-work corpus (1896&ndash;1920) captures Du Bois's early career. His relationship with communism evolved over decades &mdash; he joined the Communist Party in 1961 at age 93. The archive can speak to his early socialist leanings but cannot address his full political evolution.</p>
+    <div class="scholar-only" style="margin-top:10px; padding:12px; background:rgba(139,26,26,.1); border-radius:8px;">
+      <p style="font-size:.88rem; color:#555;"><strong>Temporal bias:</strong> A corpus limited to 1896&ndash;1920 will systematically underrepresent Du Bois's later radicalization. Any answer the system gives about his political beliefs will be incomplete by design. Users must understand the temporal boundaries of the archive to evaluate answers correctly.</p>
+    </div>
+  </div>
+
+  <div class="limit-card excluded">
+    <h4>Excluded Material</h4>
+    <div class="limit-question">"Tell me about Du Bois's childhood."</div>
+    <p><strong>The archive's answer:</strong> Du Bois's autobiography is not in the corpus &mdash; <em>The Autobiography of W.E.B. Du Bois</em> (published posthumously, 1968) is likely still under copyright. Some childhood references appear in <em>Darkwater</em> (1920), but the archive cannot provide a comprehensive answer about his early life.</p>
+    <div class="scholar-only" style="margin-top:10px; padding:12px; background:rgba(0,0,0,.05); border-radius:8px;">
+      <p style="font-size:.88rem; color:#555;"><strong>Copyright as curation:</strong> The decision to exclude <em>The Autobiography</em> and <em>Dusk of Dawn</em> (1940) is a copyright decision that has intellectual consequences. A user asking about Du Bois's life gets a corpus shaped by legal constraints, not by scholarly completeness. This is true of every digital archive &mdash; the legal landscape shapes what knowledge is accessible.</p>
+    </div>
+  </div>
+</section>
+
+<div class="parallax-divider"><div class="gold-line"></div></div>
+
+<!-- ========== SECTION 6: Build Your Own Question ========== -->
+<section class="lesson-section reveal" id="sec6" data-sec="6">
+  <span class="section-tag">Section 6 of 6</span>
+  <h2 class="sec-title">Build Your Own Question</h2>
+  <p class="sec-sub">Now it's your turn. Craft a question, predict the answer, and evaluate what a good response looks like.</p>
+
+  <div class="explorer-only">
+    <div class="question-builder">
+      <h3 style="color:var(--crimson); margin-bottom:16px;">Your Archive Question</h3>
+      <label for="expQuestion">What would you ask Du Bois?</label>
+      <textarea id="expQuestion" placeholder="Type your question here... Think about what you've learned about his 27 works."></textarea>
+
+      <label for="expPrediction">What do you think the answer might be?</label>
+      <textarea id="expPrediction" placeholder="Based on what you've seen in this lesson, predict what the archive might say..."></textarea>
+
+      <label for="expGoodAnswer">What would a GOOD answer include?</label>
+      <textarea id="expGoodAnswer" placeholder="A good answer would have... (Think about citations, specific works, direct quotes)"></textarea>
+
+      <button onclick="submitExplorerQuestion()">Submit Your Question</button>
+
+      <div class="prediction-result" id="expResult">
+        <h4 style="color:var(--green); margin-bottom:8px;">Great work!</h4>
+        <p>You've thought critically about what makes an archive response trustworthy. A good answer cites specific works, provides quotable passages, and acknowledges what it doesn't know. You're ready to use the Living Archive like a scholar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scholar-only">
+    <div class="question-builder">
+      <h3 style="color:var(--crimson); margin-bottom:16px;">Research Question Design</h3>
+      <label for="schQuestion">Write a research question for the archive:</label>
+      <textarea id="schQuestion" placeholder="A specific, answerable question that the 27-work corpus should be able to address..."></textarea>
+
+      <label for="schStrategy">Predict the retrieval strategy:</label>
+      <textarea id="schStrategy" placeholder="Which works are most likely to contain relevant passages? Why? What embedding similarity would you expect?"></textarea>
+
+      <label for="schWorks">Which of the 27 works should the system search first?</label>
+      <textarea id="schWorks" placeholder="Name specific works and explain why they're relevant to your question..."></textarea>
+
+      <label for="schEval">How would you evaluate the response quality?</label>
+      <textarea id="schEval" placeholder="What metrics would you use? Citation accuracy? Passage relevance? Completeness?"></textarea>
+
+      <button onclick="submitScholarQuestion()">Submit Research Design</button>
+
+      <div class="prediction-result" id="schResult">
+        <h4 style="color:var(--green); margin-bottom:8px;">Excellent research design.</h4>
+        <p>You've mapped the full pipeline from question to evaluation. This is how archivists and AI researchers think about retrieval systems &mdash; not just "does it answer?" but "does it answer well, from the right sources, with verifiable claims?" You're ready to contribute to the conversation about how we build ethical AI archives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <blockquote>"The true college will ever have one goal &mdash; not to earn meat, but to know the end and aim of that life which meat nourishes."</blockquote>
+  <cite>&mdash; W.E.B. Du Bois, <em>The Souls of Black Folk</em> (1903)</cite>
+  <div class="closing-links">
+    <a href="index.html" class="closing-link cl-hub">Back to Hub</a>
+    <a href="lesson2-data.html" class="closing-link cl-prev">Lesson 2</a>
+    <a href="lesson4-visualize.html" class="closing-link cl-next">Lesson 4: Draw the Data</a>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Du Bois Does Data</strong> &mdash; A Radical Imagination Project</p>
+  <p style="margin-top:6px;">Built on the Du Bois Living Archive: 27 published works, 1896&ndash;1920. All quotes verified against original texts.</p>
+  <p style="margin-top:6px;">Sources: W.E.B. Du Bois, <em>The Souls of Black Folk</em> (1903); <em>The Philadelphia Negro</em> (1899); "The Talented Tenth" (1903); Atlanta University Studies (1897&ndash;1914); Library of Congress Du Bois Collection.</p>
+</footer>
+
+<script>
+// ===== MODE TOGGLE =====
+const params = new URLSearchParams(window.location.search);
+let mode = params.get('mode') || localStorage.getItem('dubois-mode') || 'explorer';
+function applyMode(m) {
+  mode = m;
+  localStorage.setItem('dubois-mode', m);
+  document.body.className = 'mode-' + m;
+  document.getElementById('modeBtn').textContent = m === 'explorer' ? 'Explorer' : 'Scholar';
+}
+function toggleMode() {
+  applyMode(mode === 'explorer' ? 'scholar' : 'explorer');
+}
+applyMode(mode);
+
+// ===== PROGRESS BAR =====
+const allSections = document.querySelectorAll('[data-sec]');
+const indicator = document.getElementById('secIndicator');
+const progressFill = document.getElementById('progressFill');
+function updateProgress() {
+  const scrollY = window.scrollY + window.innerHeight * 0.4;
+  let current = 0;
+  allSections.forEach(s => {
+    if (scrollY >= s.offsetTop) current = parseInt(s.dataset.sec);
+  });
+  const total = allSections.length - 1; // exclude hero
+  const pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 0;
+  progressFill.style.width = pct + '%';
+  if (current > 0) indicator.textContent = 'Section ' + current + ' of 6';
+}
+window.addEventListener('scroll', updateProgress);
+updateProgress();
+
+// ===== REVEAL ON SCROLL =====
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ===== QUESTION INPUT =====
+document.getElementById('studentQuestion').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (this.value.trim().length > 0) {
+      document.getElementById('questionReveal').style.display = 'block';
+      document.getElementById('questionReveal').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+});
+
+// ===== PIPELINE INTERACTION =====
+function showDetail(el) {
+  // Remove active from all steps
+  document.querySelectorAll('.pipeline-step').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.pipeline-detail').forEach(d => d.classList.remove('active'));
+  // Activate clicked
+  el.classList.add('active');
+  const detailId = el.getAttribute('data-detail');
+  const detail = document.getElementById(detailId);
+  if (detail) {
+    detail.classList.add('active');
+    detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+// ===== CITATION TEST =====
+let evalSubmitted = false;
+function evaluateResponse(card, trust) {
+  if (evalSubmitted) return;
+  evalSubmitted = true;
+  // Mark all cards
+  document.querySelectorAll('.eval-card').forEach(c => {
+    const t = c.getAttribute('data-trust');
+    c.classList.add(t);
+    c.style.cursor = 'default';
+  });
+  // Show feedback
+  document.getElementById('evalFeedback').style.display = 'block';
+  document.getElementById('evalFeedback').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ===== TABS =====
+function showTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+}
+
+// ===== QUESTION BUILDERS =====
+function submitExplorerQuestion() {
+  const q = document.getElementById('expQuestion').value.trim();
+  const p = document.getElementById('expPrediction').value.trim();
+  const g = document.getElementById('expGoodAnswer').value.trim();
+  if (q && p && g) {
+    document.getElementById('expResult').classList.add('show');
+    document.getElementById('expResult').style.display = 'block';
+    document.getElementById('expResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+function submitScholarQuestion() {
+  const q = document.getElementById('schQuestion').value.trim();
+  const s = document.getElementById('schStrategy').value.trim();
+  const w = document.getElementById('schWorks').value.trim();
+  const e = document.getElementById('schEval').value.trim();
+  if (q && s && w && e) {
+    document.getElementById('schResult').classList.add('show');
+    document.getElementById('schResult').style.display = 'block';
+    document.getElementById('schResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+</script>
+</body>
+</html>
